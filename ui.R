@@ -25,19 +25,18 @@ shinyUI(
       sidebarPanel(left_panel_ui('leftMain')),
       
       mainPanel(
-        tabPanel("Transit",
-                 fluidRow(column(12, style='padding-left:25px; padding-right:50px;',
-                                 
-                                 tabsetPanel(type = "pills",
-                                             tabPanel("Overview", transit_overview_ui('OVERVIEWtransit')),
-                                             tabPanel("Region", transit_region_ui('REGIONtransit')),
-                                             tabPanel("Mode", transit_mode_ui('MODEtransit')),
-                                             tabPanel("Operator", transit_operator_ui('OPERATORtransit')),
-                                             tabPanel("Stop", transit_stop_ui('STOPtransit')))
-                                 )) # end of fluid row for Transit tab
-                 ), # end of tabpanel for Transit
-      ) # End of mainPanel
-    ),
+        fluidRow(column(12, style='padding-left:25px; padding-right:50px;',
+                        tabsetPanel(type = "pills",
+                                    tabPanel("Overview", transit_overview_ui('OVERVIEWtransit')),
+                                    tabPanel("Region", transit_region_ui('REGIONtransit')),
+                                    tabPanel("Mode", transit_mode_ui('MODEtransit')),
+                                    tabPanel("Operator", transit_operator_ui('OPERATORtransit')),
+                                    tabPanel("Stop", transit_stop_ui('STOPtransit')))
+                        )) # end of fluid row for Transit tab
+        ) # End of mainPanel
+    ), # End of sidebarLayout
+    
     tags$footer(footer_ui('psrcfooter'))
-  ) # End of fluid page
+  
+    ) # End of fluid page
 ) # end of shiny app
