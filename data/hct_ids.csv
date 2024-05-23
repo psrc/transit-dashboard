@@ -1,0 +1,108 @@
+﻿route_id,route_name,type_name,type_code,agency_name
+kc_100340,South Lake Union Streetcar,Streetcar,0,City of Seattle
+kc_102638,First Hill Streetcar,Streetcar,0,City of Seattle
+kc_100479,1 Line,Light Rail,1,Sound Transit
+st_100479,1 Line,Light Rail,1,Sound Transit
+st_2line,2 Line,Light Rail,1,Sound Transit
+st_tline,T Line,Light Rail,1,Sound Transit
+st_tlink,T Line,Light Rail,1,Sound Transit
+st_sndr_ev,N Line,Commuter Rail,2,Sound Transit
+st_sndr_tl,S Line,Commuter Rail,2,Sound Transit
+st_amtk,Amtrak,Commuter Rail,2,Sound Transit
+st_sndr_s,S Line,Commuter Rail,2,Sound Transit
+st_sndr_n,N Line,Commuter Rail,2,Sound Transit
+ct_701,Swift Blue,BRT,5,Community Transit
+ct_702,Swift Green,BRT,5,Community Transit
+ct_703,Swift Orange,BRT,5,Community Transit
+kc_100512,A Line,BRT,5,King County Metro
+kc_102548,B Line,BRT,5,King County Metro
+kc_102576,C Line,BRT,5,King County Metro
+kc_102581,D Line,BRT,5,King County Metro
+kc_102615,E Line,BRT,5,King County Metro
+kc_102619,F Line,BRT,5,King County Metro
+kc_102736,H Line,BRT,5,King County Metro
+ct_510,ST Express 510,ST Express,3,Sound Transit
+ct_511,ST Express 511,ST Express,3,Sound Transit
+ct_512,ST Express 512,ST Express,3,Sound Transit
+ct_513,ST Express 513,ST Express,3,Sound Transit
+ct_532,ST Express 532,ST Express,3,Sound Transit
+ct_535,ST Express 535,ST Express,3,Sound Transit
+ct_540,ST Express 540,ST Express,3,Sound Transit
+kc_100232,ST Express 522,ST Express,3,Sound Transit
+kc_100235,ST Express 540,ST Express,3,Sound Transit
+kc_102640,ST Express 541,ST Express,3,Sound Transit
+kc_100511,ST Express 542,ST Express,3,Sound Transit
+kc_100236,ST Express 545,ST Express,3,Sound Transit
+kc_100239,ST Express 550,ST Express,3,Sound Transit
+kc_100240,ST Express 554,ST Express,3,Sound Transit
+kc_100241,ST Express 555,ST Express,3,Sound Transit
+kc_100451,ST Express 556,ST Express,3,Sound Transit
+kc_102734,ST Express 566,ST Express,3,Sound Transit
+pt_560,ST Express 560,ST Express,3,Sound Transit
+pt_566,ST Express 566,ST Express,3,Sound Transit
+pt_567,ST Express 567,ST Express,3,Sound Transit
+pt_574,ST Express 574,ST Express,3,Sound Transit
+pt_577,ST Express 577,ST Express,3,Sound Transit
+pt_578,ST Express 578,ST Express,3,Sound Transit
+pt_580,ST Express 580,ST Express,3,Sound Transit
+pt_586,ST Express 586,ST Express,3,Sound Transit
+pt_590,ST Express 590,ST Express,3,Sound Transit
+pt_592,ST Express 592,ST Express,3,Sound Transit
+pt_594,ST Express 594,ST Express,3,Sound Transit
+pt_595,ST Express 595,ST Express,3,Sound Transit
+pt_596,ST Express 596,ST Express,3,Sound Transit
+kc_100336,West Seattle Water Taxi,Passenger Ferry,4,King County Metro
+kc_100337,Vashon Water Taxi,Passenger Ferry,4,King County Metro
+kt_500,Bremerton-Port Orchard,Passenger Ferry,4,Kitsap Transit
+kt_501,Annapolis,Passenger Ferry,4,Kitsap Transit
+kt_400,Bremerton-Seattle,Passenger Ferry,4,Kitsap Transit
+kt_401,Kingston-Seattle,Passenger Ferry,4,Kitsap Transit
+kt_402,Southworth-Seattle,Passenger Ferry,4,Kitsap Transit
+kt_403,Seattle-Bremerton,Passenger Ferry,4,Kitsap Transit
+kt_404,Seattle-Kingston,Passenger Ferry,4,Kitsap Transit
+kt_405,Seattle-Southworth,Passenger Ferry,4,Kitsap Transit
+kt_ferry,Bremerton-Port Orchard,Passenger Ferry,4,Kitsap Transit
+kt_annapolis,Annapolis,Passenger Ferry,4,Kitsap Transit
+kt_kitsap fast ferry,Bremerton-Seattle,Passenger Ferry,4,Kitsap Transit
+wsf_101,Friday Harbor - Anacortes,Auto Ferry,4,Washington State Ferries
+wsf_1013,Friday Harbor - Lopez Island,Auto Ferry,4,Washington State Ferries
+wsf_1015,Friday Harbor - Orcas Island,Auto Ferry,4,Washington State Ferries
+wsf_1018,Friday Harbor - Shaw Island,Auto Ferry,4,Washington State Ferries
+wsf_1019,Friday Harbor - Sidney B.C.,Auto Ferry,4,Washington State Ferries
+wsf_110,Anacortes - Friday Harbor,Auto Ferry,4,Washington State Ferries
+wsf_1117,Coupeville  - Port Townsend,Auto Ferry,4,Washington State Ferries
+wsf_113,Anacortes - Lopez Island,Auto Ferry,4,Washington State Ferries
+wsf_115,Anacortes - Orcas Island,Auto Ferry,4,Washington State Ferries
+wsf_118,Anacortes - Shaw Island,Auto Ferry,4,Washington State Ferries
+wsf_119,Anacortes - Sidney B.C.,Auto Ferry,4,Washington State Ferries
+wsf_128,Kingston - Edmonds,Auto Ferry,4,Washington State Ferries
+wsf_131,Lopez Island - Anacortes,Auto Ferry,4,Washington State Ferries
+wsf_1310,Lopez Island - Friday Harbor,Auto Ferry,4,Washington State Ferries
+wsf_1315,Lopez Island - Orcas Island,Auto Ferry,4,Washington State Ferries
+wsf_1318,Lopez Island - Shaw Island,Auto Ferry,4,Washington State Ferries
+wsf_145,Mukilteo - Clinton,Auto Ferry,4,Washington State Ferries
+wsf_151,Orcas Island - Anacortes,Auto Ferry,4,Washington State Ferries
+wsf_1510,Orcas Island - Friday Harbor,Auto Ferry,4,Washington State Ferries
+wsf_1513,Orcas Island - Lopez Island,Auto Ferry,4,Washington State Ferries
+wsf_1518,Orcas Island - Shaw Island,Auto Ferry,4,Washington State Ferries
+wsf_1621,Point Defiance - Tahlequah,Auto Ferry,4,Washington State Ferries
+wsf_1711,Port Townsend - Coupeville,Auto Ferry,4,Washington State Ferries
+wsf_181,Shaw Island - Anacortes,Auto Ferry,4,Washington State Ferries
+wsf_1810,Shaw Island - Friday Harbor,Auto Ferry,4,Washington State Ferries
+wsf_1813,Shaw Island - Lopez Island,Auto Ferry,4,Washington State Ferries
+wsf_1815,Shaw Island - Orcas Island,Auto Ferry,4,Washington State Ferries
+wsf_191,Sidney B.C. - Anacortes,Auto Ferry,4,Washington State Ferries
+wsf_1910,Sidney B.C. - Friday Harbor,Auto Ferry,4,Washington State Ferries
+wsf_2022,Southworth - Vashon Island,Auto Ferry,4,Washington State Ferries
+wsf_209,Southworth - Fauntleroy,Auto Ferry,4,Washington State Ferries
+wsf_2116,Tahlequah - Point Defiance,Auto Ferry,4,Washington State Ferries
+wsf_2220,Vashon Island - Southworth,Auto Ferry,4,Washington State Ferries
+wsf_229,Vashon Island - Fauntleroy,Auto Ferry,4,Washington State Ferries
+wsf_37,Bainbridge Island - Seattle,Auto Ferry,4,Washington State Ferries
+wsf_47,Bremerton - Seattle,Auto Ferry,4,Washington State Ferries
+wsf_514,Clinton - Mukilteo,Auto Ferry,4,Washington State Ferries
+wsf_73,Seattle - Bainbridge Island,Auto Ferry,4,Washington State Ferries
+wsf_74,Seattle - Bremerton,Auto Ferry,4,Washington State Ferries
+wsf_812,Edmonds - Kingston,Auto Ferry,4,Washington State Ferries
+wsf_920,Fauntleroy - Southworth,Auto Ferry,4,Washington State Ferries
+wsf_922,Fauntleroy - Vashon Island,Auto Ferry,4,Washington State Ferries
