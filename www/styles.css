@@ -240,6 +240,10 @@ head {
   text-decoration-thickness: 2px;
 }
 
+.panel-collapse{
+  background-color: #E4E4E4;
+}
+
 #sidebar {
     background-color: white;
     position: fixed;

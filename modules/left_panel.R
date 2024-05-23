@@ -38,7 +38,9 @@ left_panel_server <- function(id, page_nm) {
     link8_text <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link8_title")
     link9_html <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link9_html")
     link9_text <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link9_title")
-
+    link10_html <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link10_html")
+    link10_text <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link10_title")
+  
     # Tab layout
     output$aleftpanel <- renderUI({
       
@@ -46,24 +48,32 @@ left_panel_server <- function(id, page_nm) {
         
         hr(),
         strong(tags$div(class="source_url","Transit Resources")),
-        hr(style = "border-top: 1px solid #000000;"),
-        tags$a(class = "source_url", href=link1_html, link1_text, target="_blank"),
-        hr(style = "border-top: 1px solid #000000;"),
-        tags$a(class = "source_url", href=link2_html, link2_text, target="_blank"),
-        hr(style = "border-top: 1px solid #000000;"),
-        tags$a(class = "source_url", href=link3_html, link3_text, target="_blank"),
-        hr(style = "border-top: 1px solid #000000;"),
-        tags$a(class = "source_url", href=link4_html, link4_text, target="_blank"),
-        hr(style = "border-top: 1px solid #000000;"),
-        tags$a(class = "source_url", href=link5_html, link5_text, target="_blank"),
-        hr(style = "border-top: 1px solid #000000;"),
-        tags$a(class = "source_url", href=link6_html, link6_text, target="_blank"),
-        hr(style = "border-top: 1px solid #000000;"),
-        tags$a(class = "source_url", href=link7_html, link7_text, target="_blank"),
-        hr(style = "border-top: 1px solid #000000;"),
-        tags$a(class = "source_url", href=link8_html, link8_text, target="_blank"),
+        
         hr(style = "border-top: 1px solid #000000;"),
         tags$a(class = "source_url", href=link9_html, link9_text, target="_blank"),
+        hr(style = "border-top: 1px solid #000000;"),
+        
+        bsCollapse(id = "transitCOLLAPSE", open = NULL,
+                   bsCollapsePanel("Transit Agency Websites", 
+                                   tags$a(class = "source_url", href=link1_html, link1_text, target="_blank"),
+                                   hr(style = "border-top: 1px solid #000000;"),
+                                   tags$a(class = "source_url", href=link2_html, link2_text, target="_blank"),
+                                   hr(style = "border-top: 1px solid #000000;"),
+                                   tags$a(class = "source_url", href=link3_html, link3_text, target="_blank"),
+                                   hr(style = "border-top: 1px solid #000000;"),
+                                   tags$a(class = "source_url", href=link4_html, link4_text, target="_blank"),
+                                   hr(style = "border-top: 1px solid #000000;"),
+                                   tags$a(class = "source_url", href=link5_html, link5_text, target="_blank"),
+                                   hr(style = "border-top: 1px solid #000000;"),
+                                   tags$a(class = "source_url", href=link6_html, link6_text, target="_blank"),
+                                   hr(style = "border-top: 1px solid #000000;"),
+                                   tags$a(class = "source_url", href=link7_html, link7_text, target="_blank"),
+                                   hr(style = "border-top: 1px solid #000000;"),
+                                   tags$a(class = "source_url", href=link8_html, link8_text, target="_blank"))),
+        
+        hr(style = "border-top: 1px solid #000000;"),
+        tags$a(class = "source_url", href=link10_html, link10_text, target="_blank"),
+        hr(style = "border-top: 1px solid #000000;"),
         
         hr(style = "border-top: 1px solid #000000;"),
         div(img(src=panel_photo, width = "100%", height = "100%", style = "padding-top: 0px; border-radius:30px 0 30px 0;", alt = "Misc Picture")),

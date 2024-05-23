@@ -27,7 +27,7 @@ shinyUI(
       mainPanel(
         tabPanel("Transit",
                  fluidRow(column(12, style='padding-left:25px; padding-right:50px;',
-                                 #transit_overview_ui('OVERVIEWtransit'),
+                                 
                                  tabsetPanel(type = "pills",
                                              tabPanel("Overview", transit_overview_ui('OVERVIEWtransit')),
                                              tabPanel("Region", transit_region_ui('REGIONtransit')),
