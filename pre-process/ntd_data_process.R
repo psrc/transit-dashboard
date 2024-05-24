@@ -24,6 +24,7 @@ generate_efa_data <- "no"
 generate_parcel_data <- "no"
 generate_transit_population <- "no"
 generate_transit_buffers <- "no"
+generate_transit_layers <- "no"
 
 hct_modes <- c("BRT", "Passenger Ferry", "Light Rail", "Streetcar", "Commuter Rail", "Auto Ferry")
 bus_modes <- c("Bus", "ST Express")
@@ -170,6 +171,25 @@ if(generate_transit_population == "yes") {
   
 }
 
+# Transit Layers by Year ------------------------------------
+if(generate_transit_layers == "yes") {
+  
+  transit_layer_data <- NULL
+  for(y in gtfs_years) {
+    
+    lyr <- transit_routes_by_mode(year = y, service_change = "spring")
+    if(is.null(transit_layer_data)) {transit_layer_data <- lyr} else {transit_layer_data <- bind_rows(transit_layer_data, lyr)}
+    rm(lyr)
+  }
+  
+  saveRDS(transit_layer_data, "data/transit_layer_data.rds")
+  
+} else {
+  
+  print(str_glue("Loading Transit Layer Data from stored results."))
+  transit_layer_data <- readRDS("data/transit_layer_data.rds")
+  
+}
 
 # Transit Buffers for Maps ------------------------------------------------
 if(generate_transit_buffers == "yes") {

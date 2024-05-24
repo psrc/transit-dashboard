@@ -43,6 +43,7 @@ latest_yr <- "2023"
 ntd_data <- readRDS("data/ntd_data.rds")
 transit_buffers <- readRDS("data/transit_buffers.rds")
 transit_buffer_data <- readRDS("data/transit_buffer_data.rds")
+transit_layer_data <- readRDS("data/transit_layer_data.rds") |> mutate(year = year(date))
 
 latest_ntd_month <- ntd_data |> filter(grouping == "YTD") |> mutate(d = as.character(month(date, label = TRUE))) |> select("d") |> unique() |> pull()
 ntd_data <- ntd_data |> 
@@ -54,6 +55,4 @@ ntd_metric_list <- as.character(unique(ntd_data$metric))
 ntd_mode_list <- ntd_data |> select("variable") |> filter(variable != "All Transit Modes") |> distinct() |> pull()
 ntd_operator_list <- ntd_data |> filter(geography_type == "Transit Operator") |> filter(!(geography %in% c("Senior Services of Snohomish County", "King County Ferry District"))) |> select("geography") |>  distinct() |> pull()
 stop_buffer_list <- unique(transit_buffer_data$transit_buffer)
-
-# Visuals for App ---------------------------------------------------------
 

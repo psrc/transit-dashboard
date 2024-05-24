@@ -322,6 +322,69 @@ transit_stops_by_mode <- function(year, service_change) {
   
 }
 
+transit_routes_by_mode <- function(year, service_change) {
+  
+  hct_file <- "data/hct_ids.csv"
+  hct <- read_csv(hct_file, show_col_types = FALSE) 
+  
+  if (tolower(service_change)=="spring") {data_month = "05"} else (data_month = "10")
+  
+  options(dplyr.summarise.inform = FALSE)
+  gtfs_file <- paste0("X:/DSA/GTFS/",tolower(service_change),"/",as.character(year),".zip")
+  
+  # Open Regional GTFS File and load into memory
+  print(str_glue("Opening the {service_change} {year} GTFS archive."))
+  gtfs <- read_gtfs(path=gtfs_file, files = c("trips","stops","stop_times", "routes", "shapes"))
+  
+  # Load Routes, add HCT modes and update names and agencies
+  print(str_glue("Getting the {service_change} {year} routes into a tibble." ))
+  routes <- as_tibble(gtfs$routes) |> 
+    mutate(route_id = str_to_lower(route_id)) |>
+    select("route_id", "agency_id","route_short_name", "route_long_name", "route_type")
+  
+  print(str_glue("Adding High-Capacity Transit codes to the {service_change} {year} routes"))
+  routes <- left_join(routes, hct, by="route_id") |>
+    mutate(type_code = case_when(
+      is.na(type_code) ~ route_type,
+      !(is.na(type_code)) ~ type_code)) |>
+    mutate(route_name = case_when(
+      is.na(route_name) ~ route_short_name,
+      !(is.na(route_name)) ~ route_name)) |>
+    mutate(type_name = case_when(
+      is.na(type_name) ~ "Bus",
+      !(is.na(type_name)) ~ type_name)) |>
+    mutate(agency_name = case_when(
+      !(is.na(agency_name)) ~ agency_name,
+      is.na(agency_name) & str_detect(route_id, "ct") ~ "Community Transit",
+      is.na(agency_name) & str_detect(route_id, "et") ~ "Everett Transit",
+      is.na(agency_name) & str_detect(route_id, "kc") ~ "King County Metro",
+      is.na(agency_name) & str_detect(route_id, "kt") ~ "Kitsap Transit",
+      is.na(agency_name) & str_detect(route_id, "pt") ~ "Pierce Transit",
+      is.na(agency_name) & str_detect(route_id, "st") ~ "Sound Transit")) |>
+    select("route_id", "route_name", "type_name", "type_code", "agency_name")
+  
+  # Load Route Shapes to get Mode information on layers
+  route_lyr <- shapes_as_sf(gtfs$shapes)
+  
+  # Trips are used to get route id onto shapes
+  print(str_glue("Getting the {service_change} {year} trips into a tibble to add route ID to stop times." ))
+  trips <- as_tibble(gtfs$trips) |> 
+    mutate(route_id = str_to_lower(route_id)) |>
+    select("route_id", "shape_id") |>
+    distinct()
+  
+  route_lyr <- left_join(route_lyr, trips, by=c("shape_id"))
+  
+  # Get Mode and agency from routes to shapes
+  print(str_glue("Getting route details onto shapes for the {service_change} {year}." ))
+  route_lyr <- left_join(route_lyr, routes, by=c("route_id")) |> mutate(date=mdy(paste0(data_month,"-01-",year)))
+  
+  print(str_glue("All Done."))
+  
+  return(route_lyr)
+  
+}
+
 acs_equity_shares <- function(year, census_metric) {
   
   # Determine Table Name, variables and labels from Variable Lookup
@@ -706,3 +769,79 @@ create_stop_buffer_map<- function(lyr=transit_buffers, buffer, yr) {
   return(working_map)
   
 }
+
+create_route_map<- function(lyr=transit_layer_data, yr) {
+  
+  # Trim Layer to Variable of Interest and Year
+  lyr <- lyr |> filter(year == yr)
+  
+  # Create HCT Layers to make mapping by mode cleaner
+  brt <- lyr |> filter(type_name %in% c("BRT"))
+  crt <- lyr |> filter(type_name %in% c("Commuter Rail"))
+  lrt <- lyr |> filter(type_name %in% c("Streetcar", "Light Rail"))
+  pof <- lyr |> filter(type_name %in% c("Passenger Ferry"))
+  fry <- lyr |> filter(type_name %in% c("Auto Ferry"))
+  
+  brt_lbl <- paste0("<b>", paste0("Route Name: "),"</b>", brt$route_name) |> lapply(htmltools::HTML)
+  crt_lbl <- paste0("<b>", paste0("Route Name: "),"</b>", crt$route_name) |> lapply(htmltools::HTML)
+  lrt_lbl <- paste0("<b>", paste0("Route Name: "),"</b>", lrt$route_name) |> lapply(htmltools::HTML)
+  pof_lbl <- paste0("<b>", paste0("Route Name: "),"</b>", pof$route_name) |> lapply(htmltools::HTML)
+  fry_lbl <- paste0("<b>", paste0("Route Name: "),"</b>", fry$route_name) |> lapply(htmltools::HTML)
+  
+  working_map <- leaflet() |>
+    
+    addProviderTiles(providers$CartoDB.Positron) |>
+    
+    addLayersControl(baseGroups = c("Base Map"),
+                     overlayGroups = c("BRT", "Commuter Rail", "Light Rail", "Passenger Ferry", "Multimodal Ferry"),
+                     options = layersControlOptions(collapsed = TRUE)) |>
+    
+    addEasyButton(easyButton(
+      icon="fa-globe", title="Region",
+      onClick=JS("function(btn, map){map.setView([47.615,-122.257],8.5); }"))) |>
+    
+    addPolylines(data = brt,
+                 color = "#91268F",
+                 weight = 4,
+                 fillColor = "#91268F",
+                 group = "BRT",
+                 label = brt_lbl) |>
+    
+    addPolylines(data = crt,
+                 color = "#8CC63E",
+                 weight = 4,
+                 fillColor = "#8CC63E",
+                 group = "Commuter Rail",
+                 label = crt_lbl) |>
+    
+    addPolylines(data = lrt,
+                 color = "#F05A28",
+                 weight = 4,
+                 fillColor = "#F05A28",
+                 group = "Light Rail",
+                 label = lrt_lbl) |>
+    
+    addPolylines(data = pof,
+                 color = "#40BDB8",
+                 weight = 4,
+                 fillColor = "#40BDB8",
+                 group = "Passenger Ferry",
+                 label = pof_lbl) |>
+    
+    addPolylines(data = fry,
+                 color = "#00716c",
+                 weight = 4,
+                 fillColor = "#00716c",
+                 group = "Multimodal Ferry",
+                 label = fry_lbl) |>
+    
+    setView(lng = -122.257, lat = 47.615, zoom = 8.5) |>
+    
+    addLegend(colors=c("#91268F", "#8CC63E", "#F05A28", "#40BDB8", "#00716c"),
+              labels=c("BRT", "Commuter Rail", "Light Rail", "Passenger Ferry", "Multimodal Ferry"),
+              position = "bottomleft")
+  
+  return(working_map)
+  
+}
+

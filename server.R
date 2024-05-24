@@ -17,7 +17,10 @@ shinyServer(function(input, output) {
   # Regional NTD metrics by Operator
   transit_operator_server('OPERATORtransit')
   
-  # Demographics
+  # Stops
   transit_stop_server('STOPtransit')
+  
+  # Routes
+  transit_route_server('ROUTEtransit')
   
 })    
