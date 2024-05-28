@@ -240,6 +240,14 @@ head {
   text-decoration-thickness: 2px;
 }
 
+
+.panel-default .panel-heading{
+  background-color: #F2F2F2;
+  border-color: #F05A28;
+  border-style: dashed;
+  border-width: thick;
+}
+
 .panel-collapse{
   background-color: #E4E4E4;
 }
