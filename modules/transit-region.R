@@ -11,10 +11,7 @@ transit_region_server <- function(id) {
   moduleServer(id, function(input, output, session){
     ns <- session$ns
     
-    # Text
-    output$transit_region_text <- renderText({page_information(tbl=page_text, page_name="Transit", page_section = "NTD", page_info = "description")})
-    
-    # Charts
+    # Charts & Maps
     output$ntd_region_chart <- renderEcharts4r({create_bar_chart_toggle(df = ntd_data |> 
                                                                           filter(variable == "All Transit Modes" & geography == "Region" & metric == input$NTDMetric) |> 
                                                                           mutate(year=as.character(year)),

@@ -11,7 +11,7 @@ transit_mode_server <- function(id) {
   moduleServer(id, function(input, output, session){
     ns <- session$ns
     
-    # Charts
+    # Charts & Maps
     output$ntd_mode_boardings_chart <- renderEcharts4r({create_bar_chart_toggle(df = ntd_data |> 
                                                                                   filter(variable == input$NTDModes & geography == "Region" & metric == "Boardings") |> 
                                                                                   mutate(year=as.character(year)),

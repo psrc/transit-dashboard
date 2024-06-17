@@ -11,7 +11,7 @@ transit_operator_server <- function(id) {
   moduleServer(id, function(input, output, session){
     ns <- session$ns
     
-    # Charts
+    # Charts & Maps
     output$ntd_operator_boardings_chart <- renderEcharts4r({create_bar_chart_toggle(df = ntd_data |> 
                                                                                       filter(variable == "All Transit Modes" & geography_type == "Transit Operator" & metric == "Boardings") |>
                                                                                       filter(geography == input$NTDoperators) |>

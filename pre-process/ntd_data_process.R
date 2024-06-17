@@ -18,7 +18,7 @@ gtfs_service <- "spring"
 latest_census <- 2022
 latest_ofm <- 2023
 
-generate_ntd_data <- "no"
+generate_ntd_data <- "yes"
 generate_gtfs_data <- "no"
 generate_efa_data <- "no"
 generate_parcel_data <- "no"
