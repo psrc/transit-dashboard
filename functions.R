@@ -4,12 +4,7 @@ echarts4r::e_common(font_family = "Poppins")
 process_ntd_data <- function() {
   
   # Location of the most recently downloaded NTD file
-  process_dir <- getwd()
-  file_dir <- "X:/DSA/rtp-dashboard/NTD"
-  
-  # Choose NTD file
-  setwd(file_dir)
-  data_file <- file.choose()
+  data_file <- "C:/Users/chelmann/Puget Sound Regional Council/2026-2050 RTP Trends - General/Transit/data/ntd-data.xlsx"
   
   # Silence the dplyr summarize message
   options(dplyr.summarise.inform = FALSE)
@@ -18,7 +13,6 @@ process_ntd_data <- function() {
   ntd_tabs <- c("UPT", "VRM", "VRH")
   
   # Figure out which Transit Agencies serve which MPO's
-  setwd(process_dir)
   agency_file <- "data/transit-agency.csv"
   print(str_glue("Figuring out which Transit agencies are in which Metro Area."))
   agencies <- read_csv(agency_file, show_col_types = FALSE) |>
@@ -254,7 +248,7 @@ transit_stops_by_mode <- function(year, service_change) {
   if (tolower(service_change)=="spring") {data_month = "05"} else (data_month = "10")
   
   options(dplyr.summarise.inform = FALSE)
-  gtfs_file <- paste0("X:/DSA/GTFS/",tolower(service_change),"/",as.character(year),".zip")
+  gtfs_file <- paste0("C:/Users/chelmann/Puget Sound Regional Council/2026-2050 RTP Trends - General/Transit/data/gtfs/",tolower(service_change),"/",as.character(year),".zip")
   
   # Open Regional GTFS File and load into memory
   print(str_glue("Opening the {service_change} {year} GTFS archive."))
@@ -330,7 +324,7 @@ transit_routes_by_mode <- function(year, service_change) {
   if (tolower(service_change)=="spring") {data_month = "05"} else (data_month = "10")
   
   options(dplyr.summarise.inform = FALSE)
-  gtfs_file <- paste0("X:/DSA/GTFS/",tolower(service_change),"/",as.character(year),".zip")
+  gtfs_file <- paste0("C:/Users/chelmann/Puget Sound Regional Council/2026-2050 RTP Trends - General/Transit/data/gtfs/",tolower(service_change),"/",as.character(year),".zip")
   
   # Open Regional GTFS File and load into memory
   print(str_glue("Opening the {service_change} {year} GTFS archive."))

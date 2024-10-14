@@ -14,17 +14,17 @@ wgs84 <- 4326
 spn <- 2285
 
 gtfs_years <- c(seq(2016, 2024, by=1))
-gtfs_service <- "spring"
+gtfs_service <- "fall"
 latest_census <- 2022
 latest_ofm <- 2023
 
 generate_ntd_data <- "yes"
-generate_gtfs_data <- "no"
-generate_efa_data <- "no"
-generate_parcel_data <- "no"
-generate_transit_population <- "no"
-generate_transit_buffers <- "no"
-generate_transit_layers <- "no"
+generate_gtfs_data <- "yes"
+generate_efa_data <- "yes"
+generate_parcel_data <- "yes"
+generate_transit_population <- "yes"
+generate_transit_buffers <- "yes"
+generate_transit_layers <- "yes"
 
 hct_modes <- c("BRT", "Passenger Ferry", "Light Rail", "Streetcar", "Commuter Rail", "Auto Ferry")
 bus_modes <- c("Bus", "ST Express")
@@ -177,7 +177,7 @@ if(generate_transit_layers == "yes") {
   transit_layer_data <- NULL
   for(y in gtfs_years) {
     
-    lyr <- transit_routes_by_mode(year = y, service_change = "spring")
+    lyr <- transit_routes_by_mode(year = y, service_change = gtfs_service)
     if(is.null(transit_layer_data)) {transit_layer_data <- lyr} else {transit_layer_data <- bind_rows(transit_layer_data, lyr)}
     rm(lyr)
   }

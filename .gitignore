@@ -21,6 +21,11 @@
 # RStudio files
 .Rproj.user/
 
+# Detailed Parcel and Transit data not in Dashboard
+parcel_data.rds
+tract_efa_data.rds
+transit_stops.rds
+
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
