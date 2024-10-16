@@ -4,7 +4,7 @@ body {
   font-family: 'Poppins', sans-serif;
   font-size: 12pt;
   color: black;
-  background-color: #F8F8F8;
+  /*background-color: #F8F8F8;*/
   padding-top: 70px;
 }
 
@@ -54,6 +54,7 @@ i {
   background-color: #005753;
 }
 
+/*
 .well {
   background-color: #F2F2F2;
   padding-left: 10px;
@@ -61,6 +62,7 @@ i {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+*/
 
 .jumbotron.bg-success{
   background-color: #005753;
@@ -104,12 +106,6 @@ i {
 }
 
 .source_url {
-  color: #00716C;
-  font-family: "Poppins";
-  font-size: 12pt;
-}
-
-.sidebar_phone {
   color: #00716C;
   font-family: "Poppins";
   font-size: 12pt;
@@ -195,17 +191,7 @@ i {
   color: #F05A28;
 }
 
-.footer {
-  position: fixed;
-  color: #FFFFFF;
-  font-family: "Poppins";
-  font-size: 12pt;
-  bottom: 0;
-  width: 100%;
-  height: 50px; 
-  background-color: #4A0048;
 
-}
 
 nav {
   font-size: 12pt;
@@ -238,18 +224,6 @@ head {
   text-decoration: underline;
   text-decoration-color: #005753;
   text-decoration-thickness: 2px;
-}
-
-
-.panel-default .panel-heading{
-  background-color: #F2F2F2;
-  border-color: #F05A28;
-  border-style: dashed;
-  border-width: thick;
-}
-
-.panel-collapse{
-  background-color: #E4E4E4;
 }
 
 #sidebar {
@@ -303,5 +277,217 @@ head {
   justify-content: left;
 }
 
+/* left panel module */
+
+.col-sm-4 {
+  padding: 0rem 10rem;
+}
+                              
+.focus {
+  border-bottom: 2px solid #dedede;
+  padding: 1.25rem 2rem;
+}
+
+.left-panel-url {
+  font-weight: 600;
+}
+
+.m-menu__title {
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 2.5rem;
+  color: #2F3030;
+}
+
+/* panel refers to bsCollapse object*/
+.panel {
+  border: none;
+}
+
+.panel-default {
+  border-color: white;
+}
+
+.panel-default > .panel-heading {
+ border-color: white;
+ background-color: white;
+ padding: 1.25rem 2rem;
+}
+
+.panel-title {
+ font-weight: 600;
+ color: #00716C;
+ font-family: "Poppins";
+ font-size: 12pt;
+}
+
+.panel-collapse {
+  background-color: #F2F2F2;
+}
+
+.panel-body {
+ padding: 0rem;  
+}
+
+.links-container {
+ padding: .75rem 2rem;
+ border-bottom: 2px solid #dedede;
+}
+
+.links {
+ font-weight: 600;
+ color: #00716C;
+ font-family: "Poppins";
+ font-size: 12pt;
+ padding: 0rem 2rem;
+}
+
+
+/*https://stackoverflow.com/questions/73255149/can-i-add-an-arrow-icon-to-my-bscollapsepanel-in-r-shiny*/
+/*https://github.com/FortAwesome/Font-Awesome/blob/master/css/all.css*/
+
+.panel-heading .panel-title a.collapsed:after {
+      content:"\f067"; 
+      transition: .5s ease-in-out;
+}
+
+.panel-heading .panel-title a:after {
+      content:"\f068";
+      font-family:"Font Awesome 5 Free";
+      color: #2F3030;
+      text-align: right;
+      float:right;
+      transition: .5s ease-in-out;
+}
+
+/* Connect With Us - Contacts */
+/*https://css-generators.com/custom-corners/*/
+
+.contacts {
+  background-color: #F2F2F2;
+  clip-path: polygon(0 30%,20% 0,100% 0,100% 100%,0 100%);
+  padding: 3rem 0rem;
+  background-size: 13rem;
+}
+
+.contacts-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem;
+}
+
+
+.contacts-details p {
+  margin: 0;
+  padding: 0;
+  font-size: 1.75rem;
+}
+
+
+.contacts-icons,
+.contacts-icons div {
+  margin-top: 1rem;
+}
+
+.contacts-icons i {
+  color: #2F3030;
+  font-size: 2rem
+}
+
+.contacts-icons div > a {
+  padding: 0;
+}
+
+.contacts-container > .m-menu__title {
+  margin: 4rem 0rem;
+}
+
+/* footer */
+.footer {
+  position: fixed;
+  font-family: "Poppins";
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-container .details {
+  padding: 5rem 10rem;
+}
+
+.footer-container .soc-media {
+  padding: 2.75rem 10rem;
+}
+
+
+.footer-container > .details-container {
+  margin-top: 5rem;
+  background-color: #4A0048;
+}
+
+.details-container > .details {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.details-container > .details h3 {
+  color: white;
+  font-weight: 600;
+  padding-bottom: 2rem;
+}
+
+
+.footer-container > .soc-media-container {
+ background-color: #630460;
+ margin-bottom: 5rem;
+}
+
+
+.details article:first-child{
+  width: 25%;
+}
+
+
+.footer-container .details i {
+  color: white;
+  font-size: 1.75rem;
+}
+
+
+.psrc-contacts div {
+  margin-bottom: 1rem;
+}
+
+.psrc-location {
+  display: flex;
+}
+
+.psrc-location div > div {
+  margin-bottom: 0rem;
+}
+
+
+.psrc-contacts div:nth-child(3):after{
+  content: "\a";
+}
+
+.psrc-contacts .footer_url,
+.soc-media .footer_url {
+  font-weight: 600;
+}
+
+.soc-media {
+  display: flex;
+  justify-content: space-between;
+}
+
+.soc-media p { 
+  color: white;
+}
+
+.soc-media i {
+  font-size: 1.75rem;
+}
 
 

@@ -7,6 +7,10 @@ library(shinydashboard)
 library(bs4Dash)
 library(shinycssloaders)
 library(bslib)
+library(bsicons)
+
+# Packages for Number formatting
+library(scales)
 
 # Packages for Data Cleaning/Processing
 library(tidyverse)
@@ -38,6 +42,7 @@ page_text <- read_csv("data/page_text.csv", show_col_types = FALSE)
 wgs84 <- 4326
 load_clr <- "#91268F"
 latest_yr <- "2023"
+pre_pandemic <- "2019"
 
 # Data via RDS files ------------------------------------------------------
 ntd_data <- readRDS("data/ntd_data.rds")
@@ -56,3 +61,13 @@ ntd_mode_list <- ntd_data |> select("variable") |> filter(variable != "All Trans
 ntd_operator_list <- ntd_data |> filter(geography_type == "Transit Operator") |> filter(!(geography %in% c("Senior Services of Snohomish County", "King County Ferry District"))) |> select("geography") |>  distinct() |> pull()
 stop_buffer_list <- unique(transit_buffer_data$transit_buffer)
 
+transit_links <- c("Community Transit" = "https://www.communitytransit.org/",
+                   "Everett Transit" = "https://everetttransit.org/",
+                   "King County Metro" = "https://kingcounty.gov/en/dept/metro",
+                   "Kitsap Transit" = "https://www.kitsaptransit.com/",
+                   "Pierce Transit" = "https://www.piercetransit.org/",
+                   "Pierce County Ferry" = "https://www.piercecountywa.gov/1793/Ferry",
+                   "Sound Transit" = "https://www.soundtransit.org/",
+                   "Washington State Ferries" = "https://wsdot.wa.gov/travel/washington-state-ferries",
+                   "Transit Planning at PSRC" = "https://www.psrc.org/our-work/transit"
+)

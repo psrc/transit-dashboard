@@ -1,98 +1,60 @@
 # Create the left panel
 
+# https://chsamii.medium.com/how-to-focus-on-a-non-input-element-96db50b36e97
+# https://codepen.io/shiroshiro/pen/Rwmgqxv
+
 left_panel_ui <- function(id) {
   ns <- NS(id)
   
-  tagList( 
-    uiOutput(ns('aleftpanel'))
-  )
+  cdf <- left_panel_info |> 
+    select(starts_with('contact'))
   
+  links_withtags <- withTags(
+    map2(transit_links[1:8], names(transit_links)[1:8], 
+         ~div(class = "links-container", tags$a(class = "links", href = .x, .y, tabindex="0", target = "_blank")))
+  )
+
+  tagList(
+    
+    div("Transit Resources",
+        class = "m-menu__title"),
+    
+    div(a(class = "source_url left-panel-url", 
+          href = "https://www.transit.dot.gov/ntd/ntd-data", 
+          "National Transit Database", 
+          target="_blank"),
+        class = "focus",
+        tabindex="0"),
+    
+    div(a(class = "source_url left-panel-url", 
+          "Transit Planning at PSRC",
+          href = "https://www.psrc.org/our-work/transit",
+          target = "_blank"),
+        class = "focus",
+        tabindex="0"),
+    
+    bsCollapse(id = "transit-collapse", 
+               open = NULL,
+               bsCollapsePanel("Transit Agency Websites",
+                               links_withtags
+                               )
+               ),
+    
+    # Contact ----
+    contact_container_ui('contact-data',
+                         name = cdf$contact_name, 
+                         title = cdf$contact_title, 
+                         email = cdf$contact_email, 
+                         phone = cdf$contact_phone)
+    
+  ) # end taglist
 }
 
 left_panel_server <- function(id, page_nm) {
   
   moduleServer(id, function(input, output, session) { 
     ns <- session$ns
-    
-    # Text, Tables and Charts
-    contact_name <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "contact_name")
-    contact_title <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "contact_title")
-    contact_phone <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "contact_phone")
-    contact_email <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "contact_email")
-    panel_photo <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "image")
-    link1_html <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link1_html")
-    link1_text <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link1_title")
-    link2_html <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link2_html")
-    link2_text <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link2_title")
-    link3_html <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link3_html")
-    link3_text <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link3_title")
-    link4_html <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link4_html")
-    link4_text <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link4_title")
-    link5_html <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link5_html")
-    link5_text <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link5_title")
-    link6_html <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link6_html")
-    link6_text <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link6_title")
-    link7_html <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link7_html")
-    link7_text <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link7_title")
-    link8_html <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link8_html")
-    link8_text <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link8_title")
-    link9_html <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link9_html")
-    link9_text <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link9_title")
-    link10_html <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link10_html")
-    link10_text <- page_information(tbl=left_panel_info, page_name=page_nm, page_info = "link10_title")
-  
-    # Tab layout
-    output$aleftpanel <- renderUI({
-      
-      tagList(
-        
-        hr(),
-        strong(tags$div(class="source_url","Transit Resources")),
-        
-        hr(style = "border-top: 1px solid #000000;"),
-        tags$a(class = "source_url", href=link9_html, link9_text, target="_blank"),
-        hr(style = "border-top: 1px solid #000000;"),
-        
-        bsCollapse(id = "transitCOLLAPSE", open = NULL,
-                   bsCollapsePanel("Transit Agency Websites", 
-                                   tags$a(class = "source_url", href=link1_html, link1_text, target="_blank"),
-                                   hr(style = "border-top: 1px solid #000000;"),
-                                   tags$a(class = "source_url", href=link2_html, link2_text, target="_blank"),
-                                   hr(style = "border-top: 1px solid #000000;"),
-                                   tags$a(class = "source_url", href=link3_html, link3_text, target="_blank"),
-                                   hr(style = "border-top: 1px solid #000000;"),
-                                   tags$a(class = "source_url", href=link4_html, link4_text, target="_blank"),
-                                   hr(style = "border-top: 1px solid #000000;"),
-                                   tags$a(class = "source_url", href=link5_html, link5_text, target="_blank"),
-                                   hr(style = "border-top: 1px solid #000000;"),
-                                   tags$a(class = "source_url", href=link6_html, link6_text, target="_blank"),
-                                   hr(style = "border-top: 1px solid #000000;"),
-                                   tags$a(class = "source_url", href=link7_html, link7_text, target="_blank"),
-                                   hr(style = "border-top: 1px solid #000000;"),
-                                   tags$a(class = "source_url", href=link8_html, link8_text, target="_blank"))),
-        
-        hr(style = "border-top: 1px solid #000000;"),
-        tags$a(class = "source_url", href=link10_html, link10_text, target="_blank"),
-        hr(style = "border-top: 1px solid #000000;"),
-        
-        hr(style = "border-top: 1px solid #000000;"),
-        div(img(src=panel_photo, width = "100%", height = "100%", style = "padding-top: 0px; border-radius:30px 0 30px 0;", alt = "Misc Picture")),
-        hr(style = "border-top: 1px solid #000000;"),
-        
-        strong(tags$div(class="sidebar_heading","Connect With Us")),
-        hr(style = "border-top: 1px solid #000000;"),
-        tags$div(class="sidebar_notes", contact_name),
-        tags$div(class="sidebar_notes", contact_title),
-        br(),
-        icon("envelope"), 
-        tags$a(class = "source_url", href=paste0("mailto:",contact_email,"?"), "Email"),
-        br(), br(),
-        tags$div(icon("phone-volume"), class="sidebar_phone", contact_phone),
-        hr(style = "border-top: 1px solid #000000;")
-      
-      )
-      
-    })
+
     
   }) # end moduleServer
   

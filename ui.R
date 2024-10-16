@@ -2,12 +2,16 @@ shinyUI(
 
   fluidPage(
     
+    tags$head(
+      tags$script(src = HTML("js-functions.js"))
+    ),
+    
     tags$style(HTML("
     .tabbable > .nav > li > a {background-color: #005753;  color:white}
     .tabbable > .nav > li.active > a {background-color: #91268F; color:white}
   ")),
     
-    id = "Ferries",
+    id = "AppID",
     tags$style("@import url(https://use.fontawesome.com/releases/v6.3.0/css/all.css);"),
     title = "Transit in the PSRC Region",
     
@@ -21,11 +25,12 @@ shinyUI(
     
     hr(style = "border-top: 1px solid #000000;"),
     
-    sidebarLayout(
-      sidebarPanel(left_panel_ui('leftMain')),
+    fluidRow(
+      # Left Panel of the page using the left panel module
+      column(width = 4, left_panel_ui('leftMain')),
       
       mainPanel(
-        fluidRow(column(12, style='padding-left:25px; padding-right:50px;',
+        fluidRow(column(12, style='padding-left:5px; padding-right:25px;',
                         tabsetPanel(type = "pills",
                                     tabPanel("Overview", transit_overview_ui('OVERVIEWtransit')),
                                     tabPanel("Region", transit_region_ui('REGIONtransit')),
@@ -33,11 +38,12 @@ shinyUI(
                                     tabPanel("Operator", transit_operator_ui('OPERATORtransit')),
                                     tabPanel("Stops", transit_stop_ui('STOPtransit')),
                                     tabPanel("Routes", transit_route_ui('ROUTEtransit')))
-                        )) # end of fluid row for Transit tab
-        ) # End of mainPanel
-    ), # End of sidebarLayout
+        )) # end of fluid row for Transit tab
+      ), # End of mainPanel
+      
+      style = "margin-bottom: 2rem;"),# end of fluidRow
     
     tags$footer(footer_ui('psrcfooter'))
-  
+    
     ) # End of fluid page
 ) # end of shiny app

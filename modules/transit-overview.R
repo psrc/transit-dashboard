@@ -19,7 +19,7 @@ transit_overview_server <- function(id) {
       tagList(
         br(),
         textOutput(ns("transit_overview_text")),
-        br()
+        br(),
       )
     })
   })  # end moduleServer
