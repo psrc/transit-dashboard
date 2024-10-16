@@ -60,7 +60,8 @@ transit_region_server <- function(id) {
         
         br(),
         
-        layout_columns(
+        layout_column_wrap(
+          width = 0.25,
           value_box(
             title = textOutput(ns("region_pre_pandemic_metric")), value = textOutput(ns("region_pre_pandemic_value")),
             theme = value_box_theme(bg = "#EDF9FF", fg = "#0B4B6E"), 
