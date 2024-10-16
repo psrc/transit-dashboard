@@ -41,7 +41,8 @@ page_text <- read_csv("data/page_text.csv", show_col_types = FALSE)
 # Inputs ---------------------------------------------------------------
 wgs84 <- 4326
 load_clr <- "#91268F"
-latest_yr <- "2023"
+
+base_yr <- "2023"
 pre_pandemic <- "2019"
 
 # Data via RDS files ------------------------------------------------------

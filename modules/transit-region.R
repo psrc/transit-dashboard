@@ -37,6 +37,8 @@ transit_region_server <- function(id) {
     
     output$region_pre_pandemic_share <- renderText(paste0(round((ntd_data |> filter(variable == "All Transit Modes" & geography == "Region" & metric == region_metric() & year == as.character(year(Sys.Date())) & grouping != "Annual") |> select("estimate") |> pull()) / (ntd_data |> filter(variable == "All Transit Modes" & geography == "Region" & metric == region_metric() & year == pre_pandemic & grouping != "Annual") |> select("estimate") |> pull()), 3)*100, "%"))
     
+    output$region_recent_growth <- renderText(paste0(round((ntd_data |> filter(variable == "All Transit Modes" & geography == "Region" & metric == region_metric() & year == as.character(year(Sys.Date())) & grouping != "Annual") |> select("estimate") |> pull()) / (ntd_data |> filter(variable == "All Transit Modes" & geography == "Region" & metric == region_metric() & year == base_yr & grouping != "Annual") |> select("estimate") |> pull())*100-100, 1), "%"))
+    
     # Charts & Maps
     output$ntd_region_chart <- renderEcharts4r({create_bar_chart_toggle(df = ntd_data |> 
                                                                           filter(variable == "All Transit Modes" & geography == "Region" & metric == region_metric()) |> 
@@ -62,7 +64,7 @@ transit_region_server <- function(id) {
           value_box(
             title = textOutput(ns("region_pre_pandemic_metric")), value = textOutput(ns("region_pre_pandemic_value")),
             theme = value_box_theme(bg = "#EDF9FF", fg = "#0B4B6E"), 
-            showcase = NULL, showcase_layout = "top right",
+            showcase = NULL, showcase_layout = "left center",
             full_screen = TRUE, fill = TRUE, height = NULL, align = "center"
           ),
           value_box(
@@ -73,6 +75,12 @@ transit_region_server <- function(id) {
           ),
           value_box(
             title = "% of Pre-Pandemic", value = textOutput(ns("region_pre_pandemic_share")),
+            theme = value_box_theme(bg = "#EDF9FF", fg = "#0B4B6E"),
+            showcase = NULL, showcase_layout = "left center",
+            full_screen = TRUE, fill = TRUE, height = NULL, align = "center"
+          ),
+          value_box(
+            title = paste0("% change from ", base_yr), value = textOutput(ns("region_recent_growth")),
             theme = value_box_theme(bg = "#EDF9FF", fg = "#0B4B6E"),
             showcase = NULL, showcase_layout = "left center",
             full_screen = TRUE, fill = TRUE, height = NULL, align = "center"
