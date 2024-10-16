@@ -13,7 +13,7 @@ transit_region_server <- function(id) {
     
     region_metric <- reactive({input$NTDMetric})
     
-    region_chart_title <- renderText(paste0("PSRC Region: ", region_metric()))
+    output$region_chart_title <- renderText(paste0("Regionwide Transit ", region_metric(), " for all Transit Modes"))
     
     # Output Values
     output$region_pre_pandemic_metric <- renderText(paste0("2019 YTD ", region_metric()))
@@ -53,6 +53,10 @@ transit_region_server <- function(id) {
         fluidRow(column(12, selectInput(ns("NTDMetric"), label="Select Transit Metric:", choices=ntd_metric_list, selected = "Boardings"))),
         
         hr(style = "border-top: 1px solid #000000;"),
+        
+        tags$div(class="chart_title", textOutput(ns("region_chart_title"))),
+        
+        br(),
         
         layout_columns(
           value_box(
