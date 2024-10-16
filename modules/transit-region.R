@@ -16,8 +16,10 @@ transit_region_server <- function(id) {
     output$region_chart_title <- renderText(paste0("Regionwide Transit ", region_metric(), " for all Transit Modes"))
     
     # Output Values
-    output$region_pre_pandemic_metric <- renderText(paste0("2019 YTD ", region_metric()))
-    output$region_current_metric <- renderText(paste0(year(Sys.Date())," YTD ", region_metric()))
+    output$region_pre_pandemic_metric <- renderUI(shiny::p(paste0("2019 YTD ", region_metric()), style = "font-size: 1.25rem"))
+    output$region_current_metric <- renderUI(shiny::p(paste0(year(Sys.Date())," YTD ", region_metric()), style = "font-size: 1.25rem"))
+    output$region_pandemic_share_metric <- renderUI(shiny::p(paste0("% of ", pre_pandemic, " YTD ", region_metric()), style = "font-size: 1.25rem"))
+    output$region_recent_share_metric <- renderUI(shiny::p(paste0("% change from ", base_yr), style = "font-size: 1.25rem"))
     
     output$region_pre_pandemic_value <- renderText({
       if (region_metric() == "Boardings-per-Hour") {
@@ -63,25 +65,29 @@ transit_region_server <- function(id) {
         layout_column_wrap(
           width = 0.25,
           value_box(
-            title = textOutput(ns("region_pre_pandemic_metric")), value = textOutput(ns("region_pre_pandemic_value")),
+            title = htmlOutput(ns("region_pre_pandemic_metric")), 
+            value = textOutput(ns("region_pre_pandemic_value")),
             theme = value_box_theme(bg = "#EDF9FF", fg = "#0B4B6E"), 
             showcase = NULL, showcase_layout = "left center",
             full_screen = TRUE, fill = TRUE, height = NULL, align = "center"
           ),
           value_box(
-            title = textOutput(ns("region_current_metric")), value = textOutput(ns("region_current_value")),
+            title = htmlOutput(ns("region_current_metric")), 
+            value = textOutput(ns("region_current_value")),
             theme = value_box_theme(bg = "#EDF9FF", fg = "#0B4B6E"),
             showcase = NULL, showcase_layout = "left center",
             full_screen = TRUE, fill = TRUE, height = NULL, align = "center"
           ),
           value_box(
-            title = "% of Pre-Pandemic", value = textOutput(ns("region_pre_pandemic_share")),
+            title = htmlOutput(ns("region_pandemic_share_metric")), 
+            value = textOutput(ns("region_pre_pandemic_share")),
             theme = value_box_theme(bg = "#EDF9FF", fg = "#0B4B6E"),
             showcase = NULL, showcase_layout = "left center",
             full_screen = TRUE, fill = TRUE, height = NULL, align = "center"
           ),
           value_box(
-            title = paste0("% change from ", base_yr), value = textOutput(ns("region_recent_growth")),
+            title = htmlOutput(ns("region_recent_share_metric")), 
+            value = textOutput(ns("region_recent_growth")),
             theme = value_box_theme(bg = "#EDF9FF", fg = "#0B4B6E"),
             showcase = NULL, showcase_layout = "left center",
             full_screen = TRUE, fill = TRUE, height = NULL, align = "center"
