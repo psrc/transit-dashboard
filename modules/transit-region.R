@@ -15,6 +15,9 @@ transit_region_server <- function(id) {
     
     output$region_chart_title <- renderText(paste0("Regionwide Transit ", region_metric(), " for all Transit Modes"))
     
+    # Insights
+    output$region_insights_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Region", page_info = "description"))})
+    
     # Output Values
     output$region_pre_pandemic_metric <- renderUI(shiny::p(paste0("2019 YTD ", region_metric()), style = "font-size: 1.25rem"))
     output$region_current_metric <- renderUI(shiny::p(paste0(year(Sys.Date())," YTD ", region_metric()), style = "font-size: 1.25rem"))
@@ -54,7 +57,11 @@ transit_region_server <- function(id) {
     output$transitregion <- renderUI({
       tagList(
         br(),
-        fluidRow(column(12, selectInput(ns("NTDMetric"), label="Select Transit Metric:", choices=ntd_metric_list, selected = "Boardings"))),
+        
+        card(
+          card_body(selectInput(ns("NTDMetric"), label="Select a Transit Metric:", choices=ntd_metric_list, selected = "Boardings"),
+                    class = "selection_panel")
+        ),
         
         hr(style = "border-top: 1px solid #000000;"),
         
@@ -101,6 +108,14 @@ transit_region_server <- function(id) {
           card_footer(class = "chart_source",
                       "Source: USDOT Federal Transit Administration (FTA) National Transit Database (NTD)")
           ),
+        
+        hr(style = "border-top: 1px solid #000000;"),
+        
+        card(
+          card_body(htmlOutput(ns("region_insights_text")),
+                    class = "insights_panel")
+        ),
+        
         hr(style = "border-top: 1px solid #000000;"),
         
       )

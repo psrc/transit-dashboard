@@ -236,15 +236,17 @@ head {
 }
 
 .chart_title {
-  color: #999999;
+  color: black;
   font-family: "Poppins";
-  font-size: 14pt;
+  font-size: 2rem;
+  font-weight: 600;
 }
 
 .chart_source {
-  color: #999999;
+  color: #2F3030;
   font-family: "Poppins";
-  font-size: 10pt;
+  font-size: 12px;
+  font-style: italic;
 }
 
 .fa {
@@ -498,3 +500,18 @@ head {
   line-height: 1.2;;
 }
 
+.selection_panel {
+  background-color: #EDF9FF;
+  clip-path: polygon(0 0, 100% 0, 100% 20%, 100% 80%, 95% 100%, 20% 100%, 0 100%, 0% 20%);
+  padding-left: 1.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.insights_panel {
+  background-color: #C0E095;
+  clip-path: polygon(0 0, 100% 0, 100% 20%, 100% 80%, 95% 100%, 20% 100%, 0 100%, 0% 20%);
+  padding-left: 1.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
