@@ -111,7 +111,7 @@ transit_mode_server <- function(id) {
       tagList(
         br(),
         
-        selectInput(ns("NTDModes"), label="Select a Transit Metric:", choices=ntd_mode_list, selected = "Bus"),
+        selectInput(ns("NTDModes"), label="Select a Transit Mode:", choices=ntd_mode_list, selected = "Bus"),
         
         hr(style = "border-top: 1px solid #000000;"),
         tags$div(class="chart_title", textOutput(ns("mode_boardings_chart_title"))),
