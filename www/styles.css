@@ -492,14 +492,6 @@ head {
   font-size: 1.75rem;
 }
 
-.bslib-value-box .value-box-title {
-  font-size: 1.25rem;
-  margin-top: 0;
-  margin-bottom: .5rem;
-  font-weight: 400;
-  line-height: 1.2;;
-}
-
 .selection_panel {
   background-color: #EDF9FF;
   clip-path: polygon(0 0, 100% 0, 100% 20%, 100% 80%, 95% 100%, 20% 100%, 0 100%, 0% 20%);

@@ -59,9 +59,12 @@ transit_region_server <- function(id) {
         br(),
         
         card(
-          card_body(selectInput(ns("NTDMetric"), label="Select a Transit Metric:", choices=ntd_metric_list, selected = "Boardings"),
+          
+          card_body(radioButtons(ns("NTDMetric"), label="Select a Transit Metric:", choices=ntd_metric_list, selected = "Boardings", inline = TRUE, width = '100%'),
                     class = "selection_panel")
         ),
+        
+        # selectInput(ns("NTDMetric"), label="Select a Transit Metric:", choices=ntd_metric_list, selected = "Boardings")
         
         hr(style = "border-top: 1px solid #000000;"),
         
