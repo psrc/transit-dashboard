@@ -44,6 +44,7 @@ load_clr <- "#91268F"
 
 base_yr <- "2023"
 pre_pandemic <- "2019"
+first_data_yr <- "2010"
 
 # Data via RDS files ------------------------------------------------------
 ntd_data <- readRDS("data/ntd_data.rds")
@@ -54,7 +55,8 @@ transit_layer_data <- readRDS("data/transit_layer_data.rds") |> mutate(year = ye
 latest_ntd_month <- ntd_data |> filter(grouping == "YTD") |> mutate(d = as.character(month(date, label = TRUE))) |> select("d") |> unique() |> pull()
 ntd_data <- ntd_data |> 
   mutate(grouping = str_replace_all(grouping, "YTD", paste0("Year to Date: Jan-",latest_ntd_month))) |>
-  mutate(grouping = factor(grouping, levels = c(paste0("Year to Date: Jan-",latest_ntd_month), "Annual")))
+  mutate(grouping = factor(grouping, levels = c(paste0("Year to Date: Jan-",latest_ntd_month), "Annual"))) |>
+  filter(year >= first_data_yr)
 
 # Values for Drop Downs ---------------------------------------------------
 ntd_metric_list <- as.character(unique(ntd_data$metric))

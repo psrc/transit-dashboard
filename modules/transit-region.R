@@ -45,14 +45,20 @@ transit_region_server <- function(id) {
     output$region_recent_growth <- renderText(paste0(round((ntd_data |> filter(variable == "All Transit Modes" & geography == "Region" & metric == region_metric() & year == as.character(year(Sys.Date())) & grouping != "Annual") |> select("estimate") |> pull()) / (ntd_data |> filter(variable == "All Transit Modes" & geography == "Region" & metric == region_metric() & year == base_yr & grouping != "Annual") |> select("estimate") |> pull())*100-100, 1), "%"))
     
     # Charts & Maps
-    output$ntd_region_chart <- renderEcharts4r({create_bar_chart_toggle(df = ntd_data |> 
-                                                                          filter(variable == "All Transit Modes" & geography == "Region" & metric == region_metric()) |> 
-                                                                          mutate(year=as.character(year)),
-                                                                        x = "year", y = "estimate", 
-                                                                        toggle = "grouping", fill = "metric", legend=FALSE,
-                                                                        esttype = "number", color = c("#00A7A0", "#F05A28", "#91268F", "#8CC63E"),
-                                                                        left_align = '15%', title = "Boardings")})
+    output$ntd_region_ytd_chart <- renderEcharts4r({create_bar_chart(df = ntd_data |> 
+                                                                       filter(variable == "All Transit Modes" & geography == "Region" & metric == region_metric() & grouping == paste0("Year to Date: Jan-",latest_ntd_month)) |> 
+                                                                       mutate(year=as.character(year)),
+                                                                     x = "year", y = "estimate", fill = "metric", legend=FALSE,
+                                                                     esttype = "number", color = c("#00A7A0"),
+                                                                     left_align = '15%', title = "Boardings")})
 
+    output$ntd_region_annual_chart <- renderEcharts4r({create_bar_chart(df = ntd_data |> 
+                                                                          filter(variable == "All Transit Modes" & geography == "Region" & metric == region_metric() & grouping == "Annual") |> 
+                                                                          mutate(year=as.character(year)),
+                                                                        x = "year", y = "estimate", fill = "metric", legend=FALSE,
+                                                                        esttype = "number", color = c("#8CC63E"),
+                                                                        left_align = '15%', title = "Boardings")})
+    
     # Tab layout
     output$transitregion <- renderUI({
       tagList(
@@ -106,11 +112,20 @@ transit_region_server <- function(id) {
         
         br(),
         
-        card(
-          card_body(echarts4rOutput(ns("ntd_region_chart"))),
-          card_footer(class = "chart_source",
-                      "Source: USDOT Federal Transit Administration (FTA) National Transit Database (NTD)")
-          ),
+        navset_card_tab(
+          full_screen = TRUE,
+          title = NULL,
+          nav_panel(
+            paste0("Year to Date: Jan-",latest_ntd_month),
+            echarts4rOutput(ns("ntd_region_ytd_chart"))),
+          nav_panel(
+            "Annual: Jan-Dec",
+            echarts4rOutput(ns("ntd_region_annual_chart"))),
+        ),
+        
+        br(),
+        
+        tags$div(class = "chart_source", "Source: USDOT Federal Transit Administration (FTA) National Transit Database (NTD)"),
         
         hr(style = "border-top: 1px solid #000000;"),
         
