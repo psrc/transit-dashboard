@@ -8,6 +8,7 @@ library(bs4Dash)
 library(shinycssloaders)
 library(bslib)
 library(bsicons)
+library(bsplus)
 
 # Packages for Number formatting
 library(scales)

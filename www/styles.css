@@ -367,7 +367,7 @@ head {
 
 .contacts {
   background-color: #F2F2F2;
-  clip-path: polygon(0 30%,20% 0,100% 0,100% 100%,0 100%);
+  clip-path: polygon(15% 0, 100% 0%, 100% 100%, 0 100%, 0 15%);
   padding: 3rem 0rem;
   background-size: 13rem;
 }
@@ -498,6 +498,7 @@ head {
   padding-left: 1.5rem;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
+  overflow: visible !important;
 }
 
 .insights_panel {
@@ -506,4 +507,19 @@ head {
   padding-left: 1.5rem;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
+}
+
+.carousel-inner {
+  background-color: transparent;
+  background-image: none;
+}
+
+.carousel-control.right {
+  background-color: transparent;
+  background-image: none;
+}
+
+.carousel-control.left {
+  background-color: transparent;
+  background-image: none;
 }
