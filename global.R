@@ -49,7 +49,7 @@ first_data_yr <- "2010"
 
 # Data via RDS files ------------------------------------------------------
 ntd_data <- readRDS("data/ntd_data.rds")
-transit_buffers <- readRDS("data/transit_buffers.rds")
+transit_buffers <- readRDS("data/transit_buffers.rds") |> filter(year == year(Sys.Date()))
 transit_buffer_data <- readRDS("data/transit_buffer_data.rds")
 transit_layer_data <- readRDS("data/transit_layer_data.rds") |> mutate(year = year(date))
 
@@ -64,6 +64,7 @@ ntd_metric_list <- as.character(unique(ntd_data$metric))
 ntd_mode_list <- ntd_data |> select("variable") |> filter(variable != "All Transit Modes") |> distinct() |> pull()
 ntd_operator_list <- ntd_data |> filter(geography_type == "Transit Operator") |> filter(!(geography %in% c("Senior Services of Snohomish County", "King County Ferry District"))) |> select("geography") |>  distinct() |> pull()
 stop_buffer_list <- unique(transit_buffer_data$transit_buffer)
+efa_list <- c("People of Color", "People with Lower Incomes", "People with Limited English", "Youth", "Older Adults", "People with a Disability")
 
 transit_links <- c("Community Transit" = "https://www.communitytransit.org/",
                    "Everett Transit" = "https://everetttransit.org/",

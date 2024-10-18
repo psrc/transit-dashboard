@@ -725,10 +725,10 @@ create_line_chart <- function(df, x, y, fill, esttype="number", dec=0, color, le
 
 # Maps --------------------------------------------------------------------
 
-create_stop_buffer_map<- function(lyr=transit_buffers, buffer, yr) {
+create_stop_buffer_map<- function(lyr=transit_buffers, buffer) {
   
   # Trim Layer to Variable of Interest and Year
-  lyr <- lyr |> filter(stop_buffer %in% buffer & year == yr)
+  lyr <- lyr |> filter(stop_buffer %in% buffer)
   
   labels <- paste0("<b>", paste0("Transit Type: "),"</b>", lyr$stop_buffer) |> lapply(htmltools::HTML)
   
