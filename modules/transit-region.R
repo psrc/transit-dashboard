@@ -56,7 +56,7 @@ transit_region_server <- function(id) {
                                                                           filter(variable == "All Transit Modes" & geography == "Region" & metric == region_metric() & grouping == "Annual") |> 
                                                                           mutate(year=as.character(year)),
                                                                         x = "year", y = "estimate", fill = "metric", legend=FALSE,
-                                                                        esttype = "number", color = c("#8CC63E"),
+                                                                        esttype = "number", color = c("#73CFCB"),
                                                                         left_align = '15%', title = "Boardings")})
     
     # Tab layout
