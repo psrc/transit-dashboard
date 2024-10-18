@@ -525,3 +525,13 @@ head {
   background-color: transparent;
   background-image: none;
 }
+
+.responsive-footer-image {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .responsive-footer-image {
+    width: 15%;
+  }
+}

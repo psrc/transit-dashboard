@@ -24,7 +24,7 @@ footer_server <- function(id) {
         
         title =  strong(div(class="footer_title",
                             
-                            fluidRow(column(1, div(img(src = "footer-logo.png", width = "100%", height = "100%"))),
+                            fluidRow(column(1, div(img(src = "footer-logo.png", class = "responsive-footer-image"))),
                                      column(11, region_tag)),
                             hr(),
                             fluidRow(column(12, "Our Mission"))
