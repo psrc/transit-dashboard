@@ -21,7 +21,10 @@ transit_mode_server <- function(id) {
     output$mode_bph_chart_title <- renderText(paste0("Regionwide ",mode_metric(), " Boardings per Hour"))
      
     # Insights
-    output$mode_insights_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Mode", page_info = "description"))})
+    output$mode_insights_boardings_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Mode-Boardings", page_info = "description"))})
+    output$mode_insights_hours_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Mode-Hours", page_info = "description"))})
+    output$mode_insights_miles_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Mode-Miles", page_info = "description"))})
+    output$mode_insights_bph_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Mode-BPH", page_info = "description"))})
      
     # Value Box Titles & Values - Boardings
     output$mode_pre_pandemic_boardings_title <- renderUI(shiny::p(paste0(pre_pandemic, " YTD Boardings"), style = "font-size: 1.25rem"))
@@ -184,6 +187,15 @@ transit_mode_server <- function(id) {
          
         br(),
         tags$div(class = "chart_source", "Source: USDOT Federal Transit Administration (FTA) National Transit Database (NTD)"),
+        
+        
+        hr(style = "border-top: 1px solid #000000;"),
+        
+        card(
+          card_body(htmlOutput(ns("mode_insights_boardings_text")),
+                    class = "insights_panel")
+        ),
+        
         hr(style = "border-top: 1px solid #000000;"),
         
         tags$div(class="chart_title", textOutput(ns("mode_hours_chart_title"))),
@@ -235,6 +247,15 @@ transit_mode_server <- function(id) {
          
         br(),
         tags$div(class = "chart_source", "Source: USDOT Federal Transit Administration (FTA) National Transit Database (NTD)"),
+        
+        
+        hr(style = "border-top: 1px solid #000000;"),
+        
+        card(
+          card_body(htmlOutput(ns("mode_insights_hours_text")),
+                    class = "insights_panel")
+        ),
+        
         hr(style = "border-top: 1px solid #000000;"),
          
         tags$div(class="chart_title", textOutput(ns("mode_miles_chart_title"))),
@@ -286,6 +307,15 @@ transit_mode_server <- function(id) {
          
         br(),
         tags$div(class = "chart_source", "Source: USDOT Federal Transit Administration (FTA) National Transit Database (NTD)"),
+        
+        
+        hr(style = "border-top: 1px solid #000000;"),
+        
+        card(
+          card_body(htmlOutput(ns("mode_insights_miles_text")),
+                    class = "insights_panel")
+        ),
+        
         hr(style = "border-top: 1px solid #000000;"),
          
         tags$div(class="chart_title", textOutput(ns("mode_bph_chart_title"))),
@@ -335,10 +365,11 @@ transit_mode_server <- function(id) {
         
          br(),
          tags$div(class = "chart_source", "Source: USDOT Federal Transit Administration (FTA) National Transit Database (NTD)"),
-         hr(style = "border-top: 1px solid #000000;"),
+         
+        hr(style = "border-top: 1px solid #000000;"),
         
         card(
-          card_body(htmlOutput(ns("mode_insights_text")),
+          card_body(htmlOutput(ns("mode_insights_bph_text")),
                     class = "insights_panel")
         ),
         
