@@ -141,12 +141,6 @@ i {
   font-size: 16pt;
 }
 
-.footer_url {
-  color: #EC9B21;
-  font-family: "Poppins";
-  font-size: 12pt;
-}
-
 .footer_mission {
   color: #FFFFFF;
   font-family: "Poppins";
@@ -534,4 +528,10 @@ head {
   .responsive-footer-image {
     width: 15%;
   }
+}
+
+.footer_url {
+  color: #EC9B21;
+  font-family: "Poppins";
+  font-size: 12pt;
 }
