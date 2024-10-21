@@ -520,6 +520,12 @@ head {
   background-image: none;
 }
 
+.carousel-indicators {
+  position: absolute;
+  bottom: 50px;
+  
+}
+
 .responsive-footer-image {
   width: 100%;
 }
