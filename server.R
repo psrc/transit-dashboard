@@ -20,7 +20,7 @@ shinyServer(function(input, output) {
   transit_operator_server('OPERATORtransit')
   
   # Stops
-  transit_stop_server('STOPtransit')
+  transit_equity_server('EQUITYtransit')
   
   # Routes
   transit_route_server('ROUTEtransit')
