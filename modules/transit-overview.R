@@ -45,7 +45,10 @@ transit_overview_server <- function(id) {
           
           
           
-        )
+        ),
+        
+        hr(style = "border-top: 1px solid #000000;"),
+        
       )
     })
   })  # end moduleServer

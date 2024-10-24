@@ -8,6 +8,13 @@ body {
   padding-top: 70px;
 }
 
+.bslib-page-fill {
+  
+  padding-left: 10px;
+  padding-right: 10px;
+  
+}
+
 h1 {
   color: #34343c;
   font-size: 1.75em;

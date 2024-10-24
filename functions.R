@@ -879,24 +879,33 @@ create_route_map<- function(lyr=transit_layer_data, yr=current_year) {
   lrt <- lyr |> filter(type_name %in% c("Streetcar", "Light Rail"))
   pof <- lyr |> filter(type_name %in% c("Passenger Ferry"))
   fry <- lyr |> filter(type_name %in% c("Auto Ferry"))
+  bus <- lyr |> filter(type_name %in% c("Bus"))
   
   brt_lbl <- paste0("<b>", paste0("Route Name: "),"</b>", brt$route_name) |> lapply(htmltools::HTML)
   crt_lbl <- paste0("<b>", paste0("Route Name: "),"</b>", crt$route_name) |> lapply(htmltools::HTML)
   lrt_lbl <- paste0("<b>", paste0("Route Name: "),"</b>", lrt$route_name) |> lapply(htmltools::HTML)
   pof_lbl <- paste0("<b>", paste0("Route Name: "),"</b>", pof$route_name) |> lapply(htmltools::HTML)
   fry_lbl <- paste0("<b>", paste0("Route Name: "),"</b>", fry$route_name) |> lapply(htmltools::HTML)
+  bus_lbl <- paste0("<b>", paste0("Route Name: "),"</b>", bus$route_name) |> lapply(htmltools::HTML)
   
   working_map <- leaflet() |>
     
     addProviderTiles(providers$CartoDB.Positron) |>
     
     addLayersControl(baseGroups = c("Base Map"),
-                     overlayGroups = c("BRT", "Commuter Rail", "Light Rail", "Passenger Ferry", "Multimodal Ferry"),
+                     overlayGroups = c("BRT", "Commuter Rail", "Light Rail", "Passenger Ferry", "Multimodal Ferry", "Bus"),
                      options = layersControlOptions(collapsed = TRUE)) |>
     
     addEasyButton(easyButton(
       icon="fa-globe", title="Region",
       onClick=JS("function(btn, map){map.setView([47.615,-122.257],8.5); }"))) |>
+    
+    addPolylines(data = bus,
+                 color = "#BCBEC0",
+                 weight = 2,
+                 fillColor = "#BCBEC0",
+                 group = "Bus",
+                 label = bus_lbl) |>
     
     addPolylines(data = brt,
                  color = "#91268F",
@@ -935,8 +944,8 @@ create_route_map<- function(lyr=transit_layer_data, yr=current_year) {
     
     setView(lng = -122.257, lat = 47.615, zoom = 8.5) |>
     
-    addLegend(colors=c("#91268F", "#8CC63E", "#F05A28", "#40BDB8", "#00716c"),
-              labels=c("BRT", "Commuter Rail", "Light Rail", "Passenger Ferry", "Multimodal Ferry"),
+    addLegend(colors=c("#91268F", "#8CC63E", "#F05A28", "#40BDB8", "#00716c", "#BCBEC0"),
+              labels=c("BRT", "Commuter Rail", "Light Rail", "Passenger Ferry", "Multimodal Ferry", "Bus"),
               position = "bottomleft")
   
   return(working_map)

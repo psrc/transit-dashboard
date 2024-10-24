@@ -18,22 +18,20 @@ transit_route_server <- function(id) {
     output$transitroute <- renderUI({
       tagList(
  
+        hr(style = "border-top: 1px solid #000000;"),
+        tags$div(class="chart_title", "Fall 2024 Transit Routes"),
         br(),
-        # fluidRow(column(12, sliderInput(ns("ROUTEyear"),
-        #                                 label="Select Transit Year", 
-        #                                 min = 2016, max = 2024, value = 2024, 
-        #                                 sep = NULL, step = 1, 
-        #                                 animate = TRUE, ticks = FALSE))),
-        
+
         card(
           full_screen = TRUE,
               leafletOutput(ns("transit_route_map"))
         ),
         
-        #fluidRow(column(12,leafletOutput(ns("transit_route_map")))),
         br(),
         tags$div(class="chart_source","Source: GTFS Service Data"),
         br(),
+        
+        hr(style = "border-top: 1px solid #000000;")
         
       )
     }) 
