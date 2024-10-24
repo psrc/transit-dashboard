@@ -36,7 +36,8 @@ shinyUI(
                                     tabPanel("Region", transit_region_ui('REGIONtransit')),
                                     tabPanel("Mode", transit_mode_ui('MODEtransit')),
                                     tabPanel("Operator", transit_operator_ui('OPERATORtransit')),
-                                    tabPanel("Equity", transit_equity_ui('EQUITYtransit')),
+                                    tabPanel("Type", transit_equity_ui('EQUITYtransit')),
+                                    tabPanel("Frequency", transit_trips_ui('TRIPtransit')),
                                     tabPanel("Routes", transit_route_ui('ROUTEtransit')))
         )) # end of fluid row for Transit tab
       ), # End of mainPanel

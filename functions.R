@@ -301,11 +301,26 @@ transit_stops_by_mode <- function(year, service_change) {
     mutate(stop_id = str_to_lower(stop_id)) |>
     select("trip_id", "stop_id")
   
+  # Determine number of trips per hour by stop
+  print(str_glue("Getting the {service_change} {year} number of transit trips by stop a tibble." ))
+  stoptrips <- as_tibble(gtfs$stop_times) |>
+    mutate(stop_id = str_to_lower(stop_id)) |>
+    select("stop_id", "arrival_time") |>
+    arrange(stop_id, arrival_time) |>
+    mutate(hour = hour(arrival_time), daily_trips = 1) |>
+    filter(hour >= 4 & hour <= 22) |>
+    group_by(stop_id) |>
+    summarise(daily_trips = sum(daily_trips)) |>
+    as_tibble()
+  
   # Get Mode and agency from trips to stops
   print(str_glue("Getting unique stop list by modes for the {service_change} {year}." ))
   stops_by_mode <- left_join(stoptimes, trips, by=c("trip_id")) |>
     select("stop_id", "type_code", "type_name", "agency_name") |>
     distinct()
+  
+  print(str_glue("Adding daily trips by stop"))
+  stops_by_mode <- left_join(stops_by_mode, stoptrips, by=c("stop_id"))
   
   stops_by_mode <- left_join(stops_by_mode, stops, by=c("stop_id")) |>
     mutate(date=mdy(paste0(data_month,"-01-",year)))
@@ -488,6 +503,95 @@ create_transit_buffer <- function(stops=transit_stops, yrs=gtfs_years, modes, mo
     
     u <- st_sf(geometry=t) |>
       mutate(stop_buffer = mode_name, year = yr) |>
+      st_transform(wgs84)
+    
+    if(is.null(buffers)) {buffers <- u} else {buffers <- rbind(buffers, u)}
+    rm(s, t, u)
+  }
+  
+  return(buffers)
+}
+
+calculate_transit_trip_data <- function(stops=transit_stops, parcels=parcel_data, yr, num_trips, trips_name, buffer_dist) {
+  
+  print(str_glue("Creating a {buffer_dist} mile stop buffer for {yr} stations with at least {num_trips} daily transit trips."))
+  s <- stops |> 
+    filter(year(date) == yr & daily_trips >= num_trips ) |> 
+    select("stop_id", "daily_trips", "stop_lat", "stop_lon") |>
+    distinct() |>
+    st_as_sf(coords = c("stop_lon", "stop_lat"), crs=wgs84) |>
+    st_transform(spn) |>
+    st_buffer(dist = buffer_dist * 5280) |>
+    mutate(stop_buffer = trips_name, buffer = buffer_dist) |>
+    select("stop_buffer", "buffer")
+  
+  print(str_glue("Creating Parcel point layer for {yr} to intersect with stations with at least {num_trips} daily transit trips."))
+  p <- parcels |>
+    filter(gtfs_year == yr) |>
+    select(-"tract", -"gtfs_year", -"ofm_year", -"census_year") |>
+    st_as_sf(coords = c("x", "y"), crs=spn) |>
+    st_transform(spn)
+  
+  print(str_glue("Intersecting parcel point data with stations with at least {num_trips} daily transit trips stop buffer for {yr}."))
+  m <- st_intersection(p, s) |>
+    st_drop_geometry() |>
+    distinct() |>
+    mutate(gtfs_year = yr) |>
+    group_by(gtfs_year) |>
+    summarise(population = round(sum(population),-2), 
+              poc = round(sum(poc),-2), pov = round(sum(pov),-2), yth = round(sum(yth),-2), 
+              old = round(sum(old),-2), lep = round(sum(lep),-2), dis = round(sum(dis), -2)) |>
+    as_tibble()
+  
+  print(str_glue("Calculating regionwide totals for {yr}"))
+  r <- parcels |> 
+    filter(gtfs_year == yr) |>
+    group_by(gtfs_year) |>   
+    summarise(region_population = round(sum(population),-2), 
+              region_poc = round(sum(poc),-2), region_pov = round(sum(pov),-2), region_yth = round(sum(yth),-2), 
+              region_old = round(sum(old),-2), region_lep = round(sum(lep),-2), region_dis = round(sum(dis), -2)) |>
+    as_tibble()
+  
+  print(str_glue("Calculating shares of people with stations with at least {num_trips} daily transit trips stop buffer access for {yr}"))
+  d <- left_join(m, r, by="gtfs_year") |>
+    mutate(population_share = population/region_population, 
+           poc_share = poc/region_poc, pov_share = pov/region_pov, lep_share = lep/region_lep,
+           yth_share = yth/region_yth, old_share = old/region_old, dis_share = dis/region_dis) |>
+    select(year = "gtfs_year", "population", "population_share", 
+           "poc", "poc_share", "pov", "pov_share", "lep", "lep_share",
+           "yth", "yth_share", "old", "old_share", "dis", "dis_share") |>
+    mutate(transit_buffer = trips_name, buffer = buffer_dist)
+  
+  return(d)
+  
+}
+
+create_transit_trip_buffer <- function(stops=transit_stops, yrs=gtfs_years, num_trips, trips_name, buffer_dist) {
+  
+  water_bodies <- st_read_elmergeo(layer_name = "largest_waterbodies") |> st_transform(crs = spn)
+  
+  buffers <- NULL
+  for(yr in yrs) {
+    
+    print(str_glue("Creating a {buffer_dist} mile stop buffer for {yr} stations with at least {num_trips} daily transit trips."))
+    s <- stops |> 
+      filter(year(date) == yr & daily_trips >= num_trips ) |> 
+      select("stop_id", "daily_trips", "stop_lat", "stop_lon") |>
+      distinct() |>
+      st_as_sf(coords = c("stop_lon", "stop_lat"), crs=wgs84) |>
+      st_transform(spn) |>
+      st_buffer(dist = buffer_dist * 5280) |>
+      mutate(stop_buffer = trips_name, buffer = buffer_dist) |>
+      select("stop_buffer", "buffer")
+    
+    print(str_glue("Removing water bodies from the buffer for display."))
+    intersection <- st_intersection(s, water_bodies)
+    s <- ms_erase(s, intersection)
+    
+    t <- st_union(s)
+    
+    u <- st_sf(geometry=t) |>
+      mutate(stop_buffer = trips_name, year = yr, buffer = buffer_dist) |>
       st_transform(wgs84)
     
     if(is.null(buffers)) {buffers <- u} else {buffers <- rbind(buffers, u)}
@@ -725,10 +829,10 @@ create_line_chart <- function(df, x, y, fill, esttype="number", dec=0, color, le
 
 # Maps --------------------------------------------------------------------
 
-create_stop_buffer_map<- function(lyr=transit_buffers, buffer) {
+create_stop_buffer_map<- function(lyr=transit_buffers, buffer_name, buffer_distance=0) {
   
   # Trim Layer to Variable of Interest and Year
-  lyr <- lyr |> filter(stop_buffer %in% buffer)
+  lyr <- lyr |> filter(stop_buffer %in% buffer_name & buffer == buffer_distance)
   
   labels <- paste0("<b>", paste0("Transit Type: "),"</b>", lyr$stop_buffer) |> lapply(htmltools::HTML)
   
@@ -737,7 +841,7 @@ create_stop_buffer_map<- function(lyr=transit_buffers, buffer) {
     addProviderTiles(providers$CartoDB.Positron) |>
     
     addLayersControl(baseGroups = c("Base Map"),
-                     overlayGroups = c(buffer),
+                     overlayGroups = c(buffer_name),
                      options = layersControlOptions(collapsed = TRUE)) |>
     
     addEasyButton(easyButton(
@@ -749,13 +853,13 @@ create_stop_buffer_map<- function(lyr=transit_buffers, buffer) {
                 fillOpacity = 1,
                 opacity = 0,
                 label = labels,
-                group = buffer) |>
+                group = buffer_name) |>
     
     setView(lng = -122.257, lat = 47.615, zoom = 8.5) |>
     
     addLegend(colors=c("#91268F"),
-              labels=c(buffer),
-              group = buffer,
+              labels=c(buffer_name),
+              group = buffer_name,
               position = "bottomleft")
   
   
@@ -764,7 +868,7 @@ create_stop_buffer_map<- function(lyr=transit_buffers, buffer) {
   
 }
 
-create_route_map<- function(lyr=transit_layer_data, yr) {
+create_route_map<- function(lyr=transit_layer_data, yr=current_year) {
   
   # Trim Layer to Variable of Interest and Year
   lyr <- lyr |> filter(year == yr)

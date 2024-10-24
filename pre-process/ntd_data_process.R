@@ -18,13 +18,15 @@ gtfs_service <- "fall"
 latest_census <- 2022
 latest_ofm <- 2023
 
-generate_ntd_data <- "yes"
-generate_gtfs_data <- "yes"
-generate_efa_data <- "yes"
-generate_parcel_data <- "yes"
-generate_transit_population <- "yes"
-generate_transit_buffers <- "yes"
-generate_transit_layers <- "yes"
+generate_ntd_data <- "no"
+generate_gtfs_data <- "no"
+generate_efa_data <- "no"
+generate_parcel_data <- "no"
+generate_transit_population <- "no"
+generate_transit_buffers <- "no"
+generate_transit_layers <- "no"
+generate_transit_trip_population <- "no"
+generate_transit_trip_buffers <- "yes"
 
 hct_modes <- c("BRT", "Passenger Ferry", "Light Rail", "Streetcar", "Commuter Rail", "Auto Ferry")
 bus_modes <- c("Bus", "ST Express")
@@ -49,6 +51,7 @@ if (generate_gtfs_data == "yes") {
     if(is.null(transit_stops)) {transit_stops <- s} else {transit_stops <- bind_rows(transit_stops, s)}
     rm(s)
   }
+  transit_stops <- transit_stops |> drop_na()
   saveRDS(transit_stops, "data/transit_stops.rds")
 } else {
   print(str_glue("Loading GTFS based transit stop Data from stored results."))
@@ -144,7 +147,7 @@ if(generate_parcel_data == "yes") {
   
 }
 
-# Population Estimates near Transit ------------------------------------
+# Population Estimates near Transit by Mode ------------------------------------
 if(generate_transit_population == "yes") {
   
   transit_buffer_data <- NULL
@@ -168,6 +171,42 @@ if(generate_transit_population == "yes") {
   
   print(str_glue("Loading Transit Buffer Population Data from stored results."))
   transit_buffer_data <- readRDS("data/transit_buffer_data.rds")
+  
+}
+
+# Population Estimates near Transit by Trips ------------------------------------
+if(generate_transit_trip_population == "yes") {
+  
+  transit_trip_data <- NULL
+  for(y in gtfs_years) {
+    
+    trips_1_qtr <- calculate_transit_trip_data(yr = y, num_trips = 14, trips_name = "1 Trip per hour", buffer_dist = 0.25)
+    trips_2_qtr <- calculate_transit_trip_data(yr = y, num_trips = 28, trips_name = "2 Trips per hour", buffer_dist = 0.25)
+    trips_4_qtr <- calculate_transit_trip_data(yr = y, num_trips = 56, trips_name = "4 trips per hour", buffer_dist = 0.25)
+    trips_8_qtr <- calculate_transit_trip_data(yr = y, num_trips = 112, trips_name = "8 trips per hour", buffer_dist = 0.25)
+    trips_12_qtr <- calculate_transit_trip_data(yr = y, num_trips = 168, trips_name = "12 trips per hour", buffer_dist = 0.25)
+    trips_20_qtr <- calculate_transit_trip_data(yr = y, num_trips = 280, trips_name = "20 trips per hour", buffer_dist = 0.25)
+    
+    trips_1_hlf <- calculate_transit_trip_data(yr = y, num_trips = 14, trips_name = "1 Trip per hour", buffer_dist = 0.50)
+    trips_2_hlf <- calculate_transit_trip_data(yr = y, num_trips = 28, trips_name = "2 Trips per hour", buffer_dist = 0.50)
+    trips_4_hlf <- calculate_transit_trip_data(yr = y, num_trips = 56, trips_name = "4 trips per hour", buffer_dist = 0.50)
+    trips_8_hlf <- calculate_transit_trip_data(yr = y, num_trips = 112, trips_name = "8 trips per hour", buffer_dist = 0.50)
+    trips_12_hlf <- calculate_transit_trip_data(yr = y, num_trips = 168, trips_name = "12 trips per hour", buffer_dist = 0.50)
+    trips_20_hlf <- calculate_transit_trip_data(yr = y, num_trips = 280, trips_name = "20 trips per hour", buffer_dist = 0.50)
+    
+    d <- bind_rows(trips_1_qtr, trips_2_qtr, trips_4_qtr, trips_8_qtr, trips_12_qtr, trips_20_qtr,
+                   trips_1_hlf, trips_2_hlf, trips_4_hlf, trips_8_hlf, trips_12_hlf, trips_20_hlf)
+    
+    if(is.null(transit_trip_data)) {transit_trip_data <- d} else {transit_trip_data <- bind_rows(transit_trip_data, d)}
+    rm(trips_1_qtr, trips_2_qtr, trips_4_qtr, trips_8_qtr, trips_12_qtr, trips_20_qtr, trips_1_hlf, trips_2_hlf, trips_4_hlf, trips_8_hlf, trips_12_hlf, trips_20_hlf, d)
+  }
+  
+  saveRDS(transit_trip_data, "data/transit_trip_data.rds")
+  
+} else {
+  
+  print(str_glue("Loading Transit Trip Population Data from stored results."))
+  transit_trip_data <- readRDS("data/transit_trip_data.rds")
   
 }
 
@@ -210,6 +249,37 @@ if(generate_transit_buffers == "yes") {
   
   print(str_glue("Loading Transit Buffers from stored results."))
   transit_buffers <- readRDS("data/transit_buffers.rds")
+  
+}
+
+# Transit Trip Buffers for Maps ------------------------------------------------
+if(generate_transit_trip_buffers == "yes") {
+  
+  trips_1_qtr <- create_transit_trip_buffer(num_trips = 14, trips_name = "1 Trip per hour", buffer_dist = 0.25)
+  trips_2_qtr <- create_transit_trip_buffer(num_trips = 28, trips_name = "2 Trips per hour", buffer_dist = 0.25)
+  trips_4_qtr <- create_transit_trip_buffer(num_trips = 56, trips_name = "4 trips per hour", buffer_dist = 0.25)
+  trips_8_qtr <- create_transit_trip_buffer(num_trips = 112, trips_name = "8 trips per hour", buffer_dist = 0.25)
+  trips_12_qtr <- create_transit_trip_buffer(num_trips = 168, trips_name = "12 trips per hour", buffer_dist = 0.25)
+  trips_20_qtr <- create_transit_trip_buffer(num_trips = 280, trips_name = "20 trips per hour", buffer_dist = 0.25)
+
+  trips_1_hlf <- create_transit_trip_buffer(num_trips = 14, trips_name = "1 Trip per hour", buffer_dist = 0.50)
+  trips_2_hlf <- create_transit_trip_buffer(num_trips = 28, trips_name = "2 Trips per hour", buffer_dist = 0.50)
+  trips_4_hlf <- create_transit_trip_buffer(num_trips = 56, trips_name = "4 trips per hour", buffer_dist = 0.50)
+  trips_8_hlf <- create_transit_trip_buffer(num_trips = 112, trips_name = "8 trips per hour", buffer_dist = 0.50)
+  trips_12_hlf <- create_transit_trip_buffer(num_trips = 168, trips_name = "12 trips per hour", buffer_dist = 0.50)
+  trips_20_hlf <- create_transit_trip_buffer(num_trips = 280, trips_name = "20 trips per hour", buffer_dist = 0.50)
+  
+  transit_trip_buffers <- bind_rows(trips_1_qtr, trips_2_qtr, trips_4_qtr, trips_8_qtr, trips_12_qtr, trips_20_qtr,
+                                    trips_1_hlf, trips_2_hlf, trips_4_hlf, trips_8_hlf, trips_12_hlf, trips_20_hlf)
+  
+  rm(trips_1_qtr, trips_2_qtr, trips_4_qtr, trips_8_qtr, trips_12_qtr, trips_20_qtr, trips_1_hlf, trips_2_hlf, trips_4_hlf, trips_8_hlf, trips_12_hlf, trips_20_hlf)
+  
+  saveRDS(transit_trip_buffers, "data/transit_trip_buffers.rds")
+  
+} else {
+  
+  print(str_glue("Loading Transit Buffers from stored results."))
+  transit_trip_buffers <- readRDS("data/transit_trip_buffers.rds")
   
 }
 

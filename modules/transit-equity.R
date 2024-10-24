@@ -22,7 +22,7 @@ transit_equity_server <- function(id) {
         pivot_longer(cols = !c(year, transit_buffer)) |>
         mutate(year = as.character(year), 
                name = str_remove_all(name, "_share"),
-               name = str_replace_all(name, "population", "Total"),
+               name = str_replace_all(name, "population", "Total Population"),
                name = str_replace_all(name, "poc", "People of Color"),
                name = str_replace_all(name, "pov", "People with Lower Incomes"),
                name = str_replace_all(name, "lep", "People with Limited English"),
@@ -36,7 +36,7 @@ transit_equity_server <- function(id) {
     output$equity_chart_title <- renderText(paste0(efa_metric(), ": ",buffer_metric(), " stops"))
     
     # Insights
-    output$equity_insights_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Equity", page_info = "description"))})
+    output$equity_insights_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Type", page_info = "description"))})
     
     # Value Box Titles & Values
     output$equity_pop_pre_pandemic_title <- renderUI(shiny::p(paste0(pre_pandemic, " EFA Population near ", buffer_metric()), style = "font-size: 1.25rem"))
@@ -56,21 +56,21 @@ transit_equity_server <- function(id) {
                                                                       pivot_longer(cols = contains("share")) |>
                                                                       mutate(year = as.character(year), 
                                                                              name = str_remove_all(name, "_share"),
-                                                                             name = str_replace_all(name, "population", "Total"),
+                                                                             name = str_replace_all(name, "population", "Total Population"),
                                                                              name = str_replace_all(name, "poc", "People of Color"),
                                                                              name = str_replace_all(name, "pov", "People with Lower Incomes"),
                                                                              name = str_replace_all(name, "lep", "People with Limited English"),
                                                                              name = str_replace_all(name, "yth", "Youth"),
                                                                              name = str_replace_all(name, "old", "Older Adults"),
                                                                              name = str_replace_all(name, "dis", "People with a Disability")) |>
-                                                                      filter(name %in% c("Total", efa_metric())),
+                                                                      filter(name %in% c("Total Population", efa_metric())),
                                                                     x="year", y="value", fill="name",
                                                                     esttype="percent", top_padding = 50,
                                                                     color=c("#4C4C4C","#91268F"),
                                                                     left_align = '20%', title = "% of Population",
                                                                     legend = TRUE)})
     
-    output$transit_equity_map <- renderLeaflet({create_stop_buffer_map(buffer = buffer_metric())})
+    output$transit_equity_map <- renderLeaflet({create_stop_buffer_map(buffer_name = buffer_metric())})
 
     # Tab layout
     output$transitequity <- renderUI({
