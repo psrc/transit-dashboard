@@ -62,8 +62,9 @@ transit_region_server <- function(id) {
     # Tab layout
     output$transitregion <- renderUI({
       tagList(
-        br(),
         
+        br(),
+
         selectInput(ns("NTDMetric"), label="Select a Transit Metric:", choices=ntd_metric_list, selected = "Boardings"),
         
         hr(style = "border-top: 1px solid #000000;"),
@@ -128,7 +129,7 @@ transit_region_server <- function(id) {
                     class = "insights_panel")
         ),
         
-        hr(style = "border-top: 1px solid #000000;"),
+        hr(style = "border-top: 1px solid #000000;")
         
       )
     }) 

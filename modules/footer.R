@@ -25,16 +25,15 @@ footer_server <- function(id) {
         title =  strong(div(class="footer_title",
                             
                             fluidRow(column(1, div(img(src = "footer-logo.png", class = "responsive-footer-image"))),
-                                     column(11, region_tag)),
+                                     column(11, div(class = "footer_title", region_tag))),
                             hr(),
-                            fluidRow(column(12, "Our Mission"))
+                            fluidRow(column(12, div(class = "footer_title", "Our Mission")))
         )),
         lead = div(class="footer_mission",  
                    fluidRow(column(12, mission)),
-                   hr(),
         ),
         
-        strong(a(class = "footer_title", "Connect with PSRC: ")),
+        #strong(a(class = "footer_subtitle", "Connect with PSRC: ")),
         a(class = "footer_url", href="https://www.facebook.com/PugetSoundRegionalCouncil", icon("facebook"), target="_blank"),
         a(class = "footer_url", href="https://twitter.com/SoundRegion", icon("x-twitter"), target="_blank"),
         a(class = "footer_url", href="https://www.instagram.com/soundregion/", icon("instagram"), target="_blank"),

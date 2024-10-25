@@ -18,7 +18,9 @@ transit_overview_server <- function(id) {
     # Overview UI
     output$transitoverview <- renderUI({
       tagList(
+        
         br(),
+
         htmlOutput(ns("transit_overview_text")),
         br(),
         
@@ -31,12 +33,9 @@ transit_overview_server <- function(id) {
               bs_carousel(id = "transit_photos", use_indicators = TRUE, use_controls = TRUE) |>
                 bs_append(content = bs_carousel_image(src = "ct_adj.jpg")) |>
                 bs_append(content = bs_carousel_image(src = "kc-fast-ferry_adj.jpg")) |>
-                bs_append(content = bs_carousel_image(src = "et_adj.jpg")) |>
-                #bs_append(content = bs_carousel_image(src = "line1_adj.jpg")) |>
                 bs_append(content = bs_carousel_image(src = "wsf_adj.jpg")) |>
                 bs_append(content = bs_carousel_image(src = "kcm_adj.jpg")) |>
                 bs_append(content = bs_carousel_image(src = "pt_adj.jpg")) |>
-                #bs_append(content = bs_carousel_image(src = "slu_adj.jpg")) |>
                 bs_append(content = bs_carousel_image(src = "line2_adj.jpg")) |>
                 bs_append(content = bs_carousel_image(src = "kt-fast-ferry_adj.jpg")) |>
                 bs_append(content = bs_carousel_image(src = "sounder_adj.jpg"))
@@ -47,7 +46,7 @@ transit_overview_server <- function(id) {
           
         ),
         
-        hr(style = "border-top: 1px solid #000000;"),
+        hr(style = "border-top: 1px solid #000000;")
         
       )
     })

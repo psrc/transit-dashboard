@@ -375,7 +375,7 @@ transit_operator_server <- function(id) {
                     class = "insights_panel")
         ),
         
-        hr(style = "border-top: 1px solid #000000;"),
+        hr(style = "border-top: 1px solid #000000;")
       )
       }) 
   })  # end moduleServer

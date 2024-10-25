@@ -75,7 +75,7 @@ transit_equity_server <- function(id) {
     # Tab layout
     output$transitequity <- renderUI({
       tagList(
- 
+        
         br(),
         
         selectInput(ns("STOPbuffer"), label="Select a Transit Type:", choices=stop_buffer_list, selected = "High-Capacity Transit"),
@@ -140,7 +140,7 @@ transit_equity_server <- function(id) {
                     class = "insights_panel")
         ),
         
-        hr(style = "border-top: 1px solid #000000;"),
+        hr(style = "border-top: 1px solid #000000;")
 
       )
     }) 

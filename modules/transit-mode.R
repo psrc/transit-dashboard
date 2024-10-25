@@ -133,6 +133,7 @@ transit_mode_server <- function(id) {
     # Tab layout
     output$transitmode <- renderUI({
       tagList(
+        
         br(),
         
         selectInput(ns("NTDModes"), label="Select a Transit Mode:", choices=ntd_mode_list, selected = "Bus"),
@@ -373,7 +374,7 @@ transit_mode_server <- function(id) {
                     class = "insights_panel")
         ),
         
-        hr(style = "border-top: 1px solid #000000;"),
+        hr(style = "border-top: 1px solid #000000;")
       )
     }) 
   })  # end moduleServer
