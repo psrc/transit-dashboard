@@ -50,14 +50,14 @@ transit_region_server <- function(id) {
                                                                        mutate(year=as.character(year)),
                                                                      x = "year", y = "estimate", fill = "metric", legend=FALSE,
                                                                      esttype = "number", color = c("#00A7A0"),
-                                                                     left_align = '15%', title = "Boardings")})
+                                                                     left_align = '20%', title = "Boardings")})
 
     output$ntd_region_annual_chart <- renderEcharts4r({create_bar_chart(df = ntd_data |> 
                                                                           filter(variable == "All Transit Modes" & geography == "Region" & metric == region_metric() & grouping == "Annual") |> 
                                                                           mutate(year=as.character(year)),
                                                                         x = "year", y = "estimate", fill = "metric", legend=FALSE,
                                                                         esttype = "number", color = c("#73CFCB"),
-                                                                        left_align = '15%', title = "Boardings")})
+                                                                        left_align = '20%', title = "Boardings")})
     
     # Tab layout
     output$transitregion <- renderUI({

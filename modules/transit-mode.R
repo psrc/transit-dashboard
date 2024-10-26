@@ -77,14 +77,14 @@ transit_mode_server <- function(id) {
                                                                                mutate(year=as.character(year)),
                                                                              x = "year", y = "estimate", fill = "metric", 
                                                                              esttype = "number", color = c("#F05A28"),
-                                                                             left_align = '25%', title = "Boardings", legend=FALSE)})
+                                                                             left_align = '20%', title = "Boardings", legend=FALSE)})
     
     output$ntd_mode_boardings_annual_chart <- renderEcharts4r({create_bar_chart(df = ntd_data |>
                                                                                   filter(variable == mode_metric() & geography == "Region" & metric == "Boardings" & grouping == "Annual") |>
                                                                                   mutate(year=as.character(year)),
                                                                                 x = "year", y = "estimate", fill = "metric", 
                                                                                 esttype = "number", color = c("#F7A489"),
-                                                                                left_align = '25%', title = "Boardings", legend=FALSE)})
+                                                                                left_align = '20%', title = "Boardings", legend=FALSE)})
     
     
     
@@ -93,42 +93,42 @@ transit_mode_server <- function(id) {
                                                                            mutate(year=as.character(year)),
                                                                          x = "year", y = "estimate", fill = "metric", 
                                                                          esttype = "number", color = c("#91268F"),
-                                                                         left_align = '25%', title = "Revenue-Hours", legend=FALSE)})
+                                                                         left_align = '20%', title = "Revenue-Hours", legend=FALSE)})
     
     output$ntd_mode_hours_annual_chart <- renderEcharts4r({create_bar_chart(df = ntd_data |> 
                                                                               filter(variable == mode_metric() & geography == "Region" & metric == "Revenue-Hours" & grouping == "Annual") |>
                                                                               mutate(year=as.character(year)),
                                                                             x = "year", y = "estimate", fill = "metric", 
                                                                             esttype = "number", color = c("#C388C2"),
-                                                                            left_align = '25%', title = "Revenue-Hours", legend=FALSE)})
+                                                                            left_align = '20%', title = "Revenue-Hours", legend=FALSE)})
     
     output$ntd_mode_miles_ytd_chart <- renderEcharts4r({create_bar_chart(df = ntd_data |>
                                                                            filter(variable == mode_metric() & geography == "Region" & metric == "Revenue-Miles" & grouping == paste0("Year to Date: Jan-",latest_ntd_month)) |>
                                                                            mutate(year=as.character(year)),
                                                                          x = "year", y = "estimate", fill = "metric", 
                                                                             esttype = "number", color = c("#8CC63E"),
-                                                                            left_align = '25%', title = "Revenue-Miles", legend=FALSE)})
+                                                                            left_align = '20%', title = "Revenue-Miles", legend=FALSE)})
     
     output$ntd_mode_miles_annual_chart <- renderEcharts4r({create_bar_chart(df = ntd_data |>
                                                                               filter(variable == mode_metric() & geography == "Region" & metric == "Revenue-Miles" & grouping == "Annual") |>
                                                                               mutate(year=as.character(year)),
                                                                             x = "year", y = "estimate", fill = "metric",
                                                                             esttype = "number", color = c("#C0E095"),
-                                                                            left_align = '25%', title = "Revenue-Miles", legend=FALSE)})
+                                                                            left_align = '20%', title = "Revenue-Miles", legend=FALSE)})
     
     output$ntd_mode_bph_ytd_chart <- renderEcharts4r({create_bar_chart(df = ntd_data |> 
                                                                          filter(variable == mode_metric() & geography == "Region" & metric == "Boardings-per-Hour" & grouping == paste0("Year to Date: Jan-",latest_ntd_month)) |>
                                                                          mutate(year=as.character(year)),
                                                                        x = "year", y = "estimate", dec=1, fill = "metric", 
                                                                        esttype = "number", color = c("#00A7A0"),
-                                                                       left_align = '25%', title = "Boardings per Hour", legend=FALSE)})
+                                                                       left_align = '20%', title = "Boardings per Hour", legend=FALSE)})
     
     output$ntd_mode_bph_annual_chart <- renderEcharts4r({create_bar_chart(df = ntd_data |>
                                                                             filter(variable == mode_metric() & geography == "Region" & metric == "Boardings-per-Hour" & grouping == "Annual") |>
                                                                             mutate(year=as.character(year)),
                                                                           x = "year", y = "estimate", dec=1, fill = "metric", 
                                                                           esttype = "number", color = c("#73CFCB"),
-                                                                          left_align = '25%', title = "Boardings per Hour", legend=FALSE)})
+                                                                          left_align = '20%', title = "Boardings per Hour", legend=FALSE)})
     
     # Tab layout
     output$transitmode <- renderUI({
