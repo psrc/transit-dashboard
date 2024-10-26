@@ -7,6 +7,17 @@ body {
   padding-top: 70px;
 }
 
+h3 {
+  color: #8CC63E;
+  font-size: 1.25em;
+  font-weight: 300;
+}
+
+.mainpage_title {
+  color: #2F3030;
+  font-family: "Poppins";
+  font-size: 22pt;
+}
 
 /* tabset pills for active and static state */
 
@@ -20,19 +31,7 @@ body {
   color:white
 }
 
-/* container for the footer */
-
-.jumbotron.bg-info{
-  background-color: #4A0048;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 0px;
-  width: 100%;
-}
-
-/* text and fonts for the footer */
+/* footer styles */
 
 i {
   color: #EC9B21;
@@ -41,122 +40,105 @@ i {
   padding-right: 15px;
 }
 
-.footer_title {
-  color: #FFFFFF;
-  font-family: "Poppins";
-  font-size: 16pt;
-}
-
-.footer_mission {
-  color: #FFFFFF;
+.footer_url {
+  color: #EC9B21;
   font-family: "Poppins";
   font-size: 12pt;
 }
 
-.responsive-footer-image {
+.footer {
+  position: fixed;
+  font-family: "Poppins";
+  bottom: 0;
   width: 100%;
 }
 
-@media (max-width: 768px) {
-  .responsive-footer-image {
-    width: 15%;
-  }
+.footer-container .details {
+  padding: 2rem 2rem;
 }
+
+.footer-container .soc-media {
+  padding: 2rem 2rem;
+}
+
+
+.footer-container > .details-container {
+  margin-top: 2rem;
+  background-color: #4A0048;
+}
+
+.details-container > .details {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.details-container > .details h3 {
+  color: white;
+  font-weight: 600;
+  padding-bottom: 1rem;
+}
+
+
+.footer-container > .soc-media-container {
+ background-color: #630460;
+ margin-bottom: 2rem;
+}
+
+
+.details article:first-child{
+  width: 50%;
+}
+
+
+.footer-container .details i {
+  color: white;
+  font-size: 1.75rem;
+}
+
+
+.psrc-contacts div {
+  margin-bottom: 1rem;
+}
+
+.psrc-location {
+  display: flex;
+}
+
+.psrc-location div > div {
+  margin-bottom: 0rem;
+}
+
+
+.psrc-contacts div:nth-child(3):after{
+  content: "\a";
+}
+
+.psrc-contacts .footer_url,
+.soc-media .footer_url {
+  font-weight: 600;
+}
+
+.soc-media {
+  display: flex;
+  justify-content: space-between;
+}
+
+.soc-media p { 
+  color: white;
+}
+
+.soc-media i {
+  font-size: 1.75rem;
+}
+
+/* left panel module */
 
 .source_url {
   color: #00716C;
   font-family: "Poppins";
   font-size: 12pt;
 }
-
-.sidebar_email {
-  color: #00716C;
-  font-family: "Poppins";
-  font-size: 12pt;
-}
-
-.logo_url {
-  color: #00716C;
-  font-family: "Poppins";
-  font-size: 24pt;
-}
-
-.plan_source_url {
-  color: #00716C;
-  font-family: "Poppins";
-  font-size: 10pt;
-}
-
-.mainpage_title {
-  color: #2F3030;
-  font-family: "Poppins";
-  font-size: 22pt;
-}
-
-.mainpage_subtitle {
-  color: #2F3030;
-  font-family: "Poppins";
-  font-size: 10pt;
-}
-
-.sidebar_headings {
-  font-weight: 16pt;
-  font-size: 14pt;
-  font-family: "Poppins";
-  color: #2F3030;
-}
-
-.sidebar_notes {
-  font-size: 12pt;
-  color: #76787A;
-}
-
-.sidebar_data {
-  font-size: 12pt;
-  color: #91268F;
-}
-
-.sidebar_label {
-  font-size: 12pt;
-  color: #8CC63E;
-}
-
-.datatables {
-  font-size: 10pt; 
-}
-
-.page_goals {
-  font-family: "Poppins";
-  font-size: 18pt;
-  color: #F05A28;
-}
-
-head {
-  background-image: url("psrc-logo.png");
-  background-color : #4A0048; 
-}
-
-.chart_title {
-  color: black;
-  font-family: "Poppins";
-  font-size: 2rem;
-  font-weight: 600;
-}
-
-.chart_source {
-  color: #2F3030;
-  font-family: "Poppins";
-  font-size: 12px;
-  font-style: italic;
-}
-
-.fa {
-  color: #3f6618;
-  
-}
-
-
-/* left panel module */
 
 .col-sm-4 {
   padding: 0rem 10rem;
@@ -238,6 +220,89 @@ head {
       float:right;
       transition: .5s ease-in-out;
 }
+
+/* 
+.sidebar_email {
+  color: #00716C;
+  font-family: "Poppins";
+  font-size: 12pt;
+}
+
+.logo_url {
+  color: #00716C;
+  font-family: "Poppins";
+  font-size: 24pt;
+}
+
+.plan_source_url {
+  color: #00716C;
+  font-family: "Poppins";
+  font-size: 10pt;
+}
+
+.mainpage_subtitle {
+  color: #2F3030;
+  font-family: "Poppins";
+  font-size: 10pt;
+}
+
+.sidebar_headings {
+  font-weight: 16pt;
+  font-size: 14pt;
+  font-family: "Poppins";
+  color: #2F3030;
+}
+
+.sidebar_notes {
+  font-size: 12pt;
+  color: #76787A;
+}
+
+.sidebar_data {
+  font-size: 12pt;
+  color: #91268F;
+}
+
+.sidebar_label {
+  font-size: 12pt;
+  color: #8CC63E;
+}
+
+.datatables {
+  font-size: 10pt; 
+}
+
+.page_goals {
+  font-family: "Poppins";
+  font-size: 18pt;
+  color: #F05A28;
+}
+*/
+
+head {
+  background-image: url("psrc-logo.png");
+  background-color : #4A0048; 
+}
+
+.chart_title {
+  color: black;
+  font-family: "Poppins";
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.chart_source {
+  color: #2F3030;
+  font-family: "Poppins";
+  font-size: 12px;
+  font-style: italic;
+}
+
+.fa {
+  color: #3f6618;
+  
+}
+
 
 /* Connect With Us - Contacts */
 /*https://css-generators.com/custom-corners/*/
