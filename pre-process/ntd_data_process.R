@@ -22,11 +22,11 @@ generate_ntd_data <- "no"
 generate_gtfs_data <- "no"
 generate_efa_data <- "no"
 generate_parcel_data <- "no"
-generate_transit_population <- "no"
-generate_transit_buffers <- "no"
+generate_transit_population <- "yes"
+generate_transit_buffers <- "yes"
 generate_transit_layers <- "no"
 generate_transit_trip_population <- "no"
-generate_transit_trip_buffers <- "yes"
+generate_transit_trip_buffers <- "no"
 
 hct_modes <- c("BRT", "Passenger Ferry", "Light Rail", "Streetcar", "Commuter Rail", "Auto Ferry")
 bus_modes <- c("Bus", "ST Express")
@@ -153,16 +153,21 @@ if(generate_transit_population == "yes") {
   transit_buffer_data <- NULL
   for(y in gtfs_years) {
     
-    hct <- calculate_transit_buffer_data(yr = y, modes = hct_modes, mode_name = "High-Capacity Transit", buffer_dist = 0.50)
-    bus <- calculate_transit_buffer_data(yr = y, modes = bus_modes, mode_name = "Local & Regional Bus", buffer_dist = 0.25)
-    rail <- calculate_transit_buffer_data(yr = y, modes = rail_modes, mode_name = "Light Rail & Streetcar", buffer_dist = 0.50)
-    ferry <- calculate_transit_buffer_data(yr = y, modes = ferry_modes, mode_name = "Ferries", buffer_dist = 1.00)
-    transit_qtr <- calculate_transit_buffer_data(yr = y, modes = transit_modes, mode_name = "1/4mi all Transit", buffer_dist = 0.25)
-    transit_hlf <- calculate_transit_buffer_data(yr = y, modes = transit_modes, mode_name = "1/2mi all Transit", buffer_dist = 0.50)
+    hct_qtr <- calculate_transit_buffer_data(yr = y, modes = hct_modes, mode_name = "High-Capacity Transit", buffer_dist = 0.25)
+    bus_qtr <- calculate_transit_buffer_data(yr = y, modes = bus_modes, mode_name = "Local & Regional Bus", buffer_dist = 0.25)
+    rail_qtr <- calculate_transit_buffer_data(yr = y, modes = rail_modes, mode_name = "Light Rail & Streetcar", buffer_dist = 0.25)
+    ferry_qtr <- calculate_transit_buffer_data(yr = y, modes = ferry_modes, mode_name = "Ferries", buffer_dist = 0.25)
+    transit_qtr <- calculate_transit_buffer_data(yr = y, modes = transit_modes, mode_name = "All Transit", buffer_dist = 0.25)
     
-    d <- bind_rows(hct, bus, rail, ferry, transit_qtr, transit_hlf)
+    hct_hlf <- calculate_transit_buffer_data(yr = y, modes = hct_modes, mode_name = "High-Capacity Transit", buffer_dist = 0.50)
+    bus_hlf <- calculate_transit_buffer_data(yr = y, modes = bus_modes, mode_name = "Local & Regional Bus", buffer_dist = 0.50)
+    rail_hlf <- calculate_transit_buffer_data(yr = y, modes = rail_modes, mode_name = "Light Rail & Streetcar", buffer_dist = 0.50)
+    ferry_hlf <- calculate_transit_buffer_data(yr = y, modes = ferry_modes, mode_name = "Ferries", buffer_dist = 0.50)
+    transit_hlf <- calculate_transit_buffer_data(yr = y, modes = transit_modes, mode_name = "All Transit", buffer_dist = 0.50)
+    
+    d <- bind_rows(hct_qtr, bus_qtr, rail_qtr, ferry_qtr, transit_qtr, hct_hlf, bus_hlf, rail_hlf, ferry_hlf, transit_hlf)
     if(is.null(transit_buffer_data)) {transit_buffer_data <- d} else {transit_buffer_data <- bind_rows(transit_buffer_data, d)}
-    rm(hct, bus, rail, ferry, transit_qtr, transit_hlf, d)
+    rm(hct_qtr, bus_qtr, rail_qtr, ferry_qtr, transit_qtr, hct_hlf, bus_hlf, rail_hlf, ferry_hlf, transit_hlf, d)
   }
   
   saveRDS(transit_buffer_data, "data/transit_buffer_data.rds")
@@ -233,15 +238,20 @@ if(generate_transit_layers == "yes") {
 # Transit Buffers for Maps ------------------------------------------------
 if(generate_transit_buffers == "yes") {
   
-  hct <- create_transit_buffer(modes = hct_modes, mode_name = "High-Capacity Transit", buffer_dist = 0.50)
-  bus <- create_transit_buffer(modes = bus_modes, mode_name = "Local & Regional Bus", buffer_dist = 0.25)
-  rail <- create_transit_buffer(modes = rail_modes, mode_name = "Light Rail & Streetcar", buffer_dist = 0.50)
-  ferry <- create_transit_buffer(modes = ferry_modes, mode_name = "Ferries", buffer_dist = 1.00)
-  transit_qtr <- create_transit_buffer(modes = transit_modes, mode_name = "1/4mi all Transit", buffer_dist = 0.25)
-  transit_hlf <- create_transit_buffer(modes = transit_modes, mode_name = "1/2mi all Transit", buffer_dist = 0.50)
+  hct_qtr <- create_transit_buffer(modes = hct_modes, mode_name = "High-Capacity Transit", buffer_dist = 0.25)
+  bus_qtr <- create_transit_buffer(modes = bus_modes, mode_name = "Local & Regional Bus", buffer_dist = 0.25)
+  rail_qtr <- create_transit_buffer(modes = rail_modes, mode_name = "Light Rail & Streetcar", buffer_dist = 0.25)
+  ferry_qtr <- create_transit_buffer(modes = ferry_modes, mode_name = "Ferries", buffer_dist = 0.25)
+  transit_qtr <- create_transit_buffer(modes = transit_modes, mode_name = "All Transit", buffer_dist = 0.25)
   
-  transit_buffers <- bind_rows(hct, bus, rail, ferry, transit_qtr, transit_hlf)
-  rm(hct, bus, rail, ferry, transit_qtr, transit_hlf)
+  hct_hlf <- create_transit_buffer(modes = hct_modes, mode_name = "High-Capacity Transit", buffer_dist = 0.50)
+  bus_hlf <- create_transit_buffer(modes = bus_modes, mode_name = "Local & Regional Bus", buffer_dist = 0.50)
+  rail_hlf <- create_transit_buffer(modes = rail_modes, mode_name = "Light Rail & Streetcar", buffer_dist = 0.50)
+  ferry_hlf <- create_transit_buffer(modes = ferry_modes, mode_name = "Ferries", buffer_dist = 0.50)
+  transit_hlf <- create_transit_buffer(modes = transit_modes, mode_name = "All Transit", buffer_dist = 0.50)
+  
+  transit_buffers <- bind_rows(hct_qtr, bus_qtr, rail_qtr, ferry_qtr, transit_qtr, hct_hlf, bus_hlf, rail_hlf, ferry_hlf, transit_hlf)
+  rm(hct_qtr, bus_qtr, rail_qtr, ferry_qtr, transit_qtr, hct_hlf, bus_hlf, rail_hlf, ferry_hlf, transit_hlf)
   
   saveRDS(transit_buffers, "data/transit_buffers.rds")
 

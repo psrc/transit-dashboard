@@ -52,7 +52,7 @@ current_year <- 2024
 ntd_data <- readRDS("data/ntd_data.rds")
 
 # Buffers by Transit Mode
-transit_buffers <- readRDS("data/transit_buffers.rds") |> filter(year == year(Sys.Date())) |> mutate(buffer=0)
+transit_buffers <- readRDS("data/transit_buffers.rds") |> filter(year == year(Sys.Date()))
 transit_buffer_data <- readRDS("data/transit_buffer_data.rds")
 
 # Buffers by Transit Trips

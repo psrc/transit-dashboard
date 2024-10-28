@@ -478,7 +478,7 @@ calculate_transit_buffer_data <- function(stops=transit_stops, parcels=parcel_da
     select(year = "gtfs_year", "population", "population_share", 
            "poc", "poc_share", "pov", "pov_share", "lep", "lep_share",
            "yth", "yth_share", "old", "old_share", "dis", "dis_share") |>
-    mutate(transit_buffer = mode_name)
+    mutate(transit_buffer = mode_name, buffer = buffer_dist)
   
   return(d)
   
@@ -496,13 +496,13 @@ create_transit_buffer <- function(stops=transit_stops, yrs=gtfs_years, modes, mo
       st_as_sf(coords = c("stop_lon", "stop_lat"), crs=wgs84) |>
       st_transform(spn) |>
       st_buffer(dist = buffer_dist * 5280) |>
-      mutate(stop_buffer = mode_name) |>
-      select("stop_buffer")
+      mutate(stop_buffer = mode_name, buffer = buffer_dist) |>
+      select("stop_buffer", "buffer")
       
     t <- st_union(s)
     
     u <- st_sf(geometry=t) |>
-      mutate(stop_buffer = mode_name, year = yr) |>
+      mutate(stop_buffer = mode_name, year = yr, buffer = buffer_dist) |>
       st_transform(wgs84)
     
     if(is.null(buffers)) {buffers <- u} else {buffers <- rbind(buffers, u)}

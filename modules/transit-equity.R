@@ -14,10 +14,11 @@ transit_equity_server <- function(id) {
     # Metric
     buffer_metric <- reactive({input$STOPbuffer})
     efa_metric <- reactive({input$STOPrace})
+    buffer_dist <- reactive({input$STOPdist})
     
     filtered_df <- reactive({
       transit_buffer_data |> 
-        filter(transit_buffer == buffer_metric()) |> 
+        filter(transit_buffer == buffer_metric() & buffer == buffer_dist()) |> 
         select("year", !(contains("share"))) |>
         pivot_longer(cols = !c(year, transit_buffer)) |>
         mutate(year = as.character(year), 
@@ -51,7 +52,7 @@ transit_equity_server <- function(id) {
     
     # Charts & Maps
     output$transit_equity_chart <- renderEcharts4r({create_line_chart(df = transit_buffer_data |> 
-                                                                      filter(transit_buffer == buffer_metric()) |> 
+                                                                      filter(transit_buffer == buffer_metric() & buffer == buffer_dist()) |> 
                                                                       select("year", contains("share")) |>
                                                                       pivot_longer(cols = contains("share")) |>
                                                                       mutate(year = as.character(year), 
@@ -70,7 +71,7 @@ transit_equity_server <- function(id) {
                                                                     left_align = '20%', title = "% of Population",
                                                                     legend = TRUE)})
     
-    output$transit_equity_map <- renderLeaflet({create_stop_buffer_map(buffer_name = buffer_metric())})
+    output$transit_equity_map <- renderLeaflet({create_stop_buffer_map(buffer_name = buffer_metric(), buffer_distance = buffer_dist())})
 
     # Tab layout
     output$transitequity <- renderUI({
@@ -78,8 +79,12 @@ transit_equity_server <- function(id) {
         
         br(),
         
-        selectInput(ns("STOPbuffer"), label="Select a Transit Type:", choices=stop_buffer_list, selected = "High-Capacity Transit"),
-        selectInput(ns("STOPrace"), label = "Select an Equity Focus Area", choices = efa_list, selected = "People of Color"),
+        layout_column_wrap(
+          width = 1/3,
+          selectInput(ns("STOPbuffer"), label="Select a Transit Type:", choices=stop_buffer_list, selected = "High-Capacity Transit"),
+          selectInput(ns("STOPrace"), label = "Select an Equity Focus Area", choices = efa_list, selected = "People of Color"),
+          radioButtons(ns("STOPdist"), label = "Select a Buffer Distance:", choiceNames = c("1/4 mile", "1/2 mile"), choiceValues = c(0.25, 0.50), inline = TRUE)
+        ),
         
         hr(style = "border-top: 1px solid #000000;"),
         tags$div(class="chart_title", textOutput(ns("equity_chart_title"))),
