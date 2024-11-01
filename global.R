@@ -65,7 +65,7 @@ ntd_mode_list <- ntd_data |> select("variable") |> filter(variable != "All Trans
 ntd_operator_list <- ntd_data |> filter(geography_type == "Transit Operator") |> filter(!(geography %in% c("Senior Services of Snohomish County", "King County Ferry District"))) |> select("geography") |>  distinct() |> pull()
 stop_buffer_list <- unique(transit_buffer_data$transit_buffer)
 stop_trips_list <- unique(transit_trip_data$transit_buffer)
-efa_list <- c("People of Color", "People with Lower Incomes", "People with Limited English", "Youth", "Older Adults", "People with a Disability", "Total Population")
+efa_list <- c("People of Color", "People with Lower Incomes", "People with Limited English", "People with a Disability", "People under 18", "People over 65", "Total Population")
 
 transit_links <- c("Community Transit" = "https://www.communitytransit.org/",
                    "Everett Transit" = "https://everetttransit.org/",

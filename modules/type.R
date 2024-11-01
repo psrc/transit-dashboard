@@ -27,8 +27,8 @@ transit_type_server <- function(id) {
                name = str_replace_all(name, "poc", "People of Color"),
                name = str_replace_all(name, "pov", "People with Lower Incomes"),
                name = str_replace_all(name, "lep", "People with Limited English"),
-               name = str_replace_all(name, "yth", "Youth"),
-               name = str_replace_all(name, "old", "Older Adults"),
+               name = str_replace_all(name, "yth", "People under 18"),
+               name = str_replace_all(name, "old", "People over 65"),
                name = str_replace_all(name, "dis", "People with a Disability")) |>
         filter(name %in% c(efa_metric()))
       })
@@ -43,8 +43,8 @@ transit_type_server <- function(id) {
                name = str_replace_all(name, "poc", "People of Color"),
                name = str_replace_all(name, "pov", "People with Lower Incomes"),
                name = str_replace_all(name, "lep", "People with Limited English"),
-               name = str_replace_all(name, "yth", "Youth"),
-               name = str_replace_all(name, "old", "Older Adults"),
+               name = str_replace_all(name, "yth", "People under 18"),
+               name = str_replace_all(name, "old", "People over 65"),
                name = str_replace_all(name, "dis", "People with a Disability")) |>
         filter(name %in% c("Total Population", efa_metric()))
     })
