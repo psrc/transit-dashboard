@@ -76,9 +76,9 @@ transit_type_server <- function(id) {
         var resizeLabels = function() {
           var layout = el.layout;
           var width = el.clientWidth;
-          var fontSize = width < 600 ? 10 : width < 800 ? 11 : 12;
-          var numTicks = width < 600 ? 2 : width < 800 ? 2 : 1;
-          var legendSize = width < 600 ? 12 : width < 800 ? 14 : 20;
+          var fontSize = width < 600 ? 12 : width < 800 ? 14 : 16;
+          var numTicks = width < 600 ? 3 : width < 800 ? 2 : 1;
+          var legendSize = width < 600 ? 12 : width < 800 ? 14 : 16;
           
           layout.xaxis = { dtick: numTicks };
           layout.xaxis.tickfont = { size: fontSize};

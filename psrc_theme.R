@@ -189,6 +189,10 @@ psrc_theme <- bs_theme(bg = "white",
                        padding-right: 15px;
                        }
                        
+                       a {
+                       color: #EC9B21;
+                       }
+                       
                        .insights_panel {
                        background-color: #C0E095;
                        clip-path: polygon(0 0, 100% 0, 100% 20%, 100% 80%, 95% 100%, 20% 100%, 0 100%, 0% 20%);
