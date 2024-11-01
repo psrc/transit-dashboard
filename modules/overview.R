@@ -35,7 +35,7 @@ transit_overview_server <- function(id) {
       "))
         ),
         
-        h2("Transit in the Central Puget Sound Region"),
+        h1("Transit in the Central Puget Sound Region"),
         
         htmlOutput(ns("transit_overview_text")),
         br(),

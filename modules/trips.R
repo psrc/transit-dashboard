@@ -113,7 +113,7 @@ transit_trips_server <- function(id) {
         ),
         
         hr(style = "border-top: 1px solid #000000;"),
-        h2(textOutput(ns("chart_title"))),
+        h1(textOutput(ns("chart_title"))),
         
         layout_column_wrap(
           width = 0.25,

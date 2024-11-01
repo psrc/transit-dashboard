@@ -27,12 +27,37 @@ psrc_theme <- bs_theme(bg = "white",
                        }
                        
                        /* General Text settings */
-                       h2 {
-                       font-size: 1.625rem;
+                       h1 {
+                       font-size: 2rem;
+                       font-family: Poppins Semibold, sans-serif;
                        font-weight: 600;
                        margin-bottom: 1.5rem;
                        margin-top: 0;
                        line-height: 2.5rem;
+                       }
+                       
+                       h2 {
+                       font-size: 1.625rem;
+                       font-family: Poppins Semibold, sans-serif;
+                       font-weight: 600;
+                       margin-bottom: 1.25rem;
+                       margin-top: 0;
+                       line-height: 2.5rem;
+                       }
+                       
+                       h3 {
+                       font-size: 1.375rem;
+                       font-family: Poppins Semibold, sans-serif;
+                       font-weight: 600;
+                       margin-bottom: 1rem;
+                       margin-top: 0;
+                       line-height: 2.25rem;
+                       }
+                       
+                       .chart_source {
+                       font-size: 1rem;
+                       font-weight: 300;
+                       font-style: italic;
                        }
                        
                        /* accordion settings */

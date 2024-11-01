@@ -227,7 +227,7 @@ transit_mode_server <- function(id) {
         
         # Boardings section
         hr(style = "border-top: 1px solid #000000;"),
-        h2(textOutput(ns("boardings_chart_title"))),
+        h1(textOutput(ns("boardings_chart_title"))),
          
         layout_column_wrap(
                        width = 0.25,
@@ -289,7 +289,7 @@ transit_mode_server <- function(id) {
         
         # Revenue-Hours section
         hr(style = "border-top: 1px solid #000000;"),
-        h2(textOutput(ns("hours_chart_title"))),
+        h1(textOutput(ns("hours_chart_title"))),
         
         layout_column_wrap(
           width = 0.25,
@@ -351,7 +351,7 @@ transit_mode_server <- function(id) {
         
         # Revenue-Miles section
         hr(style = "border-top: 1px solid #000000;"),
-        h2(textOutput(ns("miles_chart_title"))),
+        h1(textOutput(ns("miles_chart_title"))),
 
         layout_column_wrap(
           width = 0.25,
@@ -413,7 +413,7 @@ transit_mode_server <- function(id) {
         
         # Boardings-per-Hour section
         hr(style = "border-top: 1px solid #000000;"),
-        h2(textOutput(ns("bph_chart_title"))),
+        h1(textOutput(ns("bph_chart_title"))),
 
         layout_column_wrap(
           width = 0.25,

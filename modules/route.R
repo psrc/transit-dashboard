@@ -21,7 +21,7 @@ transit_route_server <- function(id) {
     output$transitroute <- renderUI({
       tagList(
         
-        h2(textOutput(ns("route_map_title"))),
+        h1(textOutput(ns("route_map_title"))),
 
         card(
           full_screen = TRUE,

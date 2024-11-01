@@ -89,7 +89,7 @@ transit_region_server <- function(id) {
           
         hr(style = "border-top: 1px solid #000000;"),
         
-        h2(textOutput(ns("region_chart_title"))),
+        h1(textOutput(ns("region_chart_title"))),
         
         layout_column_wrap(
           width = 1/4,
