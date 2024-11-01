@@ -2,58 +2,44 @@
 
 footer_ui <- function(id) {
   ns <- NS(id)
-  
-  mission <- "Our mission is to advance solutions to achieve a thriving, racially equitable, 
-      and sustainable central Puget Sound region through leadership, visionary planning, and collaboration."
-  
+
   tagList( 
     
-    div(class = "footer-container",
-        div(class = "details-container",
-            div(class = 'details',
-                tags$article(
-                  h3("About PSRC"),
-                  p(mission)
-                ),
-                tags$article(div()),
-                tags$article(
-                  h3("Connect with PSRC"),
-                  div(class = "psrc-contacts",
-                      
-                      div(class = "psrc-location",
-                          icon("location-dot"),
-                          div(div("1201 Third Avenue, Suite 500"), "Seattle, WA 98101-3055")
-                      ),
-                      
-                      div(icon("envelope"),
-                          tags$a(class = "footer_url", href = paste0("mailto:","info@psrc.org","?"), "info@psrc.org")),
-                      div(
-                        icon("phone-volume"),  
-                        "206-464-7090")
-                  ) # end div
-                )
-                
-            )
-        )
+    card(
+      
+      layout_columns(
+        col_widths = c(2,7,3),
         
-        ,
+        card_body(tags$img(src='footer-logo.png', style="margin-top: 0x; padding-left: 0px; padding-right: 0px;", class = "responsive-image"), class = "footer_panel"),
         
-        div(class = "soc-media-container",
-            div(class = 'soc-media',
-                div(
-                  a(class = "footer_url", href="https://www.facebook.com/PugetSoundRegionalCouncil", icon("facebook"), target="_blank"),
-                  a(class = "footer_url", href="https://twitter.com/SoundRegion", icon("x-twitter"), target="_blank"),
-                  a(class = "footer_url", href="https://www.instagram.com/soundregion/", icon("instagram"), target="_blank"),
-                  a(class = "footer_url", href="https://www.linkedin.com/company/soundregion", icon("linkedin"), target="_blank")
-                ),
-                div(
-                  p("Dashboard by ", a(class = "footer_url", "PSRC Data Science"))
-                )
-            ) 
-        )
+        card_body(
+          tags$div(class = "footer_heading", HTML(paste0("About PSRC<br>", tags$div(class = "footer_about", psrc_mission)))),
+        ),
         
+        card_body(
+          tags$div(class = "footer_heading", HTML(paste0("Connect with PSRC<br>", 
+                                                         tags$div(class = "psrc-location", HTML("1201 Third Avenue, Suite 500<br>Seattle, WA 98101-3055")),
+                                                         tags$div(class = "psrc-phone", "206-464-7090"),
+                                                         tags$a(class = "psrc_email", href = paste0("mailto:","info@psrc.org","?"), "info@psrc.org")
+          ))),
+        ),
+      ),
+      
+      card_footer(
+        layout_columns(
+          col_widths = c(9,3),
+          card_body(div(
+            a(class = "footer_url", href="https://www.facebook.com/PugetSoundRegionalCouncil", icon("facebook"), target="_blank"),
+            a(class = "footer_url", href="https://twitter.com/SoundRegion", icon("x-twitter"), target="_blank"),
+            a(class = "footer_url", href="https://www.instagram.com/soundregion/", icon("instagram"), target="_blank"),
+            a(class = "footer_url", href="https://www.linkedin.com/company/soundregion", icon("linkedin"), target="_blank")
+          )),
+          
+          tags$div(class = "footer_about", "Dashboard by", tags$div(class = "footer_url", "PSRC Data Science")),
+        ),
+        class = "footer_footer"),
+      class = "footer_panel"
     )
-    
   )
   
 }

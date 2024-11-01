@@ -2,71 +2,62 @@
 
 # Packages for Interactive Web application
 library(shiny)
-library(shinyBS)
-library(shinydashboard)
-library(bs4Dash)
-library(shinycssloaders)
 library(bslib)
-library(bsicons)
-library(bsplus)
-
-# Packages for Number formatting
-library(scales)
 
 # Packages for Data Cleaning/Processing
-library(tidyverse)
+library(dplyr)
+library(readr)
+library(purrr)
+library(lubridate)
+library(stringr)
+library(tidyr)
 
-# Packages for Chart Creation
-library(psrcplot)
-library(echarts4r)
+# Packages for Charts
+library(ggplot2)
+library(plotly)
+library(scales)
+library(htmlwidgets)
 
 # Packages for Map Creation
 library(sf)
 library(leaflet)
 
-# Packages for Table Creation
-library(DT)
+# Inputs ---------------------------------------------------------------
+wgs84 <- 4326
+base_yr <- "2023"
+pre_pandemic <- "2019"
+first_data_yr <- 2010
+current_year <- 2024
 
-# Package for Excel Data Creation
-library(openxlsx)
+gtfs_year <- 2024
+service_change <- "Fall"
+
+source("psrc_theme.R")
+source("functions.R")
 
 # Run Modules Files ---------------------------------------------------------------------------
 module_files <- list.files('modules', full.names = TRUE)
 sapply(module_files, source)
-source("functions.R")
-
-# Page Information --------------------------------------------------------
-left_panel_info <- read_csv("data/left_panel_information.csv", show_col_types = FALSE)
-page_text <- read_csv("data/page_text.csv", show_col_types = FALSE)
-
-# Inputs ---------------------------------------------------------------
-wgs84 <- 4326
-load_clr <- "#91268F"
-
-base_yr <- "2023"
-pre_pandemic <- "2019"
-first_data_yr <- "2010"
-current_year <- 2024
 
 # Data via RDS files ------------------------------------------------------
-ntd_data <- readRDS("data/ntd_data.rds")
-
-# Buffers by Transit Mode
-transit_buffers <- readRDS("data/transit_buffers.rds") |> filter(year == year(Sys.Date()))
-transit_buffer_data <- readRDS("data/transit_buffer_data.rds")
-
-# Buffers by Transit Trips
-transit_trip_buffers <- readRDS("data/transit_trip_buffers.rds") |> filter(year == year(Sys.Date()))
-transit_trip_data <- readRDS("data/transit_trip_data.rds")
-
-# Transit Routes
-transit_layer_data <- readRDS("data/transit_layer_data.rds") |> mutate(year = year(date)) |> filter(year == 2024)
+ntd_data <- readRDS("data/ntd_data.rds") |> mutate(year = as.numeric(year))
 
 latest_ntd_month <- ntd_data |> filter(grouping == "YTD") |> mutate(d = as.character(month(date, label = TRUE))) |> select("d") |> unique() |> pull()
 ntd_data <- ntd_data |> 
   mutate(grouping = str_replace_all(grouping, "YTD", paste0("Year to Date: Jan-",latest_ntd_month))) |>
   mutate(grouping = factor(grouping, levels = c(paste0("Year to Date: Jan-",latest_ntd_month), "Annual"))) |>
   filter(year >= first_data_yr)
+
+transit_layer_data <- readRDS("data/transit_layer_data.rds")
+
+transit_buffers <- readRDS("data/transit_buffers.rds")
+transit_buffer_data <- readRDS("data/transit_buffer_data.rds")
+
+transit_trip_buffers <- readRDS("data/transit_trip_buffers.rds")
+transit_trip_data <- readRDS("data/transit_trip_data.rds")
+
+# Page Information --------------------------------------------------------
+page_text <- read_csv("data/page_text.csv", show_col_types = FALSE)
 
 # Values for Drop Downs ---------------------------------------------------
 ntd_metric_list <- as.character(unique(ntd_data$metric))
@@ -86,3 +77,10 @@ transit_links <- c("Community Transit" = "https://www.communitytransit.org/",
                    "Washington State Ferries" = "https://wsdot.wa.gov/travel/washington-state-ferries",
                    "Transit Planning at PSRC" = "https://www.psrc.org/our-work/transit"
 )
+
+links_withtags <- withTags(
+  map2(transit_links[1:8], names(transit_links)[1:8], 
+       ~div(class = "links-container", tags$a(class = "links", href = .x, .y, tabindex="0", target = "_blank")))
+)
+
+psrc_mission <- "Our mission is to advance solutions to achieve a thriving, racially equitable, and sustainable central Puget Sound region through leadership, visionary planning, and collaboration."

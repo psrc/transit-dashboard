@@ -21,9 +21,6 @@
 # RStudio files
 .Rproj.user/
 
-# R data files use din dashboard but not needed on GitHub
-*.rds
-
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
