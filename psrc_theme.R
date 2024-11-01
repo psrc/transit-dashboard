@@ -13,11 +13,17 @@ psrc_theme <- bs_theme(bg = "white",
                        border-bottom-color: #EC9B21 !important;
                        border-bottom-width: 2.5px !important;
                        font-weight: 600 !important;
+                       font-size: 1.25rem;
+                       }
+                       
+                       .nav-link {
+                       font-size: 1.25rem;
                        }
                       
                        .nav-link:hover {
                        border-bottom-color: #00716C !important;
                        border-bottom-width: 2.5px !important;
+                       font-size: 1.25rem;
                        }
                        
                        /* General Text settings */
