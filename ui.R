@@ -4,7 +4,7 @@ shinyUI(
     
     position = c("static-top"),
     
-    title = tags$a(div(tags$img(src='psrc-logo.png', style="margin-top: 10px; padding-left: 20px; padding-right: 30px;", height = "65")), href="https://www.psrc.org", target="_blank"),
+    title = tags$a(div(tags$img(src='psrc-logo.png', style="margin-top: 10px; padding-left: 20px; padding-right: 30px;", height = "65", alt = "Link to PSRC Homepage")), href="https://www.psrc.org", target="_blank"),
     fillable = FALSE,
     theme = psrc_theme,
   
