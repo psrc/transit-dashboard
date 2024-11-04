@@ -29,10 +29,26 @@ footer_ui <- function(id) {
         layout_columns(
           col_widths = c(9,3),
           card_body(div(
-            a(class = "footer_url", href="https://www.facebook.com/PugetSoundRegionalCouncil", icon("facebook"), target="_blank"),
-            a(class = "footer_url", href="https://twitter.com/SoundRegion", icon("x-twitter"), target="_blank"),
-            a(class = "footer_url", href="https://www.instagram.com/soundregion/", icon("instagram"), target="_blank"),
-            a(class = "footer_url", href="https://www.linkedin.com/company/soundregion", icon("linkedin"), target="_blank")
+            a(class = "footer_url", 
+              href="https://www.facebook.com/PugetSoundRegionalCouncil", 
+              icon("facebook"), 
+              target="_blank",
+              alt = "This is a link to PSRC's Facebook page"),
+            a(class = "footer_url", 
+              href="https://twitter.com/SoundRegion", 
+              icon("x-twitter"), 
+              target="_blank",
+              alt = "This is a link to PSRC's Twitter feed"),
+            a(class = "footer_url", 
+              href="https://www.instagram.com/soundregion/", 
+              icon("instagram"), 
+              target="_blank",
+              alt = "This is a link to PSRC's Instagram feed"),
+            a(class = "footer_url", 
+              href="https://www.linkedin.com/company/soundregion", 
+              icon("linkedin"), 
+              target="_blank", 
+              alt = "This is a link to PSRC's LinkedIn feed")
           )),
           
           tags$div(class = "footer_about", "Dashboard by", tags$div(class = "footer_url", "PSRC Data Science")),

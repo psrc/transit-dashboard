@@ -180,6 +180,7 @@ psrc_theme <- bs_theme(bg = "white",
                        .footer_url {
                        color: #EC9B21;
                        font-size: 12pt;
+                       text-decoration: none;
                        }
                        
                        i {
