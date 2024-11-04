@@ -146,12 +146,13 @@ psrc_infogram_style <- function() {
   )
 }
 
-psrc_column_chart <- function(df, x, y, fill, colors, labels=scales::label_comma(), chart_style=psrc_infogram_style(), title=NULL, source=NULL, pos="dodge", legend = TRUE) {
+psrc_column_chart <- function(df, x, y, fill, colors, labels=scales::label_comma(), dec=0, chart_style=psrc_infogram_style(), title=NULL, source=NULL, pos="dodge", legend = TRUE) {
   
   c <- ggplot(data=df,
               aes(x=.data[[x]],
                   y=.data[[y]],
-                  fill=.data[[fill]]))  + 
+                  fill=.data[[fill]],
+                  text = paste0(.data[[fill]], ": ", format(round(.data[[y]], dec), nsmall=0, big.mark=","))))  + 
     geom_bar(position=pos, stat="identity", na.rm=TRUE) +
     scale_fill_manual(values = colors) +
     scale_y_continuous(labels = labels, expand=expansion(mult = c(0, .2)))  +   # expand is to accommodate value labels
@@ -166,13 +167,14 @@ psrc_column_chart <- function(df, x, y, fill, colors, labels=scales::label_comma
   return (c)
 }
 
-psrc_line_chart <- function(df, x, y, fill, lwidth=1, colors, ymin =0, ymax = 1, labels=scales::label_comma(), breaks=NULL, title=NULL, source=NULL, legend = TRUE, chart_style=psrc_infogram_style()) {
+psrc_line_chart <- function(df, x, y, fill, lwidth=1, colors, ymin =0, ymax = 1, labels=scales::label_comma(), dec=0, breaks=NULL, title=NULL, source=NULL, legend = TRUE, chart_style=psrc_infogram_style()) {
   
   c <- ggplot(data=df,
               aes(x=.data[[x]],
                   y=.data[[y]],
                   group=.data[[fill]],
-                  color=.data[[fill]]))  + 
+                  color=.data[[fill]],
+                  text = paste0(.data[[fill]], ": ", format(round(.data[[y]]*100, dec), nsmall=0, big.mark=","), "%")))  + 
     geom_line(linewidth=lwidth, linejoin = "round", na.rm=TRUE) +
     geom_point(fill = "white", shape = 21, stroke = 0.5) +
     scale_color_manual(values = colors)  +
@@ -185,15 +187,16 @@ psrc_line_chart <- function(df, x, y, fill, lwidth=1, colors, ymin =0, ymax = 1,
   
 }
 
-psrc_make_interactive <- function(plot_obj, legend=FALSE) {
+psrc_make_interactive <- function(plot_obj, legend=FALSE, hover=y) {
   
-  c <- plotly::ggplotly(plot_obj)
+  c <- plotly::ggplotly(plot_obj, tooltip = "text")
   
   c <- plotly::layout(c,
                       showlegend = legend,
                       legend=list(orientation="h", xanchor="center", xref="container", x=0.5, y=-0.10,         
                                   title="", font=list(family="Poppins", size=20, color="black"),
-                                  pad=list(b=50, t=50))
+                                  pad=list(b=50, t=50)),
+                      hoverlabel = list(bgcolor = "#EDF9FF", font = list(size=16, color = "#2F3030", face="bold"))
                       )
   
   return(c)

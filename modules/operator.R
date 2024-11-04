@@ -98,7 +98,7 @@ transit_operator_server <- function(id) {
     # Charts & Maps
     output$boardings_chart <- renderPlotly({
       
-      p <- psrc_make_interactive(psrc_column_chart(df = filtered_boardings_df(), x = "year", y = "estimate", fill = "metric", colors = c("#F05A28")), legend=TRUE)
+      p <- psrc_make_interactive(psrc_column_chart(df = filtered_boardings_df(), x = "year", y = "estimate", fill = "metric", colors = c("#F05A28"), dec=-2), legend=TRUE)
       
       # Use onRender to apply JavaScript for responsiveness
       p %>% onRender("
@@ -128,7 +128,7 @@ transit_operator_server <- function(id) {
     
     output$hours_chart <- renderPlotly({
       
-      p <- psrc_make_interactive(psrc_column_chart(df = filtered_hours_df(), x = "year", y = "estimate", fill = "metric", colors = c("#91268F")), legend=TRUE)
+      p <- psrc_make_interactive(psrc_column_chart(df = filtered_hours_df(), x = "year", y = "estimate", fill = "metric", colors = c("#91268F"), dec=-2), legend=TRUE)
       
       # Use onRender to apply JavaScript for responsiveness
       p %>% onRender("
@@ -158,7 +158,7 @@ transit_operator_server <- function(id) {
     
     output$miles_chart <- renderPlotly({
       
-      p <- psrc_make_interactive(psrc_column_chart(df = filtered_miles_df(), x = "year", y = "estimate", fill = "metric", colors = c("#8CC63E")), legend=TRUE)
+      p <- psrc_make_interactive(psrc_column_chart(df = filtered_miles_df(), x = "year", y = "estimate", fill = "metric", colors = c("#8CC63E"), dec=-2), legend=TRUE)
       
       # Use onRender to apply JavaScript for responsiveness
       p %>% onRender("
@@ -188,7 +188,7 @@ transit_operator_server <- function(id) {
     
     output$bph_chart <- renderPlotly({
       
-      p <- psrc_make_interactive(psrc_column_chart(df = filtered_bph_df(), x = "year", y = "estimate", fill = "metric", colors = c("#00A7A0")), legend=TRUE)
+      p <- psrc_make_interactive(psrc_column_chart(df = filtered_bph_df(), x = "year", y = "estimate", fill = "metric", colors = c("#00A7A0"), dec=1), legend=TRUE)
       
       # Use onRender to apply JavaScript for responsiveness
       p %>% onRender("

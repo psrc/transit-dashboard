@@ -14,6 +14,10 @@ transit_region_server <- function(id) {
     region_metric <- reactive({input$NTDMetric})
     period_metric <- reactive({input$NTDPeriod})
     
+    num_dec <- reactive({
+      if (input$NTDMetric != "Boardings-per-Hour") {-2} else {1}
+    })
+
     filtered_df <- reactive({
       ntd_data |> 
         filter(variable == "All Transit Modes" & geography == "Region" & metric == region_metric() & grouping == period_metric())
@@ -53,7 +57,7 @@ transit_region_server <- function(id) {
     # Charts & Maps
     output$ntd_region_chart <- renderPlotly({
       
-      p <- psrc_make_interactive(psrc_column_chart(df = filtered_df(), x = "year", y = "estimate", fill = "metric", colors = c("#00A7A0")), legend=TRUE)
+      p <- psrc_make_interactive(psrc_column_chart(df = filtered_df(), x = "year", y = "estimate", fill = "metric", colors = c("#00A7A0"), dec = num_dec()), legend=TRUE)
       
       # Use onRender to apply JavaScript for responsiveness
       p %>% onRender("

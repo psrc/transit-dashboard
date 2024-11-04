@@ -69,7 +69,7 @@ transit_trips_server <- function(id) {
     # Charts & Maps
     output$transit_chart <- renderPlotly({
       
-      p <- psrc_make_interactive(psrc_line_chart(df = filtered_chart_df(), x = "year", y = "value", fill = "name", ymax = max(filtered_chart_df()$value)*1.2,labels=scales::label_percent(), colors = c("#91268F", "#4C4C4C")), legend=TRUE)
+      p <- psrc_make_interactive(psrc_line_chart(df = filtered_chart_df(), x = "year", y = "value", fill = "name", ymax = max(filtered_chart_df()$value)*1.2,labels=scales::label_percent(), colors = c("#91268F", "#4C4C4C"), dec=1), legend=TRUE)
       
       # Use onRender to apply JavaScript for responsiveness
       p %>% onRender("
