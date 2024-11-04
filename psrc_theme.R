@@ -185,7 +185,7 @@ psrc_theme <- bs_theme(bg = "white",
                        
                        i {
                        color: #EC9B21;
-                       font-size: 14pt;
+                       font-size: 20pt;
                        padding-left: 15px;
                        padding-right: 15px;
                        }
