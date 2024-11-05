@@ -2,6 +2,14 @@ shinyUI(
   
   page_navbar(
     
+    # JavaScript to modify tabindex values to 0 so you can tab to them
+    tags$script(HTML("
+    $(document).ready(function() {
+      // Select all navigation tabs and set tabindex to 0
+      $('.nav-link').attr('tabindex', '0');
+    });
+  ")),
+    
     position = c("static-top"),
     
     title = tags$a(div(tags$img(src='psrc-logo.png', style="margin-top: 10px; padding-left: 20px; padding-right: 30px;", height = "65", alt = "Link to PSRC Homepage")), href="https://www.psrc.org", target="_blank"),
