@@ -5,8 +5,16 @@ shinyUI(
     # JavaScript to modify tabindex values to 0 so you can tab to them
     tags$script(HTML("
     $(document).ready(function() {
-      // Select all navigation tabs and set tabindex to 0
-      $('.nav-link').attr('tabindex', '0');
+      function setTabindex() {
+        $('.nav-link').attr('tabindex', '0');
+      }
+      // Set tabindex initially
+      setTabindex();
+
+      // Listen for tab changes and reset tabindex
+      $('.nav-link').on('shown.bs.tab', function() {
+        setTabindex();
+      });
     });
   ")),
     
