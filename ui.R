@@ -30,7 +30,11 @@ shinyUI(
       fillable = FALSE,
       theme = psrc_theme,
 
-      nav_panel("Overview", transit_overview_ui('OVERVIEWtransit')),
+      nav_panel("Overview", 
+                h1("Transit in the Central Puget Sound Region"),
+                transit_overview_ui('OVERVIEWtransit'),
+                h2("What is in this dashboard?"),
+                htmlOutput("transit_howto_text")),
       nav_panel("Region", transit_region_ui('REGIONtransit')),
       nav_panel("Mode", transit_mode_ui('MODEtransit')),
       nav_panel("Operator", transit_operator_ui('OPERATORtransit')),

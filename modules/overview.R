@@ -15,7 +15,7 @@ transit_overview_server <- function(id) {
     output$transit_overview_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Overview", page_info = "description"))})
     output$transit_hct_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Overview-HCT", page_info = "description"))})
     output$transit_agency_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Overview-Agency", page_info = "description"))})
-    output$transit_howto_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Overview-HowTo", page_info = "description"))})
+    #output$transit_howto_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Overview-HowTo", page_info = "description"))})
     
     
     links_withtags <- withTags(
@@ -35,7 +35,7 @@ transit_overview_server <- function(id) {
       "))
         ),
         
-        h1("Transit in the Central Puget Sound Region"),
+        #h1("Transit in the Central Puget Sound Region"),
         
         htmlOutput(ns("transit_overview_text")),
         br(),
@@ -111,8 +111,8 @@ transit_overview_server <- function(id) {
         
         ), # end of card
         
-        h2("What is in this dashboard?"),
-        htmlOutput(ns("transit_howto_text"))
+        #h2("What is in this dashboard?"),
+        #htmlOutput(ns("transit_howto_text"))
         
       )
     })
