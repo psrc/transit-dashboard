@@ -4,6 +4,8 @@ shinyUI(
     
     lang = "en",
     
+    tags$head(tags$title("Public Transportation in the Central Puget Sound Region")),
+    
     page_navbar(
     
       # JavaScript to modify tabindex values to 0 so you can tab to them
