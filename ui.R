@@ -8,7 +8,7 @@ shinyUI(
     
     page_navbar(
     
-      # JavaScript to modify tabindex values to 0 so you can tab to them
+      # JavaScript to modify tabindex values to 0 so you can tab to them as well as using a mouse
       tags$script(HTML("
       $(document).ready(function() {
         function setTabindex() {
