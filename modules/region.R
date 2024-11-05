@@ -62,6 +62,9 @@ transit_region_server <- function(id) {
       # Use onRender to apply JavaScript for responsiveness
       p %>% onRender("
       function(el, x) {
+        
+        el.setAttribute('aria-label', 'Bar chart of transit metrics for all transit modes for all transit oeprators in the Central Puget Sound Region');
+      
         var resizeLabels = function() {
           var layout = el.layout;
           var width = el.clientWidth;
