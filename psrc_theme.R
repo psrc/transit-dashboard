@@ -219,6 +219,11 @@ psrc_theme <- bs_theme(bg = "white",
                        border-radius: 5px;
                        }
                        
+                       /*
+                       .value-box-outcomes {
+                       clip-path: polygon(50% 0, 100% 30%, 100% 70%, 50% 100%, 0 78%, 0 30%);
+                       }
+                       */
                        
                        .value-box-outcomes .value-box-value {
                        order: 1 !important;

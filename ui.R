@@ -40,7 +40,7 @@ shinyUI(
                 card_body(
                   selectizeInput(
                     "RegionMetric",
-                    label = "Select a Transit Metric:",
+                    label = tags$label("Select a Transit Metric:", `for` = "RegionMetric"),
                     choices = ntd_metric_list,
                     selected = "Boardings",
                     options = list(dropdownParent = 'body')
@@ -53,7 +53,7 @@ shinyUI(
                 value_box_ui('REGIONvaluebox'),
                 hr(style = "border-top: 1px solid #000000;"),
                 h2(textOutput("region_chart_title")),
-                bar_chart_ui('REGIONbarchart'),
+                bar_chart_ui('REGIONbarchart') |> withSpinner(color=load_clr),
                 hr(style = "border-top: 1px solid #000000;"),
                 card_body(htmlOutput("region_insights_text"), class = "insights_panel"),
                 hr(style = "border-top: 1px solid #000000;")
@@ -63,7 +63,7 @@ shinyUI(
                 card_body(
                   selectizeInput(
                     "NTDModes",
-                    label = "Select a Transit Mode:",
+                    label = tags$label("Select a Transit Mode:", `for` = "NTDModes"),
                     choices = ntd_mode_list,
                     selected = "Bus",
                     options = list(dropdownParent = 'body')
@@ -78,7 +78,7 @@ shinyUI(
                 value_box_ui('MODEBoardingsvaluebox'),
                 hr(style = "border-top: 1px solid #000000;"),
                 h2(textOutput("mode_boardings_chart_title")),
-                bar_chart_ui('MODEBoardingsbarchart'),
+                bar_chart_ui('MODEBoardingsbarchart') |> withSpinner(color=load_clr),
                 hr(style = "border-top: 1px solid #000000;"),
                 card_body(htmlOutput("mode_boardings_insights_text"), class = "insights_panel"),
                 hr(style = "border-top: 1px solid #000000;"),

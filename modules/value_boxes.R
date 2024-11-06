@@ -78,7 +78,7 @@ value_box_server <- function(id, df, m, v, g, gt, gr) {
             class = "value-box-outcomes"
           )
         )
-      )
+      ) 
       
       })  # end renderui
   }) # end module server

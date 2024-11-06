@@ -3,6 +3,7 @@
 # Packages for Interactive Web application
 library(shiny)
 library(bslib)
+library(shinycssloaders)
 
 # Packages for Data Cleaning/Processing
 library(dplyr)
@@ -31,6 +32,8 @@ current_year <- 2024
 
 gtfs_year <- 2024
 service_change <- "Fall"
+
+load_clr <- "#91268F"
 
 source("psrc_theme.R")
 source("functions.R")
