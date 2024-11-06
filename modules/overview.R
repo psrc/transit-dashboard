@@ -15,8 +15,6 @@ transit_overview_server <- function(id) {
     output$transit_overview_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Overview", page_info = "description"))})
     output$transit_hct_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Overview-HCT", page_info = "description"))})
     output$transit_agency_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Overview-Agency", page_info = "description"))})
-    #output$transit_howto_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Overview-HowTo", page_info = "description"))})
-    
     
     links_withtags <- withTags(
       map2(transit_links[1:8], names(transit_links)[1:8], 
@@ -61,7 +59,7 @@ transit_overview_server <- function(id) {
             # Carousel component with HTML structure
             tags$div(id = "carouselExampleControls", class = "carousel slide", 
                      `data-bs-ride` = "carousel",
-                     `data-bs-interval` = "3000",
+                     `data-bs-interval` = "5000",
                      tags$div(class = "carousel-inner",
                               tags$div(class = "carousel-item active",
                                        tags$img(src = "ct_adj.jpg", class = "d-block w-100", alt = "Community Transit bus leaving a station")
@@ -110,10 +108,7 @@ transit_overview_server <- function(id) {
         ), # end of layout_columns
         
         ), # end of card
-        
-        #h2("What is in this dashboard?"),
-        #htmlOutput(ns("transit_howto_text"))
-        
+
       )
     })
   })  # end moduleServer

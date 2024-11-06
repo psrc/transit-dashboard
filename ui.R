@@ -35,7 +35,23 @@ shinyUI(
                 transit_overview_ui('OVERVIEWtransit'),
                 h2("What is in this dashboard?"),
                 htmlOutput("transit_howto_text")),
-      nav_panel("Region", transit_region_ui('REGIONtransit')),
+      
+      nav_panel("Region", 
+                card_body(
+                  selectizeInput(
+                    "RegionMetric",
+                    label = "Select a Transit Metric:",
+                    choices = ntd_metric_list,
+                    selected = "Boardings",
+                    options = list(dropdownParent = 'body')
+                  ),
+                  class = "selection_panel"
+                ),
+                hr(style = "border-top: 1px solid #000000;"),
+                h1(textOutput("region_page_title")),
+                transit_region_ui('REGIONtransit')),
+      
+      
       nav_panel("Mode", transit_mode_ui('MODEtransit')),
       nav_panel("Operator", transit_operator_ui('OPERATORtransit')),
       nav_panel("Type", transit_type_ui('TYPEtransit')),

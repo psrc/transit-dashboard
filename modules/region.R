@@ -7,23 +7,20 @@ transit_region_ui <- function(id) {
   )
 }
 
-transit_region_server <- function(id) {
+transit_region_server <- function(id, region_metric) {
   moduleServer(id, function(input, output, session){
     ns <- session$ns
     
-    region_metric <- reactive({input$NTDMetric})
     period_metric <- reactive({input$NTDPeriod})
     
     num_dec <- reactive({
-      if (input$NTDMetric != "Boardings-per-Hour") {-2} else {1}
+      if (region_metric() != "Boardings-per-Hour") {-2} else {1}
     })
 
     filtered_df <- reactive({
       ntd_data |> 
         filter(variable == "All Transit Modes" & geography == "Region" & metric == region_metric() & grouping == period_metric())
     })
-    
-    output$region_chart_title <- renderText(paste0("Regionwide Transit ", region_metric(), " for all Transit Modes"))
     
     # Insights
     output$region_insights_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Region", page_info = "description"))})
@@ -91,12 +88,6 @@ transit_region_server <- function(id) {
     # Tab layout
     output$transitregion <- renderUI({
       tagList(
-
-        selectInput(ns("NTDMetric"), label="Select a Transit Metric:", choices=ntd_metric_list, selected = "Boardings"),
-          
-        hr(style = "border-top: 1px solid #000000;"),
-        
-        h1(textOutput(ns("region_chart_title"))),
         
         layout_column_wrap(
           width = 1/4,

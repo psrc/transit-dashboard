@@ -214,6 +214,13 @@ psrc_theme <- bs_theme(bg = "white",
                        padding-right: 1.5rem;
                        }
                        
+                       .selection_panel {
+                       background-color: #E3C9E3;
+                       clip-path: polygon(0 0, 100% 0, 100% 20%, 100% 80%, 95% 100%, 20% 100%, 0 100%, 0% 20%);
+                       padding: 1.5rem;
+                       }
+                       
+                       
                        .value-box-outcomes .value-box-value {
                        order: 1 !important;
                        font-size: 2rem !important;
