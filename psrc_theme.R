@@ -208,16 +208,15 @@ psrc_theme <- bs_theme(bg = "white",
                        .insights_panel {
                        background-color: #C0E095;
                        clip-path: polygon(0 0, 100% 0, 100% 20%, 100% 80%, 95% 100%, 20% 100%, 0 100%, 0% 20%);
-                       padding-left: 1.5rem;
-                       padding-top: 1.5rem;
-                       padding-bottom: 1.5rem;
-                       padding-right: 1.5rem;
+                       padding: 1.5rem;
+                       border-radius: 5px;
                        }
                        
                        .selection_panel {
                        background-color: #E3C9E3;
                        clip-path: polygon(0 0, 100% 0, 100% 20%, 100% 80%, 95% 100%, 20% 100%, 0 100%, 0% 20%);
                        padding: 1.5rem;
+                       border-radius: 5px;
                        }
                        
                        

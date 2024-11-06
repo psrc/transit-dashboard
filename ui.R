@@ -47,10 +47,17 @@ shinyUI(
                   ),
                   class = "selection_panel"
                 ),
+                
                 hr(style = "border-top: 1px solid #000000;"),
                 h1(textOutput("region_page_title")),
-                transit_region_ui('REGIONtransit')),
-      
+                value_box_ui('REGIONvaluebox'),
+                hr(style = "border-top: 1px solid #000000;"),
+                h2(textOutput("region_chart_title")),
+                bar_chart_ui('REGIONbarchart'),
+                hr(style = "border-top: 1px solid #000000;"),
+                card_body(htmlOutput("region_insights_text"), class = "insights_panel"),
+                hr(style = "border-top: 1px solid #000000;")
+                ),
       
       nav_panel("Mode", transit_mode_ui('MODEtransit')),
       nav_panel("Operator", transit_operator_ui('OPERATORtransit')),
