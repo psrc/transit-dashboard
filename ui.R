@@ -59,7 +59,61 @@ shinyUI(
                 hr(style = "border-top: 1px solid #000000;")
                 ),
       
-      nav_panel("Mode", transit_mode_ui('MODEtransit')),
+      nav_panel("Mode", 
+                card_body(
+                  selectizeInput(
+                    "NTDModes",
+                    label = "Select a Transit Mode:",
+                    choices = ntd_mode_list,
+                    selected = "Bus",
+                    options = list(dropdownParent = 'body')
+                  ),
+                  class = "selection_panel"
+                ),
+                
+                hr(style = "border-top: 1px solid #000000;"),
+                
+                # Boardings Section
+                h1("Boardings"),
+                value_box_ui('MODEBoardingsvaluebox'),
+                hr(style = "border-top: 1px solid #000000;"),
+                h2(textOutput("mode_boardings_chart_title")),
+                bar_chart_ui('MODEBoardingsbarchart'),
+                hr(style = "border-top: 1px solid #000000;"),
+                card_body(htmlOutput("mode_boardings_insights_text"), class = "insights_panel"),
+                hr(style = "border-top: 1px solid #000000;"),
+                
+                # Revenue Hours Section
+                h1("Revenue Hours"),
+                value_box_ui('MODEHoursvaluebox'),
+                hr(style = "border-top: 1px solid #000000;"),
+                h2(textOutput("mode_hours_chart_title")),
+                bar_chart_ui('MODEHoursbarchart'),
+                hr(style = "border-top: 1px solid #000000;"),
+                card_body(htmlOutput("mode_hours_insights_text"), class = "insights_panel"),
+                hr(style = "border-top: 1px solid #000000;"),
+                
+                # Revenue Miles Section
+                h1("Revenue Miles"),
+                value_box_ui('MODEMilesvaluebox'),
+                hr(style = "border-top: 1px solid #000000;"),
+                h2(textOutput("mode_miles_chart_title")),
+                bar_chart_ui('MODEMilesbarchart'),
+                hr(style = "border-top: 1px solid #000000;"),
+                card_body(htmlOutput("mode_miles_insights_text"), class = "insights_panel"),
+                hr(style = "border-top: 1px solid #000000;"),
+                
+                # Boardings per Hour Section
+                h1("Boardings per Hour"),
+                value_box_ui('MODEBPHvaluebox'),
+                hr(style = "border-top: 1px solid #000000;"),
+                h2(textOutput("mode_bph_chart_title")),
+                bar_chart_ui('MODEBPHbarchart'),
+                hr(style = "border-top: 1px solid #000000;"),
+                card_body(htmlOutput("mode_bph_insights_text"), class = "insights_panel"),
+                hr(style = "border-top: 1px solid #000000;")
+                ),
+      
       nav_panel("Operator", transit_operator_ui('OPERATORtransit')),
       nav_panel("Type", transit_type_ui('TYPEtransit')),
       nav_panel("Frequency", transit_trips_ui('TRIPtransit')),

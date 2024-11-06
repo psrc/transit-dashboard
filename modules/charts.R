@@ -17,7 +17,7 @@ bar_chart_server <- function(id, df, m, v, g, gt, color) {
       if (m() != "Boardings-per-Hour") {-2} else {1}
     })
 
-    filtered_df <- reactive({df |> filter(variable == v & geography == g & geography_type == gt & metric == m() & grouping == period_metric())})
+    filtered_df <- reactive({df |> filter(variable == v() & geography == g & geography_type == gt & metric == m() & grouping == period_metric())})
     
     # Charts & Maps
     output$ntd_region_chart <- renderPlotly({
