@@ -152,7 +152,7 @@ psrc_column_chart <- function(df, x, y, fill, colors, labels=scales::label_comma
               aes(x=.data[[x]],
                   y=.data[[y]],
                   fill=.data[[fill]],
-                  text = paste0(.data[[fill]], ": ", format(round(.data[[y]], dec), nsmall=0, big.mark=","))))  + 
+                  text = paste0(.data[[x]], " ", .data[[fill]], ": ", format(round(.data[[y]], dec), nsmall=0, big.mark=","))))  + 
     geom_bar(position=pos, stat="identity", na.rm=TRUE) +
     scale_fill_manual(values = colors) +
     scale_y_continuous(labels = labels, expand=expansion(mult = c(0, .2)))  +   # expand is to accommodate value labels

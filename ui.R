@@ -50,7 +50,7 @@ shinyUI(
                 
                 hr(style = "border-top: 1px solid #000000;"),
                 h1("Regionwide Transit Summary"),
-                withSpinner(value_box_ui('REGIONvaluebox'), color=load_clr, size = 1.5, caption = "Please wait, updating data"),
+                withSpinner(value_box_ntd_ui('REGIONvaluebox'), color=load_clr, size = 1.5, caption = "Please wait, updating data"),
                 hr(style = "border-top: 1px solid #000000;"),
                 h2("Regionwide Transit Trends"),
                 bar_chart_ui('REGIONbarchart'),
@@ -75,7 +75,7 @@ shinyUI(
                 
                 # Boardings Section
                 h1("Boarding Summary"),
-                withSpinner(value_box_ui('MODEBoardingsvaluebox'), color=load_clr, size = 1.5, caption = "Please wait, updating data"),
+                withSpinner(value_box_ntd_ui('MODEBoardingsvaluebox'), color=load_clr, size = 1.5, caption = "Please wait, updating data"),
                 hr(style = "border-top: 1px solid #000000;"),
                 h2("Boarding Trends"),
                 bar_chart_ui('MODEBoardingsbarchart'),
@@ -85,7 +85,7 @@ shinyUI(
                 
                 # Revenue Hours Section
                 h1("Revenue Hour Summary"),
-                value_box_ui('MODEHoursvaluebox'),
+                value_box_ntd_ui('MODEHoursvaluebox'),
                 hr(style = "border-top: 1px solid #000000;"),
                 h2("Revenue Hour Trends"),
                 bar_chart_ui('MODEHoursbarchart'),
@@ -95,7 +95,7 @@ shinyUI(
                 
                 # Revenue Miles Section
                 h1("Revenue Mile Summary"),
-                value_box_ui('MODEMilesvaluebox'),
+                value_box_ntd_ui('MODEMilesvaluebox'),
                 hr(style = "border-top: 1px solid #000000;"),
                 h2("Revenue Mile Trends"),
                 bar_chart_ui('MODEMilesbarchart'),
@@ -105,7 +105,7 @@ shinyUI(
                 
                 # Boardings per Hour Section
                 h1("Boardings per Hour Summary"),
-                value_box_ui('MODEBPHvaluebox'),
+                value_box_ntd_ui('MODEBPHvaluebox'),
                 hr(style = "border-top: 1px solid #000000;"),
                 h2("Boardings per Hour Trends"),
                 bar_chart_ui('MODEBPHbarchart'),
@@ -131,7 +131,7 @@ shinyUI(
                 
                 # Boardings Section
                 h1("Boarding Summary"),
-                withSpinner(value_box_ui('OPERATORBoardingsvaluebox'), color=load_clr, size = 1.5, caption = "Please wait, updating data"),
+                withSpinner(value_box_ntd_ui('OPERATORBoardingsvaluebox'), color=load_clr, size = 1.5, caption = "Please wait, updating data"),
                 hr(style = "border-top: 1px solid #000000;"),
                 h2("Boarding Trends"),
                 bar_chart_ui('OPERATORBoardingsbarchart'),
@@ -141,7 +141,7 @@ shinyUI(
                 
                 # Revenue Hours Section
                 h1("Revenue Hour Summary"),
-                value_box_ui('OPERATORHoursvaluebox'),
+                value_box_ntd_ui('OPERATORHoursvaluebox'),
                 hr(style = "border-top: 1px solid #000000;"),
                 h2("Revenue Hour Trends"),
                 bar_chart_ui('OPERATORHoursbarchart'),
@@ -151,7 +151,7 @@ shinyUI(
                 
                 # Revenue Miles Section
                 h1("Revenue Mile Summary"),
-                value_box_ui('OPERATORMilesvaluebox'),
+                value_box_ntd_ui('OPERATORMilesvaluebox'),
                 hr(style = "border-top: 1px solid #000000;"),
                 h2("Revenue Mile Trends"),
                 bar_chart_ui('OPERATORMilesbarchart'),
@@ -161,7 +161,7 @@ shinyUI(
                 
                 # Boardings per Hour Section
                 h1("Boardings per Hour Summary"),
-                value_box_ui('OPERATORBPHvaluebox'),
+                value_box_ntd_ui('OPERATORBPHvaluebox'),
                 hr(style = "border-top: 1px solid #000000;"),
                 h2("Boardings per Hour Trends"),
                 bar_chart_ui('OPERATORBPHbarchart'),
@@ -170,7 +170,56 @@ shinyUI(
                 hr(style = "border-top: 1px solid #000000;")
                 ),
                 
-      nav_panel("Type", transit_type_ui('TYPEtransit')),
+      nav_panel("Type", 
+                
+                card_body(
+                  layout_column_wrap(
+                    width = 1/3,
+                    selectizeInput("TYPEbuffer", label = "Select a Transit Type:", choices = stop_buffer_list, selected = "High-Capacity Transit", options = list(dropdownParent = 'body')),
+                    selectizeInput("TYPErace", label = "Select a Population of Interest", choices = efa_list, selected = "People of Color", options = list(dropdownParent = 'body')),
+                    radioButtons("TYPEdist", label = "Select a Buffer Distance:", choiceNames = c("1/4 mile", "1/2 mile"), choiceValues = c(0.25, 0.50), inline = TRUE)
+                  ),
+                  class = "selection_panel"
+                ),
+                
+                hr(style = "border-top: 1px solid #000000;"),
+                h1("People living Near a Transit Stop"),
+                withSpinner(value_box_access_ui('TYPEvaluebox'), color=load_clr, size = 1.5, caption = "Please wait, updating data"),
+                hr(style = "border-top: 1px solid #000000;"),
+                h2("Transit Access Trends"),
+                card(
+                  full_screen = TRUE,
+                  card_body(
+                    layout_columns(
+                      col_widths = c(7,5),
+                      plotlyOutput("transit_type_chart"),
+                      tags$div(
+                        role = "img",
+                        `aria-label` = "Map showing transit stops matching the selected transit type and buffer distance from the selectors on the page",
+                        leafletOutput("transit_type_map"),
+                      )
+                    )
+                  )
+                ),
+                br(),
+                tags$div(class="chart_source","Source: US Census Bureau ACS Data, OFM Small Area Estimate & General Transit Feed Specification (GTFS) service data"),
+                hr(style = "border-top: 1px solid #000000;"),
+                card_body(h3("Insights & Analysis"), htmlOutput("type_insights_text"), class = "insights_panel"),
+                hr(style = "border-top: 1px solid #000000;")
+                
+                #transit_type_ui('TYPEtransit')
+                ),
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       nav_panel("Frequency", transit_trips_ui('TRIPtransit')),
       
       nav_panel("Routes", 
