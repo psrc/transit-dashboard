@@ -215,9 +215,13 @@ create_stop_buffer_map<- function(lyr=transit_buffers, buffer_name, buffer_dista
   
   working_map <- leaflet(data = lyr) |>
     
-    addProviderTiles(providers$CartoDB.Positron) |>
+    addTiles(group = "Open Street Map") |>
     
-    addLayersControl(baseGroups = c("Base Map"),
+    addProviderTiles(providers$CartoDB.Positron, group = "Positron (minimal)") |>
+    
+    addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") |>
+    
+    addLayersControl(baseGroups = c("Positron (minimal)", "Open Street Map", "Satellite"),
                      overlayGroups = c(buffer_name),
                      options = layersControlOptions(collapsed = TRUE)) |>
     
@@ -267,9 +271,13 @@ create_route_map<- function(lyr=transit_layer_data, yr=current_year) {
   
   working_map <- leaflet() |>
     
-    addProviderTiles(providers$CartoDB.Positron) |>
+    addTiles(group = "Open Street Map") |>
     
-    addLayersControl(baseGroups = c("Base Map"),
+    addProviderTiles(providers$CartoDB.Positron, group = "Positron (minimal)") |>
+    
+    addProviderTiles(providers$Esri.WorldImagery, group = "Satellite") |>
+    
+    addLayersControl(baseGroups = c("Positron (minimal)", "Open Street Map", "Satellite"),
                      overlayGroups = c("BRT", "Commuter Rail", "Light Rail", "Passenger Ferry", "Multimodal Ferry", "Bus"),
                      options = layersControlOptions(collapsed = TRUE)) |>
     
