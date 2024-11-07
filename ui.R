@@ -171,7 +171,6 @@ shinyUI(
                 ),
                 
       nav_panel("Type", 
-                
                 card_body(
                   layout_column_wrap(
                     width = 1/3,
@@ -206,21 +205,44 @@ shinyUI(
                 hr(style = "border-top: 1px solid #000000;"),
                 card_body(h3("Insights & Analysis"), htmlOutput("type_insights_text"), class = "insights_panel"),
                 hr(style = "border-top: 1px solid #000000;")
-                
-                #transit_type_ui('TYPEtransit')
                 ),
       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      nav_panel("Frequency", transit_trips_ui('TRIPtransit')),
+      nav_panel("Frequency", 
+                card_body(
+                  layout_column_wrap(
+                    width = 1/3,
+                    selectizeInput("TRIPbuffer", label = "Select a Trip Frequency:", stop_trips_list, selected = "4 trips per hour", options = list(dropdownParent = 'body')),
+                    selectizeInput("TRIPrace", label = "Select a Population of Interest", choices = efa_list, selected = "People of Color", options = list(dropdownParent = 'body')),
+                    radioButtons("TRIPdist", label = "Select a Buffer Distance:", choiceNames = c("1/4 mile", "1/2 mile"), choiceValues = c(0.25, 0.50), inline = TRUE)
+                  ),
+                  class = "selection_panel"
+                ),
+                
+                hr(style = "border-top: 1px solid #000000;"),
+                h1("People living Near a Transit Stop"),
+                withSpinner(value_box_access_ui('TRIPvaluebox'), color=load_clr, size = 1.5, caption = "Please wait, updating data"),
+                hr(style = "border-top: 1px solid #000000;"),
+                h2("Transit Access Trends"),
+                card(
+                  full_screen = TRUE,
+                  card_body(
+                    layout_columns(
+                      col_widths = c(7,5),
+                      plotlyOutput("transit_trip_chart"),
+                      tags$div(
+                        role = "img",
+                        `aria-label` = "Map showing transit stops matching the selected transit frequency and buffer distance from the selectors on the page",
+                        leafletOutput("transit_trip_map"),
+                      )
+                    )
+                  )
+                ),
+                br(),
+                tags$div(class="chart_source","Source: US Census Bureau ACS Data, OFM Small Area Estimate & General Transit Feed Specification (GTFS) service data"),
+                hr(style = "border-top: 1px solid #000000;"),
+                card_body(h3("Insights & Analysis"), htmlOutput("trip_insights_text"), class = "insights_panel"),
+                hr(style = "border-top: 1px solid #000000;")
+                ),
       
       nav_panel("Routes", 
                 h1("Transit Routes in the Central Puget Sound Region"),

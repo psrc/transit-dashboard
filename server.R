@@ -67,7 +67,7 @@ shinyServer(function(input, output) {
   type_efa_metric <- reactive({input$TYPErace})
   type_buffer_dist <- reactive({input$TYPEdist})
   
-  filtered_chart_df <- reactive({
+  filtered_type_chart_df <- reactive({
     transit_buffer_data |> 
       filter(transit_buffer == type_buffer_metric() & buffer == type_buffer_dist()) |> 
       select("year", "transit_buffer", contains("share")) |>
@@ -85,7 +85,7 @@ shinyServer(function(input, output) {
   
   output$transit_type_chart <- renderPlotly({
     
-    p <- psrc_make_interactive(psrc_line_chart(df = filtered_chart_df(), x = "year", y = "value", fill = "name", ymax = max(filtered_chart_df()$value)*1.2,labels=scales::label_percent(), colors = c("#4C4C4C", "#91268F"), dec=1), legend=TRUE)
+    p <- psrc_make_interactive(psrc_line_chart(df = filtered_type_chart_df(), x = "year", y = "value", fill = "name", ymax = max(filtered_type_chart_df()$value)*1.2,labels=scales::label_percent(), colors = c("#4C4C4C", "#91268F"), dec=1), legend=TRUE)
     
     # Use onRender to apply JavaScript for responsiveness
     p %>% onRender("
@@ -115,7 +115,60 @@ shinyServer(function(input, output) {
 
 # Transit Trips Summary Page ----------------------------------------------
 
-  transit_trips_server('TRIPtransit')
+  output$trip_insights_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Trips", page_info = "description"))})  
+  value_box_access_server('TRIPvaluebox', df=transit_trip_data, bm=reactive(input$TRIPbuffer), bd=reactive(input$TRIPdist), em=reactive(input$TRIPrace))
+  output$transit_trip_map <- renderLeaflet({create_stop_buffer_map(lyr=transit_trip_buffers, buffer_name=input$TRIPbuffer, buffer_distance=input$TRIPdist)})
+  
+  trip_buffer_metric <- reactive({input$TRIPbuffer})
+  trip_efa_metric <- reactive({input$TRIPrace})
+  trip_buffer_dist <- reactive({input$TRIPdist})
+  
+  filtered_trip_chart_df <- reactive({
+    transit_trip_data |> 
+      filter(transit_buffer == trip_buffer_metric() & buffer == trip_buffer_dist()) |> 
+      select("year", "transit_buffer", contains("share")) |>
+      pivot_longer(cols = !c(year, transit_buffer)) |>
+      mutate(name = str_remove_all(name, "_share"),
+             name = str_replace_all(name, "population", "People"),
+             name = str_replace_all(name, "poc", "People of Color"),
+             name = str_replace_all(name, "pov", "People with Lower Incomes"),
+             name = str_replace_all(name, "lep", "People with Limited English"),
+             name = str_replace_all(name, "yth", "People under 18"),
+             name = str_replace_all(name, "old", "People over 65"),
+             name = str_replace_all(name, "dis", "People with a Disability")) |>
+      filter(name %in% c("People", trip_efa_metric()))
+  })
+  
+  output$transit_trip_chart <- renderPlotly({
+    
+    p <- psrc_make_interactive(psrc_line_chart(df = filtered_trip_chart_df(), x = "year", y = "value", fill = "name", ymax = max(filtered_trip_chart_df()$value)*1.2,labels=scales::label_percent(), colors = c("#4C4C4C", "#91268F"), dec=1), legend=TRUE)
+    
+    # Use onRender to apply JavaScript for responsiveness
+    p %>% onRender("
+      function(el, x) {
+        var resizeLabels = function() {
+          var layout = el.layout;
+          var width = el.clientWidth;
+          var fontSize = width < 600 ? 12 : width < 800 ? 14 : 16;
+          var numTicks = width < 600 ? 3 : width < 800 ? 2 : 1;
+          var legendSize = width < 600 ? 12 : width < 800 ? 14 : 16;
+          
+          layout.xaxis = { dtick: numTicks };
+          layout.xaxis.tickfont = { size: fontSize};
+          layout.yaxis.tickfont = { size: fontSize };
+          layout.legend.font = {size: legendSize};
+          
+          Plotly.relayout(el, layout);
+        };
+        
+        // Run the function initially and on window resize
+        resizeLabels();
+        window.addEventListener('resize', resizeLabels);
+      }
+    ")
+    
+  })  
+  
 
 # Route Map Page ----------------------------------------------------------
 
