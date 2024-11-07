@@ -40,7 +40,7 @@ shinyUI(
                 card_body(
                   selectizeInput(
                     "RegionMetric",
-                    label = tags$label("Select a Transit Metric:", `for` = "RegionMetric"),
+                    label = "Select a Transit Metric:",
                     choices = ntd_metric_list,
                     selected = "Boardings",
                     options = list(dropdownParent = 'body')
@@ -50,10 +50,10 @@ shinyUI(
                 
                 hr(style = "border-top: 1px solid #000000;"),
                 h1(textOutput("region_page_title")),
-                value_box_ui('REGIONvaluebox'),
+                withSpinner(value_box_ui('REGIONvaluebox'), color=load_clr, size = 1.5, caption = "Please wait, updating data"),
                 hr(style = "border-top: 1px solid #000000;"),
                 h2(textOutput("region_chart_title")),
-                bar_chart_ui('REGIONbarchart') |> withSpinner(color=load_clr),
+                bar_chart_ui('REGIONbarchart'),
                 hr(style = "border-top: 1px solid #000000;"),
                 card_body(htmlOutput("region_insights_text"), class = "insights_panel"),
                 hr(style = "border-top: 1px solid #000000;")
@@ -63,7 +63,7 @@ shinyUI(
                 card_body(
                   selectizeInput(
                     "NTDModes",
-                    label = tags$label("Select a Transit Mode:", `for` = "NTDModes"),
+                    label = "Select a Transit Mode:",
                     choices = ntd_mode_list,
                     selected = "Bus",
                     options = list(dropdownParent = 'body')
@@ -75,10 +75,10 @@ shinyUI(
                 
                 # Boardings Section
                 h1("Boardings"),
-                value_box_ui('MODEBoardingsvaluebox'),
+                withSpinner(value_box_ui('MODEBoardingsvaluebox'), , color=load_clr, size = 1.5, caption = "Please wait, updating data"),
                 hr(style = "border-top: 1px solid #000000;"),
                 h2(textOutput("mode_boardings_chart_title")),
-                bar_chart_ui('MODEBoardingsbarchart') |> withSpinner(color=load_clr),
+                bar_chart_ui('MODEBoardingsbarchart'),
                 hr(style = "border-top: 1px solid #000000;"),
                 card_body(htmlOutput("mode_boardings_insights_text"), class = "insights_panel"),
                 hr(style = "border-top: 1px solid #000000;"),
@@ -114,7 +114,68 @@ shinyUI(
                 hr(style = "border-top: 1px solid #000000;")
                 ),
       
-      nav_panel("Operator", transit_operator_ui('OPERATORtransit')),
+      nav_panel("Operator", 
+                
+                card_body(
+                  selectizeInput(
+                    "NTDoperators",
+                    label = "Select a Transit Operator:",
+                    choices = ntd_operator_list,
+                    selected = "Community Transit",
+                    options = list(dropdownParent = 'body')
+                  ),
+                  class = "selection_panel"
+                ),
+                
+                hr(style = "border-top: 1px solid #000000;"),
+                
+                # Boardings Section
+                h1("Boardings"),
+                withSpinner(value_box_ui('OPERATORBoardingsvaluebox'), , color=load_clr, size = 1.5, caption = "Please wait, updating data"),
+                hr(style = "border-top: 1px solid #000000;"),
+                h2(textOutput("operator_boardings_chart_title")),
+                bar_chart_ui('OPERATORBoardingsbarchart'),
+                hr(style = "border-top: 1px solid #000000;"),
+                card_body(htmlOutput("operator_boardings_insights_text"), class = "insights_panel"),
+                hr(style = "border-top: 1px solid #000000;"),
+                
+                # Revenue Hours Section
+                h1("Revenue Hours"),
+                value_box_ui('OPERATORHoursvaluebox'),
+                hr(style = "border-top: 1px solid #000000;"),
+                h2(textOutput("operator_hours_chart_title")),
+                bar_chart_ui('OPERATORHoursbarchart'),
+                hr(style = "border-top: 1px solid #000000;"),
+                card_body(htmlOutput("operator_hours_insights_text"), class = "insights_panel"),
+                hr(style = "border-top: 1px solid #000000;"),
+                
+                # Revenue Miles Section
+                h1("Revenue Miles"),
+                value_box_ui('OPERATORMilesvaluebox'),
+                hr(style = "border-top: 1px solid #000000;"),
+                h2(textOutput("operator_miles_chart_title")),
+                bar_chart_ui('OPERATORMilesbarchart'),
+                hr(style = "border-top: 1px solid #000000;"),
+                card_body(htmlOutput("operator_miles_insights_text"), class = "insights_panel"),
+                hr(style = "border-top: 1px solid #000000;"),
+                
+                # Boardings per Hour Section
+                h1("Boardings per Hour"),
+                value_box_ui('OPERATORBPHvaluebox'),
+                hr(style = "border-top: 1px solid #000000;"),
+                h2(textOutput("operator_bph_chart_title")),
+                bar_chart_ui('OPERATORBPHbarchart'),
+                hr(style = "border-top: 1px solid #000000;"),
+                card_body(htmlOutput("operator_bph_insights_text"), class = "insights_panel"),
+                hr(style = "border-top: 1px solid #000000;")
+                ),
+                
+                
+                
+                
+                
+                
+                #transit_operator_ui('OPERATORtransit')),
       nav_panel("Type", transit_type_ui('TYPEtransit')),
       nav_panel("Frequency", transit_trips_ui('TRIPtransit')),
       nav_panel("Routes", transit_route_ui('ROUTEtransit')),

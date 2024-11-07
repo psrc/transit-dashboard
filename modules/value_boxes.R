@@ -11,7 +11,7 @@ value_box_server <- function(id, df, m, v, g, gt, gr) {
   moduleServer(id, function(input, output, session){
     ns <- session$ns
     
-    filtered_df <- reactive(df |> filter(variable == v() & geography == g & geography_type == gt & metric == m() & grouping == gr))
+    filtered_df <- reactive(df |> filter(variable == v() & geography == g() & geography_type == gt() & metric == m() & grouping == gr))
     
     # Output Values
     output$pre_pandemic_title <- renderUI(paste0(pre_pandemic, " YTD ", m()))
