@@ -35,9 +35,6 @@ service_change <- "Fall"
 
 load_clr <- "#91268F"
 
-source("psrc_theme.R")
-source("functions.R")
-
 # Run Modules Files ---------------------------------------------------------------------------
 module_files <- list.files('modules', full.names = TRUE)
 sapply(module_files, source)

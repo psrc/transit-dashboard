@@ -1,18 +1,20 @@
 shinyServer(function(input, output) {
   
   footer_server('psrcfooter')
-  
-  # Overview Page
+
+# Overview Page -----------------------------------------------------------
+
   transit_overview_server('OVERVIEWtransit')
   output$transit_howto_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Overview-HowTo", page_info = "description"))})
-  
-  # Region Page
+
+# Region Summary Page -----------------------------------------------------
+
   output$region_insights_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Region", page_info = "description"))})
   value_box_server('REGIONvaluebox', df=ntd_data, m=reactive(input$RegionMetric), v=reactive("All Transit Modes"), g=reactive("Region"), gt=reactive("Region"), gr=paste0("Year to Date: Jan-",latest_ntd_month))
   bar_chart_server('REGIONbarchart', df=ntd_data, m=reactive(input$RegionMetric), v=reactive("All Transit Modes"), g=reactive("Region"), gt=reactive("Region"), color = c("#00A7A0"))
-  
-  # Mode Page
-  
+
+# Mode Summary Page -------------------------------------------------------
+
   # Boardings
   output$mode_boardings_insights_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Mode-Boardings", page_info = "description"))})
   value_box_server('MODEBoardingsvaluebox', df=ntd_data, m=reactive("Boardings"), v=reactive(input$NTDModes), g=reactive("Region"), gt=reactive("Region"), gr=paste0("Year to Date: Jan-",latest_ntd_month))
@@ -33,7 +35,7 @@ shinyServer(function(input, output) {
   value_box_server('MODEBPHvaluebox', df=ntd_data, m=reactive("Boardings-per-Hour"), v=reactive(input$NTDModes), g=reactive("Region"), gt=reactive("Region"), gr=paste0("Year to Date: Jan-",latest_ntd_month))
   bar_chart_server('MODEBPHbarchart', df=ntd_data, m=reactive("Boardings-per-Hour"), v=reactive(input$NTDModes), g=reactive("Region"), gt=reactive("Region"), color = c("#00A7A0"))
 
-  # Operator Page
+# Operator Summary Page ---------------------------------------------------
   
   # Boardings
   output$operator_boardings_insights_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Transit", page_section = "Operator-Boardings", page_info = "description"))})
@@ -57,7 +59,11 @@ shinyServer(function(input, output) {
   
   transit_type_server('TYPEtransit')
   transit_trips_server('TRIPtransit')
-  transit_route_server('ROUTEtransit')
 
-})
+# Route Map Page ----------------------------------------------------------
+
+  output$route_map_source <- renderText(paste0("Source: ",str_to_title(service_change)," ", gtfs_year, " General Transit Feed Specification (GTFS) data by Transit Agency"))
+  output$transit_route_map <- renderLeaflet({create_route_map()})
+
+}) # end of shinyServer function 
 

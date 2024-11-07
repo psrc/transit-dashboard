@@ -75,7 +75,7 @@ shinyUI(
                 
                 # Boardings Section
                 h1("Boarding Summary"),
-                withSpinner(value_box_ui('MODEBoardingsvaluebox'), , color=load_clr, size = 1.5, caption = "Please wait, updating data"),
+                withSpinner(value_box_ui('MODEBoardingsvaluebox'), color=load_clr, size = 1.5, caption = "Please wait, updating data"),
                 hr(style = "border-top: 1px solid #000000;"),
                 h2("Boarding Trends"),
                 bar_chart_ui('MODEBoardingsbarchart'),
@@ -131,7 +131,7 @@ shinyUI(
                 
                 # Boardings Section
                 h1("Boarding Summary"),
-                withSpinner(value_box_ui('OPERATORBoardingsvaluebox'), , color=load_clr, size = 1.5, caption = "Please wait, updating data"),
+                withSpinner(value_box_ui('OPERATORBoardingsvaluebox'), color=load_clr, size = 1.5, caption = "Please wait, updating data"),
                 hr(style = "border-top: 1px solid #000000;"),
                 h2("Boarding Trends"),
                 bar_chart_ui('OPERATORBoardingsbarchart'),
@@ -172,7 +172,21 @@ shinyUI(
                 
       nav_panel("Type", transit_type_ui('TYPEtransit')),
       nav_panel("Frequency", transit_trips_ui('TRIPtransit')),
-      nav_panel("Routes", transit_route_ui('ROUTEtransit')),
+      
+      nav_panel("Routes", 
+                h1("Transit Routes in the Central Puget Sound Region"),
+                card(
+                  full_screen = TRUE,
+                  tags$div(
+                    role = "img",
+                    `aria-label` = "Map showing transit routes in the Central Puget Sound Region in 2024 color coded by type of transit route",
+                    withSpinner(leafletOutput("transit_route_map"), color=load_clr, size = 1.5, caption = "Please wait, loading map"),
+                  )
+                ),
+                #br(), 
+                tags$div(class="chart_source", textOutput("route_map_source")),
+                hr(style = "border-top: 1px solid #000000;")
+                ),
     
       br(), br(),
     
