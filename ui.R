@@ -55,7 +55,7 @@ shinyUI(
                 h2(textOutput("region_chart_title")),
                 bar_chart_ui('REGIONbarchart'),
                 hr(style = "border-top: 1px solid #000000;"),
-                card_body(htmlOutput("region_insights_text"), class = "insights_panel"),
+                card_body(h3("Insights & Analysis"), htmlOutput("region_insights_text"), class = "insights_panel"),
                 hr(style = "border-top: 1px solid #000000;")
                 ),
       
@@ -80,7 +80,7 @@ shinyUI(
                 h2(textOutput("mode_boardings_chart_title")),
                 bar_chart_ui('MODEBoardingsbarchart'),
                 hr(style = "border-top: 1px solid #000000;"),
-                card_body(htmlOutput("mode_boardings_insights_text"), class = "insights_panel"),
+                card_body(h3("Insights & Analysis"), htmlOutput("mode_boardings_insights_text"), class = "insights_panel"),
                 hr(style = "border-top: 1px solid #000000;"),
                 
                 # Revenue Hours Section
@@ -90,7 +90,7 @@ shinyUI(
                 h2(textOutput("mode_hours_chart_title")),
                 bar_chart_ui('MODEHoursbarchart'),
                 hr(style = "border-top: 1px solid #000000;"),
-                card_body(htmlOutput("mode_hours_insights_text"), class = "insights_panel"),
+                card_body(h3("Insights & Analysis"), htmlOutput("mode_hours_insights_text"), class = "insights_panel"),
                 hr(style = "border-top: 1px solid #000000;"),
                 
                 # Revenue Miles Section
@@ -100,7 +100,7 @@ shinyUI(
                 h2(textOutput("mode_miles_chart_title")),
                 bar_chart_ui('MODEMilesbarchart'),
                 hr(style = "border-top: 1px solid #000000;"),
-                card_body(htmlOutput("mode_miles_insights_text"), class = "insights_panel"),
+                card_body(h3("Insights & Analysis"), htmlOutput("mode_miles_insights_text"), class = "insights_panel"),
                 hr(style = "border-top: 1px solid #000000;"),
                 
                 # Boardings per Hour Section
@@ -110,7 +110,7 @@ shinyUI(
                 h2(textOutput("mode_bph_chart_title")),
                 bar_chart_ui('MODEBPHbarchart'),
                 hr(style = "border-top: 1px solid #000000;"),
-                card_body(htmlOutput("mode_bph_insights_text"), class = "insights_panel"),
+                card_body(h3("Insights & Analysis"), htmlOutput("mode_bph_insights_text"), class = "insights_panel"),
                 hr(style = "border-top: 1px solid #000000;")
                 ),
       
@@ -136,7 +136,7 @@ shinyUI(
                 h2(textOutput("operator_boardings_chart_title")),
                 bar_chart_ui('OPERATORBoardingsbarchart'),
                 hr(style = "border-top: 1px solid #000000;"),
-                card_body(htmlOutput("operator_boardings_insights_text"), class = "insights_panel"),
+                card_body(h3("Insights & Analysis"), htmlOutput("operator_boardings_insights_text"), class = "insights_panel"),
                 hr(style = "border-top: 1px solid #000000;"),
                 
                 # Revenue Hours Section
@@ -146,7 +146,7 @@ shinyUI(
                 h2(textOutput("operator_hours_chart_title")),
                 bar_chart_ui('OPERATORHoursbarchart'),
                 hr(style = "border-top: 1px solid #000000;"),
-                card_body(htmlOutput("operator_hours_insights_text"), class = "insights_panel"),
+                card_body(h3("Insights & Analysis"), htmlOutput("operator_hours_insights_text"), class = "insights_panel"),
                 hr(style = "border-top: 1px solid #000000;"),
                 
                 # Revenue Miles Section
@@ -156,7 +156,7 @@ shinyUI(
                 h2(textOutput("operator_miles_chart_title")),
                 bar_chart_ui('OPERATORMilesbarchart'),
                 hr(style = "border-top: 1px solid #000000;"),
-                card_body(htmlOutput("operator_miles_insights_text"), class = "insights_panel"),
+                card_body(h3("Insights & Analysis"), htmlOutput("operator_miles_insights_text"), class = "insights_panel"),
                 hr(style = "border-top: 1px solid #000000;"),
                 
                 # Boardings per Hour Section
@@ -166,16 +166,10 @@ shinyUI(
                 h2(textOutput("operator_bph_chart_title")),
                 bar_chart_ui('OPERATORBPHbarchart'),
                 hr(style = "border-top: 1px solid #000000;"),
-                card_body(htmlOutput("operator_bph_insights_text"), class = "insights_panel"),
+                card_body(h3("Insights & Analysis"), htmlOutput("operator_bph_insights_text"), class = "insights_panel"),
                 hr(style = "border-top: 1px solid #000000;")
                 ),
                 
-                
-                
-                
-                
-                
-                #transit_operator_ui('OPERATORtransit')),
       nav_panel("Type", transit_type_ui('TYPEtransit')),
       nav_panel("Frequency", transit_trips_ui('TRIPtransit')),
       nav_panel("Routes", transit_route_ui('ROUTEtransit')),
