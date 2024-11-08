@@ -86,10 +86,21 @@ psrc_theme <- bs_theme(bg = "white",
                        padding-bottom: 0rem;
                        padding-right: 0rem;
                        }
+                       
+                       .links {
+                       color: #00716C;
+                       }
+                       
+                       .links-container{
+                       background-color: #fff;
+                       }
 
                        .source_url {
                        color: #00716C;
                        font-size: 12pt;
+                       text-decoration-line: underline;
+                       text-decoration-color: #00716C;
+                       text-decoration-thickness: 1.5px; 
                        }
                        
                        .left-panel-url {
@@ -162,10 +173,27 @@ psrc_theme <- bs_theme(bg = "white",
                        }
                        
                        .psrc-email {
-                       color: #EC9B21; 
+                       color: #fff; 
                        font-size: 1rem;
                        font-weight: 200;
                        padding-bottom: 0.75rem;
+                       }
+                       
+                       .m-connect {
+                       color: #fff;
+                       font-size: 12pt;
+                       padding-left: 5px;
+                       padding-right: 15px;
+                       
+                       }
+                       
+                       .m-connect-loc {
+                       color: #fff;
+                       font-size: 12pt;
+                       padding-left: 5px;
+                       padding-right: 15px;
+                       padding-top: 5px;
+                       
                        }
                        
                        .footer_footer {
@@ -190,8 +218,17 @@ psrc_theme <- bs_theme(bg = "white",
                        padding-right: 15px;
                        }
                        
+                       .soc-connect {
+                       color: #EC9B21;
+                       font-size: 16pt;
+                       padding-left: 15px;
+                       padding-right: 15px;
+                       
+                       }
+                       
                        a {
                        color: #EC9B21;
+                       text-decoration: none;
                        }
                        
                        .sr-only {

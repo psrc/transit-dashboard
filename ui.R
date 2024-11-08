@@ -254,7 +254,6 @@ shinyUI(
                     withSpinner(leafletOutput("transit_route_map"), color=load_clr, size = 1.5, caption = "Please wait, loading map"),
                   )
                 ),
-                #br(), 
                 tags$div(class="chart_source", textOutput("route_map_source")),
                 hr(style = "border-top: 1px solid #000000;")
                 ),
