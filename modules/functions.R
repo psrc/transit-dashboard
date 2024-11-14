@@ -337,3 +337,46 @@ create_route_map<- function(lyr=transit_layer_data, yr=current_year) {
   
 }
 
+# Tables ------------------------------------------------------------------
+
+create_source_table <- function(d=source_info) {
+
+  # Table
+  t <- rbind(names(d), d)
+  
+  headerCallbackRemoveHeaderFooter <- c(
+    "function(thead, data, start, end, display){",
+    "  $('th', thead).css('display', 'none');",
+    "}"
+  )
+  
+  summary_tbl <- datatable(t,
+                           options = list(paging = FALSE,
+                                          pageLength = 30,
+                                          searching = FALSE,
+                                          dom = 't',
+                                          headerCallback = JS(headerCallbackRemoveHeaderFooter),
+                                          columnDefs = list(list(targets = c(0,3), className = 'dt-left'))),
+                           selection = 'none',
+                           callback = JS(
+                             "$('table.dataTable.no-footer').css('border-bottom', 'none');"
+                           ),
+                           class = 'row-border',
+                           filter = 'none',              
+                           rownames = FALSE,
+                           escape = FALSE
+  ) 
+  
+  # Add Section Breaks
+  
+  summary_tbl <- summary_tbl |>
+    formatStyle(0:ncol(t), valueColumns = "Data Point",
+                `border-bottom` = styleEqual(c("Boardings per Hour", "Total Population in Stop Buffers", "Transit Service"), "solid 2px"))
+  
+  summary_tbl <- summary_tbl |>
+    formatStyle(0:ncol(t), valueColumns = "Data Point",
+                `border-top` = styleEqual(c("Boardings"), "solid 2px"))
+    
+  return(summary_tbl)
+  
+}

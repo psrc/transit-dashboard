@@ -8,7 +8,7 @@ footer_ui <- function(id) {
     card(
       
       layout_columns(
-        col_widths = c(2,6,4),
+        col_widths = c(2,7,3),
         
         card_body(tags$img(src='footer-logo.png', style="margin-top: 0x; padding-left: 0px; padding-right: 0px;", class = "responsive-image", alt = "PSRC logo"), class = "footer_panel"),
         

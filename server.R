@@ -175,5 +175,10 @@ shinyServer(function(input, output) {
   output$route_map_source <- renderText(paste0("Source: ",str_to_title(service_change)," ", gtfs_year, " General Transit Feed Specification (GTFS) data by Transit Agency"))
   output$transit_route_map <- renderLeaflet({create_route_map()})
 
+# Source Tab --------------------------------------------------------------
+
+  output$source_table <- renderDataTable(create_source_table(d=source_info))  
+  output$source_overview_text <- renderUI({HTML(page_information(tbl=page_text, page_name="Source", page_section = "Overview", page_info = "description"))})
+
 }) # end of shinyServer function 
 

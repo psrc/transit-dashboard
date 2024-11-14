@@ -1,45 +1,14 @@
-﻿Data Point,Tab,center_type,Source,Year
-Total Acres,Summary Statistics,Regional Growth Center,PSRC GIS,Current
-Designation Year,Summary Statistics,Regional Growth Center,PSRC,Current
-Center Type,Summary Statistics,Regional Growth Center,PSRC,Current
-Population,Summary Statistics,Regional Growth Center,Office of Financial Management SAEP Program & PSRC Parcelization,2022
-Housing Units,Summary Statistics,Regional Growth Center,Office of Financial Management SAEP Program & PSRC Parcelization,2022
-Total Employment,Summary Statistics,Regional Growth Center,PSRC Covered Employment Estimates,2022
-Activity Units per Acre,Summary Statistics,Regional Growth Center,Office of Financial Management SAEP Program and PSRC Covered Employment Estimates,2022
-Jobs per Resident,Summary Statistics,Regional Growth Center,Office of Financial Management SAEP Program and PSRC Covered Employment Estimates,2022
-Population,Demographics,Regional Growth Center,Office of Financial Management SAEP Program & PSRC Parcelization,"2022, 2021, 2016, 2011"
-Total Population by Age Group,Demographics,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B01001,"2021, 2016, 2011"
-Total Population by Race/Ethnicity,Demographics,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B03002,"2021, 2016, 2011"
-Total Household Income,Demographics,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B19001,"2021, 2016, 2011"
-Educational Attainment,Demographics,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B15002,"2021, 2016, 2011"
-Employment,Jobs,Regional Growth Center,PSRC Covered Employment Estimates,"2022, 2021, 2016, 2011"
-Jobs by Sector,Jobs,Regional Growth Center,PSRC Covered Employment Estimates,2022
-Housing Units,Housing,Regional Growth Center,Office of Financial Management SAEP Program & PSRC Parcelization,"2022, 2021, 2016, 2011"
-New Net Housing Units,Housing,Regional Growth Center,Office of Financial Management SAEP Program & PSRC Parcelization,"2011-2016, 2016-2021, 2021-2022"
-Housing Tenure,Housing,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B25003,"2021, 2016, 2011"
-Housing Unit Type,Housing,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B25024,"2021, 2016, 2011"
-Cost Burden: Renters,Housing,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B25070,"2021, 2016, 2011"
-Cost Burden: Owners,Housing,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B25091,"2021, 2016, 2011"
-Transit Service (Map & Table),Transportation,Regional Growth Center,Spring GTFS Service,Spring 2023
-Mode to Work for Residents,Transportation,Regional Growth Center,US Census Bureau American Community Survey (ACS) 5yr Data Table B08301,"2021, 2016, 2011"
-Commute Mode for Workers,Transportation,Regional Growth Center,2018 PSRC SoundCast Activity Based Model,2018
-Land Use Map,Urban Form,Regional Growth Center,PSRC UrbanSim Base Year Dataset,2018
-# of Intersections,Urban Form,Regional Growth Center,2018 PSRC SoundCast Activity Based Model,2018
-Intersection Density (per acre),Urban Form,Regional Growth Center,2018 PSRC SoundCast Activity Based Model,2018
-Total Acres,Summary Statistics,Manufacturing Industrial Center,PSRC GIS,Current Year
-Designation Year,Summary Statistics,Manufacturing Industrial Center,PSRC,Current Year
-Center Type,Summary Statistics,Manufacturing Industrial Center,PSRC,Current Year
-Total Employment,Summary Statistics,Manufacturing Industrial Center,PSRC Covered Employment Estimates,2022
-% Industrial Jobs,Summary Statistics,Manufacturing Industrial Center,PSRC Covered Employment Estimates,2022
-Population,Summary Statistics,Manufacturing Industrial Center,Office of Financial Management SAEP Program & PSRC Parcelization,2022
-Housing,Summary Statistics,Manufacturing Industrial Center,Office of Financial Management SAEP Program & PSRC Parcelization,2022
-Jobs,Jobs,Manufacturing Industrial Center,PSRC Covered Employment Estimates,"2022, 2021, 2016,2011"
-Jobs by Sector,Jobs,Manufacturing Industrial Center,PSRC Covered Employment Estimates,2022
-Share of Industrial Jobs,Jobs,Manufacturing Industrial Center,PSRC Covered Employment Estimates,"2020, 2015, 2010"
-Total Population,Population and Housing,Manufacturing Industrial Center,Office of Financial Management SAEP Program & PSRC Parcelization,"2022, 2021, 2016, 2011"
-Total Housing Units,Population and Housing,Manufacturing Industrial Center,Office of Financial Management SAEP Program & PSRC Parcelization,"2022, 2021, 2016, 2011"
-Transit Service (Map and Table),Transportation,Manufacturing Industrial Center,Spring GTFS Service,2023 Spring
-Commute Mode of Workers,Transportation,Manufacturing Industrial Center,2018 PSRC SoundCast Activity Based Model,2018
-Industrial Land Types Map,Urban Form,Manufacturing Industrial Center,PSRC Industrial Lands Inventory (Draft Nov 2023),2023
-Gross Land Acreage by Category (table),Urban Form,Manufacturing Industrial Center,PSRC Industrial Lands Inventory (Draft Nov 2023),2023
-Gross Land Acreage by Category (Chart),Urban Form,Manufacturing Industrial Center,PSRC Industrial Lands Inventory (Draft Nov 2023),2023
+﻿Data Point,Tab,Source,Date
+Boardings,"Region, Mode, Operator","National Transit Database, Federal Transit Administration, Raw Monthly Ridership",Sep-24
+Revenue-Miles,"Region, Mode, Operator","National Transit Database, Federal Transit Administration, Raw Monthly Ridership",Sep-24
+Revenue-Hours,"Region, Mode, Operator","National Transit Database, Federal Transit Administration, Raw Monthly Ridership",Sep-24
+Boardings per Hour,"Region, Mode, Operator","National Transit Database, Federal Transit Administration, Raw Monthly Ridership",Sep-24
+People of Color,"Type, Frequency","US Census Bureau American Community Survey 5-yr Tract data, Table B03002",2018-2022 5yr Data
+People with Lower Incomes,"Type, Frequency","US Census Bureau American Community Survey 5-yr Tract data, Table C17002",2018-2022 5yr Data
+People with Limited English,"Type, Frequency","US Census Bureau American Community Survey 5-yr Tract data, Table C16001",2018-2022 5yr Data
+People with a Disability,"Type, Frequency","US Census Bureau American Community Survey 5-yr Tract data, Table C18130",2018-2022 5yr Data
+People under 18,"Type, Frequency","US Census Bureau American Community Survey 5-yr Tract data, Table B01001",2018-2022 5yr Data
+People over 65,"Type, Frequency","US Census Bureau American Community Survey 5-yr Tract data, Table B01001",2018-2022 5yr Data
+Total Population,"Type, Frequency","US Census Bureau American Community Survey 5-yr Tract data, Table B01001",2018-2022 5yr Data
+Total Population in Stop Buffers,"Type, Frequency",Office of Financial Management SAEP Program & PSRC Parcelization,Fall 2024 SAEP Data
+Transit Service,"Type, Frequency, Routes",General Transit Feed Specifications by Agency,Fall 2016-2024 Service Change

@@ -23,6 +23,9 @@ library(htmlwidgets)
 library(sf)
 library(leaflet)
 
+# Packages for Tables
+library(DT)
+
 # Inputs ---------------------------------------------------------------
 wgs84 <- 4326
 base_yr <- "2023"
@@ -55,6 +58,8 @@ transit_buffer_data <- readRDS("data/transit_buffer_data.rds")
 
 transit_trip_buffers <- readRDS("data/transit_trip_buffers.rds")
 transit_trip_data <- readRDS("data/transit_trip_data.rds")
+
+source_info <- read_csv("data/source_information.csv", show_col_types = FALSE)
 
 # Page Information --------------------------------------------------------
 page_text <- read_csv("data/page_text.csv", show_col_types = FALSE)

@@ -257,6 +257,17 @@ shinyUI(
                 tags$div(class="chart_source", textOutput("route_map_source")),
                 hr(style = "border-top: 1px solid #000000;")
                 ),
+      
+      nav_panel(icon("info-circle"), 
+                h1("Data Sources"),
+                htmlOutput("source_overview_text"),
+                hr(style = "border-top: 1px solid #000000;"),
+                card(
+                  full_screen = TRUE,
+                  withSpinner(dataTableOutput("source_table"), color=load_clr, size = 1.5, caption = "Please wait, loading table")
+                  ),
+                hr(style = "border-top: 1px solid #000000;")
+      ),
     
       br(), br(),
     
