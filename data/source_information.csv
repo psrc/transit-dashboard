@@ -1,8 +1,8 @@
 ﻿Data Point,Tab,Source,Date
-Boardings,"Region, Mode, Operator","National Transit Database, Federal Transit Administration, Raw Monthly Ridership",Sep-24
-Revenue-Miles,"Region, Mode, Operator","National Transit Database, Federal Transit Administration, Raw Monthly Ridership",Sep-24
-Revenue-Hours,"Region, Mode, Operator","National Transit Database, Federal Transit Administration, Raw Monthly Ridership",Sep-24
-Boardings per Hour,"Region, Mode, Operator","National Transit Database, Federal Transit Administration, Raw Monthly Ridership",Sep-24
+Boardings,"Region, Mode, Operator","National Transit Database, Federal Transit Administration, Raw Monthly Ridership",2024 October 31st
+Revenue-Miles,"Region, Mode, Operator","National Transit Database, Federal Transit Administration, Raw Monthly Ridership",2024 October 31st
+Revenue-Hours,"Region, Mode, Operator","National Transit Database, Federal Transit Administration, Raw Monthly Ridership",2024 October 31st
+Boardings per Hour,"Region, Mode, Operator","National Transit Database, Federal Transit Administration, Raw Monthly Ridership",2024 October 31st
 People of Color,"Type, Frequency","US Census Bureau American Community Survey 5-yr Tract data, Table B03002",2018-2022 5yr Data
 People with Lower Incomes,"Type, Frequency","US Census Bureau American Community Survey 5-yr Tract data, Table C17002",2018-2022 5yr Data
 People with Limited English,"Type, Frequency","US Census Bureau American Community Survey 5-yr Tract data, Table C16001",2018-2022 5yr Data
