@@ -15,7 +15,7 @@ value_box_ntd_server <- function(id, df, m, v, g, gt, gr) {
     
     # Output Values
     output$pre_pandemic_title <- renderUI(paste0(pre_pandemic, " YTD ", m()))
-    output$current_title <- renderUI(paste0(year(Sys.Date())," YTD ", m()))
+    output$current_title <- renderUI(paste0(current_year," YTD ", m()))
     output$pandemic_share_title <- renderUI(paste0("% of ", pre_pandemic, " YTD ", m()))
     output$recent_share_title <- renderUI(paste0("% change from ", base_yr))
     

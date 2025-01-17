@@ -65,7 +65,7 @@ source_info <- read_csv("data/source_information.csv", show_col_types = FALSE)
 page_text <- read_csv("data/page_text.csv", show_col_types = FALSE)
 
 # Values for Drop Downs ---------------------------------------------------
-ntd_metric_list <- as.character(unique(ntd_data$metric))
+ntd_metric_list <- ntd_data |> filter(concept == "Transit Agency Service Data") |> select("metric") |> distinct() |> pull()
 ntd_mode_list <- ntd_data |> select("variable") |> filter(variable != "All Transit Modes") |> distinct() |> pull()
 ntd_operator_list <- ntd_data |> filter(geography_type == "Transit Operator") |> filter(!(geography %in% c("Senior Services of Snohomish County", "King County Ferry District"))) |> select("geography") |>  distinct() |> pull()
 stop_buffer_list <- unique(transit_buffer_data$transit_buffer)
